@@ -1,33 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Privacy Policy - GamePadTester.tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    .container{max-width:800px;margin:40px auto;padding:0 20px}
-    .content{background:#fff;padding:30px;border-radius:15px}
-    h2{margin:20px 0 10px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy – Gamepad Tester</title>
+<meta name="description" content="Gamepad Tester privacy policy — we collect no personal data. All processing happens locally in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0e14;--surface:#161820;--surface2:#1e2028;--border:#2a2c38;
+    --accent:#00e5a0;--text:#eef0f7;--muted:#7a7d8e;
+    --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;}
+  .nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .page{max-width:720px;margin:0 auto;padding:4rem 2rem;}
+  .tag{display:inline-block;background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.2);border-radius:100px;font-size:11px;font-family:var(--mono);padding:3px 12px;margin-bottom:1.5rem;}
+  h1{font-size:2.2rem;font-weight:600;letter-spacing:-1px;margin-bottom:0.5rem;}
+  h1 span{color:var(--accent);}
+  .updated{font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:3rem;}
+  h2{font-size:17px;font-weight:500;margin:2.5rem 0 0.8rem;color:var(--text);padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+  p{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:1rem;}
+  ul{list-style:none;margin-bottom:1rem;}
+  ul li{color:var(--muted);font-size:15px;line-height:1.8;padding-left:1.2rem;position:relative;}
+  ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;top:4px;}
+  a{color:var(--accent);text-decoration:none;}
+  footer{border-top:1px solid var(--border);padding:2rem;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;}
+  .footer-links{display:flex;gap:1.5rem;}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:13px;}
+  .footer-links a:hover{color:var(--text);}
+  .footer-copy{font-size:12px;color:var(--muted);font-family:var(--mono);}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="content">
-    <h1>Privacy Policy</h1>
-    <p>Last updated: April 13, 2026</p>
-    <br>
-    <h2>1. Information We Collect</h2>
-    <p>We may collect anonymous usage data to improve our service, including browser type, device type, and gamepad connection status. We do not collect personal information.</p>
-    <h2>2. Cookies</h2>
-    <p>We use cookies to improve user experience and for analytics.</p>
-    <h2>3. Third-party Ads</h2>
-    <p>We use Google AdSense to serve ads. AdSense may use cookies to serve personalized ads. Please refer to Google's privacy policy for more information.</p>
-    <h2>4. Contact</h2>
-    <p>Contact us at: support@gamepadtester.tools</p>
-    <br>
-    <p><a href="/">Back to Home</a></p>
+<nav>
+  <a class="nav-logo" href="index.html">GAMEPAD_TESTER</a>
+  <div class="nav-links">
+    <a href="index.html">Test</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html" class="active">Privacy</a>
+    <a href="terms.html">Terms</a>
   </div>
+</nav>
+
+<div class="page">
+  <div class="tag">last updated: January 2025</div>
+  <h1><span>Privacy</span> Policy</h1>
+  <p class="updated">Effective date: January 1, 2025</p>
+
+  <p>Your privacy is fundamental to how this site works. Gamepad Tester was built on the principle that a diagnostic tool should never need to collect data about you. This policy explains precisely what data exists, how it is used, and why.</p>
+
+  <h2>Data we do NOT collect</h2>
+  <ul>
+    <li>Controller input data (button presses, axis values, vibration commands)</li>
+    <li>Personal identifiers (name, email, IP address logs tied to individuals)</li>
+    <li>Browser fingerprints or device fingerprints</li>
+    <li>Cookies for tracking or advertising purposes</li>
+    <li>Account information (there are no accounts)</li>
+  </ul>
+
+  <h2>How the Gamepad API works</h2>
+  <p>This site uses the <strong>HTML5 Gamepad API</strong> (<code>navigator.getGamepads()</code>), a standard browser interface. All controller data is read locally by JavaScript running in your browser tab. No controller data is transmitted to any server. The processing happens entirely on your device.</p>
+
+  <h2>Hosting and server logs</h2>
+  <p>Like all websites, our hosting provider may record standard server access logs including your IP address, requested URL, browser user-agent, and timestamp. These logs are used solely for infrastructure diagnostics and security monitoring, are retained for a limited period (typically 30 days), and are not shared with third parties for commercial purposes.</p>
+
+  <h2>Third-party services</h2>
+  <p>This site loads fonts from Google Fonts (fonts.googleapis.com). Google may log font requests. We do not use analytics services, advertising networks, or social media trackers. There are no third-party scripts beyond the font loader.</p>
+
+  <h2>Cookies</h2>
+  <p>We do not set any cookies. The site works without cookies and does not require or request consent for tracking cookies.</p>
+
+  <h2>Children</h2>
+  <p>This site is a diagnostic tool that collects no personal data and is safe for users of all ages. We do not knowingly collect information from children under 13.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If we materially change this policy, we will update the effective date above. Since we collect no personal data, material changes are unlikely.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy? <a href="contact.html">Contact us</a> via the contact page.</p>
 </div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Test</a>
+    <a href="about.html">About</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <span class="footer-copy">© 2025 gamepadtester1</span>
+</footer>
 </body>
 </html>
