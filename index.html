@@ -4,128 +4,158 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Online Gamepad Tester - Test Controller Buttons, Sticks and Vibration</title>
-  <meta name="description" content="Free online gamepad tester. Check controller buttons, analog sticks, triggers, drift and vibration directly in your browser." />
-  <meta name="keywords" content="gamepad tester, controller tester, drift test, button test, vibration test, online gamepad test" />
-  <meta name="robots" content="index, follow" />
+  <title>Online Gamepad Tester - Test Controller Buttons, Sticks & Vibration</title>
+  <meta
+    name="description"
+    content="Free online gamepad tester. Test controller buttons, analog sticks, triggers, drift and vibration instantly in your browser. Works with Xbox, PlayStation and Switch controllers."
+  />
+  <meta
+    name="keywords"
+    content="gamepad tester, controller tester, joystick test, drift test, button test, vibration test, online gamepad tester"
+  />
 
   <style>
     :root {
-      --bg: #f7f8fb;
-      --card: #ffffff;
-      --text: #1b1f2a;
-      --muted: #6b7280;
-      --line: #e5e7eb;
-      --blue: #2563eb;
-      --green: #16a34a;
-      --orange: #ea580c;
-      --red: #dc2626;
-      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-      --radius: 18px;
+      --bg: #0b1020;
+      --bg-2: #111827;
+      --panel: #0f172a;
+      --panel-2: #172036;
+      --card: #111827;
+      --card-2: #1f2937;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --white: #ffffff;
+      --blue: #3b82f6;
+      --blue-2: #60a5fa;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 16px;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.12), transparent 24%),
+        radial-gradient(circle at top right, rgba(96,165,250,0.08), transparent 20%),
+        var(--bg);
       color: var(--text);
-      line-height: 1.5;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
     .container {
-      width: min(1200px, calc(100% - 32px));
+      width: min(1280px, calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .topbar {
-      background: #fff;
-      border-bottom: 1px solid var(--line);
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 20;
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 68px;
-      gap: 20px;
-    }
-
-    .logo {
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: var(--blue);
-      font-size: 22px;
+      z-index: 50;
+      background: rgba(11, 16, 32, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav {
+      min-height: 74px;
       display: flex;
-      gap: 24px;
       align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--blue-2);
+    }
+
+    .nav nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
-    .nav a {
-      color: #374151;
-      font-weight: 600;
-      font-size: 14px;
+    .nav nav a {
+      font-size: 15px;
+      font-weight: 700;
+      color: #d1d5db;
+      transition: 0.2s ease;
     }
 
-    .nav a:hover {
-      color: var(--blue);
+    .nav nav a:hover {
+      color: var(--blue-2);
     }
 
     .hero {
-      padding: 56px 0 28px;
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
     }
 
-    .hero-box {
-      background: linear-gradient(135deg, #ffffff 0%, #f4f7ff 100%);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 42px;
+    .hero-left,
+    .hero-right,
+    .card {
+      background: rgba(17, 24, 39, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 24px;
       box-shadow: var(--shadow);
     }
 
-    .eyebrow {
+    .hero-left {
+      padding: 40px;
+    }
+
+    .hero-badge {
       display: inline-block;
-      padding: 8px 14px;
-      background: #e8f0ff;
-      color: var(--blue);
+      padding: 10px 16px;
       border-radius: 999px;
+      background: rgba(59,130,246,0.14);
+      color: var(--blue-2);
       font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 16px;
+      font-weight: 800;
+      margin-bottom: 18px;
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: clamp(30px, 5vw, 52px);
-      line-height: 1.08;
+      margin: 0 0 16px;
+      font-size: 58px;
+      line-height: 1.02;
+      color: var(--white);
     }
 
-    .hero p {
+    .hero-left p.hero-text {
       margin: 0;
+      font-size: 22px;
+      line-height: 1.6;
       color: var(--muted);
-      font-size: 18px;
       max-width: 760px;
     }
 
     .hero-actions {
-      margin-top: 24px;
       display: flex;
       gap: 14px;
+      margin-top: 28px;
       flex-wrap: wrap;
     }
 
@@ -133,12 +163,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 20px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 15px;
-      border: 1px solid transparent;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 16px;
       cursor: pointer;
+      transition: 0.2s ease;
+      border: none;
     }
 
     .btn-primary {
@@ -146,1009 +178,1121 @@
       color: #fff;
     }
 
-    .btn-secondary {
-      background: #fff;
-      color: var(--text);
-      border-color: var(--line);
+    .btn-primary:hover {
+      background: #2563eb;
     }
 
-    .status-bar {
-      margin: 20px auto 0;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 18px 20px;
+    .btn-secondary {
+      background: #172036;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #1b2740;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .hero-tags span,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #172036;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .hero-right {
+      padding: 22px;
+      display: flex;
+    }
+
+    .status-panel {
+      width: 100%;
+      background: linear-gradient(180deg, #121b2f 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .status-title {
+      margin: 0 0 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 800;
+      color: #93c5fd;
+    }
+
+    .status-grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     .status-item {
-      min-height: 56px;
-      border: 1px solid #eef1f5;
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: #fafbfd;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
     }
 
-    .status-label {
+    .status-item span {
+      display: block;
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .status-value {
-      font-size: 15px;
+      margin-bottom: 8px;
       font-weight: 700;
+      letter-spacing: 0.4px;
     }
 
-    .good {
-      color: var(--green);
+    .status-item strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.35;
+      color: var(--white);
+      word-break: break-word;
+    }
+
+    .ok {
+      color: var(--green) !important;
     }
 
     .warn {
-      color: var(--orange);
+      color: var(--yellow) !important;
     }
 
-    .danger {
-      color: var(--red);
+    .bad {
+      color: var(--red) !important;
     }
 
-    .panel-section {
-      padding: 24px 0 12px;
-    }
-
-    .panel-grid {
+    .dashboard {
+      margin-top: 24px;
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 20px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .right-panel {
+      display: grid;
+      gap: 22px;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .card-header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--line);
+    .card-head {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 22px 22px 0;
     }
 
-    .card-title {
-      font-size: 20px;
-      font-weight: 800;
+    .card-head h2 {
       margin: 0;
+      font-size: 22px;
+      color: var(--white);
     }
 
-    .card-sub {
-      font-size: 13px;
+    .card-head p {
+      margin: 8px 0 0;
+      font-size: 14px;
       color: var(--muted);
-      margin-top: 4px;
+      line-height: 1.5;
     }
 
-    .pill {
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      background: #f8fafc;
-    }
-
-    .visualizer {
-      padding: 24px 20px;
-      min-height: 410px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background: linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
+    .controller-stage {
+      padding: 22px;
     }
 
     .controller-shell {
-      width: 460px;
-      max-width: 100%;
-      aspect-ratio: 1.45 / 1;
-      background: #eef2ff;
-      border: 3px solid #cfd7ea;
-      border-radius: 44% 44% 36% 36% / 42% 42% 58% 58%;
       position: relative;
+      height: 560px;
+      border-radius: 26px;
+      background: radial-gradient(circle at 50% 30%, #172036 0%, #0f172a 82%);
+      border: 1px solid var(--border);
+      overflow: hidden;
     }
 
-    .stick,
-    .button,
-    .dpad,
-    .small-btn,
-    .shoulder {
+    .controller-body {
       position: absolute;
-      border-radius: 50%;
-      border: 2px solid #c4cce0;
-      background: #f9fbff;
-      transition: all 0.08s ease;
+      left: 50%;
+      top: 54%;
+      width: 520px;
+      height: 350px;
+      transform: translate(-50%, -50%);
+      border: 3px solid #334155;
+      border-radius: 42% 42% 46% 46% / 44% 44% 52% 52%;
+      background: rgba(219, 234, 254, 0.03);
+    }
+
+    .trigger,
+    .bumper,
+    .stick,
+    .stick-cap,
+    .face-btn,
+    .center-btn,
+    .dpad-piece {
+      position: absolute;
+      border: 3px solid #475569;
+      background: rgba(255,255,255,0.03);
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      user-select: none;
+      transition: 0.08s linear;
     }
 
     .pressed {
-      background: #dbeafe !important;
-      border-color: var(--blue) !important;
-      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12);
+      background: rgba(59,130,246,0.28) !important;
+      border-color: #60a5fa !important;
+      color: #fff !important;
+      box-shadow: 0 0 18px rgba(59,130,246,0.34);
     }
+
+    .trigger {
+      top: 70px;
+      width: 110px;
+      height: 34px;
+      border-radius: 18px;
+    }
+
+    .bumper {
+      top: 118px;
+      width: 110px;
+      height: 28px;
+      border-radius: 14px;
+    }
+
+    .lt { left: 110px; }
+    .lb { left: 110px; }
+    .rt { right: 110px; }
+    .rb { right: 110px; }
 
     .stick {
-      width: 86px;
-      height: 86px;
-    }
-
-    .stick::after {
-      content: "";
-      position: absolute;
-      width: 34px;
-      height: 34px;
-      background: #cad5ea;
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.04);
     }
 
-    #leftStickVisual { left: 110px; top: 180px; }
-    #rightStickVisual { right: 110px; top: 210px; }
-
-    .button {
-      width: 46px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 800;
-      color: #4b5563;
-    }
-
-    #btnY { right: 92px; top: 120px; }
-    #btnX { right: 138px; top: 166px; }
-    #btnB { right: 46px; top: 166px; }
-    #btnA { right: 92px; top: 212px; }
-
-    .dpad {
-      width: 54px;
-      height: 54px;
-      left: 48px;
-      top: 150px;
-      background: #f5f7fc;
-    }
-
-    .small-btn {
+    .stick-cap {
       width: 28px;
       height: 28px;
-      top: 162px;
+      border-radius: 50%;
+      background: #93c5fd;
+      border: none;
+      box-shadow: 0 0 14px rgba(59,130,246,0.4);
     }
 
-    #btnBack { left: 200px; }
-    #btnStart { right: 200px; }
-    #btnHome { left: 50%; transform: translateX(-50%); }
-
-    .shoulder {
-      width: 90px;
-      height: 34px;
-      border-radius: 14px;
-      top: 54px;
+    .left-stick {
+      left: 160px;
+      top: 290px;
     }
 
-    #btnLB { left: 64px; }
-    #btnRB { right: 64px; }
+    .left-stick-cap {
+      left: 192px;
+      top: 322px;
+    }
 
-    .lt-rt {
+    .right-stick {
+      right: 145px;
+      top: 335px;
+    }
+
+    .right-stick-cap {
+      right: 177px;
+      top: 367px;
+    }
+
+    .dpad-wrap {
       position: absolute;
-      top: 8px;
-      width: 100px;
-      height: 36px;
-      border-radius: 16px;
-      border: 2px solid #c4cce0;
-      background: #f9fbff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #6b7280;
-      transition: all 0.08s ease;
+      left: 120px;
+      top: 280px;
+      width: 84px;
+      height: 84px;
     }
 
-    #btnLT { left: 56px; }
-    #btnRT { right: 56px; }
+    .dpad-piece {
+      border-radius: 10px;
+      font-size: 0;
+    }
 
-    .legend {
+    .dpad-up,
+    .dpad-down {
+      left: 26px;
+      width: 32px;
+      height: 26px;
+    }
+
+    .dpad-left,
+    .dpad-right {
+      top: 26px;
+      width: 26px;
+      height: 32px;
+    }
+
+    .dpad-up { top: 0; }
+    .dpad-down { bottom: 0; }
+    .dpad-left { left: 0; }
+    .dpad-right { right: 0; }
+    .dpad-center {
+      left: 26px;
+      top: 26px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .face-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .btn-y { right: 154px; top: 252px; }
+    .btn-x { right: 204px; top: 304px; }
+    .btn-b { right: 104px; top: 304px; }
+    .btn-a { right: 154px; top: 356px; }
+
+    .center-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      top: 300px;
+    }
+
+    .btn-back { left: 246px; }
+    .btn-home { left: 279px; }
+    .btn-start { left: 312px; }
+
+    .legend-row {
       display: flex;
       gap: 18px;
-      flex-wrap: wrap;
-      padding: 14px 20px 18px;
-      border-top: 1px solid var(--line);
+      padding: 0 22px 22px;
       color: var(--muted);
       font-size: 14px;
+      flex-wrap: wrap;
     }
 
-    .legend-dot {
-      width: 12px;
-      height: 12px;
+    .legend-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       display: inline-block;
-      margin-right: 8px;
-      vertical-align: middle;
     }
 
-    .dot-blue { background: var(--blue); }
-    .dot-gray { background: #d1d5db; }
-
-    .side-stack {
-      display: grid;
-      gap: 20px;
+    .active-dot {
+      background: var(--blue);
     }
 
-    .sticks-wrap {
-      padding: 20px;
+    .idle-dot {
+      background: #64748b;
+    }
+
+    .sticks-grid,
+    .trigger-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
+      padding: 20px 22px 22px;
     }
 
-    .stick-box {
-      text-align: center;
-      border: 1px solid #eef1f5;
-      border-radius: 16px;
-      padding: 16px;
-      background: #fafbfd;
+    .mini-card {
+      background: #172036;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 250px;
     }
 
-    .stick-area {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      border: 2px solid #d7deec;
+    .stick-circle {
       position: relative;
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      border: 3px solid #334155;
       background:
-        linear-gradient(to right, transparent 49.5%, #d7deec 49.5%, #d7deec 50.5%, transparent 50.5%),
-        linear-gradient(to bottom, transparent 49.5%, #d7deec 49.5%, #d7deec 50.5%, transparent 50.5%);
+        linear-gradient(to right, transparent 49.2%, #334155 49.2%, #334155 50.8%, transparent 50.8%),
+        linear-gradient(to bottom, transparent 49.2%, #334155 49.2%, #334155 50.8%, transparent 50.8%);
     }
 
     .stick-dot {
-      width: 16px;
-      height: 16px;
-      background: var(--blue);
-      border-radius: 50%;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: all 0.05s linear;
+      width: 18px;
+      height: 18px;
+      margin-left: -9px;
+      margin-top: -9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 14px rgba(59,130,246,0.5);
     }
 
-    .metric-title {
-      font-weight: 800;
-      margin-bottom: 6px;
+    .mini-card h3 {
+      margin: 0 0 8px;
+      text-align: center;
+      color: var(--white);
+      font-size: 18px;
     }
 
-    .metric-sub {
-      font-size: 14px;
+    .mini-card p {
+      margin: 0 0 10px;
+      text-align: center;
       color: var(--muted);
+      font-size: 15px;
     }
 
-    .result {
-      margin-top: 8px;
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .triggers {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+    .mini-card strong {
+      display: block;
+      text-align: center;
+      font-size: 18px;
     }
 
     .trigger-box {
-      border: 1px solid #eef1f5;
-      border-radius: 16px;
-      padding: 16px;
-      background: #fafbfd;
-      text-align: center;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
     }
 
-    .bar {
-      width: 100%;
-      height: 220px;
-      border-radius: 16px;
-      background: #eef2f7;
-      border: 1px solid #dde3ee;
-      position: relative;
+    .bar-wrap {
+      width: 92px;
+      height: 160px;
+      border-radius: 18px;
+      background: #0f172a;
+      border: 1px solid var(--border);
       overflow: hidden;
-      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 18px;
     }
 
-    .fill {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .bar-fill {
       width: 100%;
       height: 0%;
-      background: linear-gradient(180deg, #93c5fd 0%, #2563eb 100%);
+      background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
       transition: height 0.05s linear;
     }
 
     .trigger-value {
-      font-size: 32px;
-      font-weight: 900;
-      margin-bottom: 2px;
-    }
-
-    .buttons-grid {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-    }
-
-    .btn-cell {
-      border: 1px solid #e6eaf2;
-      border-radius: 12px;
-      background: #fafbfd;
-      padding: 14px 10px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #4b5563;
-    }
-
-    .btn-cell.active {
-      background: #dbeafe;
-      border-color: #93c5fd;
-      color: #1d4ed8;
-    }
-
-    .copy-wrap {
-      padding: 0 20px 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .content-section {
-      padding: 20px 0;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .text-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 26px;
-    }
-
-    .text-card h2 {
-      margin-top: 0;
       font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 6px;
     }
 
-    .text-card p,
-    .text-card li {
-      color: var(--muted);
+    .trigger-label {
       font-size: 15px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .faq {
+    .compatibility-box {
+      padding: 20px 22px 22px;
       display: grid;
       gap: 14px;
     }
 
-    details {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px 18px;
-      box-shadow: var(--shadow);
+    .compatibility-item {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #172036;
     }
 
-    summary {
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    details p {
+    .compatibility-item span {
+      display: block;
       color: var(--muted);
-      margin: 12px 0 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    footer {
-      margin-top: 26px;
-      border-top: 1px solid var(--line);
-      background: #fff;
+    .compatibility-item strong {
+      color: var(--white);
+      font-size: 18px;
+      line-height: 1.45;
     }
 
-    .footer-inner {
-      padding: 28px 0;
+    .info-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .info-card {
+      padding: 24px;
+    }
+
+    .info-card h2,
+    .seo-block h2 {
+      margin: 0 0 14px;
+      color: var(--white);
+      font-size: 26px;
+    }
+
+    .info-card p,
+    .seo-block p,
+    .seo-block li {
       color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .info-card ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    .seo-block {
+      margin-top: 22px;
+      padding: 24px;
+    }
+
+    .seo-block h3 {
+      margin: 18px 0 8px;
+      color: var(--white);
+      font-size: 20px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding: 22px 0 40px;
+      color: #7c8aa5;
+      text-align: center;
       font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
     }
 
-    @media (max-width: 980px) {
-      .status-bar,
-      .panel-grid,
-      .content-grid,
-      .sticks-wrap,
-      .triggers {
+    @media (max-width: 1080px) {
+      h1 {
+        font-size: 46px;
+      }
+
+      .hero {
         grid-template-columns: 1fr;
       }
 
-      .buttons-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .hero-box {
-        padding: 28px;
+      .dashboard {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 640px) {
-      .nav {
-        gap: 14px;
+    @media (max-width: 760px) {
+      .logo {
+        font-size: 24px;
       }
 
-      .logo {
+      .nav {
+        padding: 12px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-left {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .hero-left p.hero-text {
         font-size: 18px;
       }
 
-      .buttons-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .controller-shell {
+        height: 460px;
       }
 
-      .status-bar {
-        padding: 14px;
+      .controller-body {
+        width: 360px;
+        height: 250px;
       }
 
-      .card-header {
-        align-items: flex-start;
-        flex-direction: column;
+      .trigger {
+        width: 82px;
+        height: 28px;
+        top: 54px;
+      }
+
+      .bumper {
+        width: 82px;
+        height: 24px;
+        top: 92px;
+      }
+
+      .lt, .lb { left: 56px; }
+      .rt, .rb { right: 56px; }
+
+      .left-stick {
+        left: 82px;
+        top: 250px;
+        width: 76px;
+        height: 76px;
+      }
+
+      .left-stick-cap {
+        left: 108px;
+        top: 276px;
+        width: 24px;
+        height: 24px;
+      }
+
+      .right-stick {
+        right: 72px;
+        top: 286px;
+        width: 76px;
+        height: 76px;
+      }
+
+      .right-stick-cap {
+        right: 98px;
+        top: 312px;
+        width: 24px;
+        height: 24px;
+      }
+
+      .dpad-wrap {
+        left: 62px;
+        top: 238px;
+        transform: scale(0.82);
+        transform-origin: top left;
+      }
+
+      .face-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+      }
+
+      .btn-y { right: 86px; top: 214px; }
+      .btn-x { right: 126px; top: 254px; }
+      .btn-b { right: 46px; top: 254px; }
+      .btn-a { right: 86px; top: 294px; }
+
+      .center-btn {
+        top: 250px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .btn-back { left: 162px; }
+      .btn-home { left: 184px; }
+      .btn-start { left: 206px; }
+
+      .sticks-grid,
+      .trigger-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stick-circle {
+        width: 160px;
+        height: 160px;
       }
     }
   </style>
 </head>
 <body>
-
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="/" class="logo">GAMEPADTESTER</a>
-      <nav class="nav">
+  <header class="site-header">
+    <div class="container nav">
+      <div class="logo">GAMEPADTESTER</div>
+      <nav>
         <a href="/">Home</a>
+        <a href="#sticks">Drift Test</a>
+        <a href="#tester">Button Test</a>
+        <a href="#vibration">Vibration Test</a>
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main class="container">
     <section class="hero">
-      <div class="container">
-        <div class="hero-box">
-          <div class="eyebrow">Free browser-based controller diagnostic tool</div>
-          <h1>Online Gamepad Tester</h1>
-          <p>
-            Test controller buttons, analog sticks, triggers and vibration instantly in your browser.
-            Works with Xbox, PlayStation, Switch Pro and other standard gamepads.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#tester">Start Testing</a>
-            <a class="btn btn-secondary" href="#how-to-use">How It Works</a>
+      <div class="hero-left">
+        <span class="hero-badge">Browser-based controller diagnostic tool</span>
+        <h1>Online Gamepad Tester</h1>
+        <p class="hero-text">
+          Test controller buttons, analog sticks, triggers and vibration instantly in your browser.
+          Works with Xbox, PlayStation, Switch Pro and other standard gamepads.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#tester" class="btn btn-primary">Start Testing</a>
+          <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
+        </div>
+
+        <div class="hero-tags">
+          <span>Xbox</span>
+          <span>PS5</span>
+          <span>Switch Pro</span>
+          <span>USB / Bluetooth</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="status-panel">
+          <div class="status-title">Live Status</div>
+          <div class="status-grid">
+            <div class="status-item">
+              <span>Connection</span>
+              <strong id="connectionStatus">Waiting for controller</strong>
+            </div>
+            <div class="status-item">
+              <span>Device</span>
+              <strong id="deviceName">No controller detected</strong>
+            </div>
+            <div class="status-item">
+              <span>Mapping</span>
+              <strong id="mappingType">Unknown</strong>
+            </div>
+            <div class="status-item">
+              <span>Vibration</span>
+              <strong id="vibrationStatus">Depends on browser support</strong>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="container">
-      <div class="status-bar" id="tester">
-        <div class="status-item">
-          <div class="status-label">Connection</div>
-          <div class="status-value" id="connectionStatus">Not connected</div>
+    <section id="tester" class="dashboard">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Controller Visualizer</h2>
+            <p id="controllerSubtitle">Connect a controller and press any button</p>
+          </div>
+          <span class="pill" id="controllerLabel">Live</span>
         </div>
-        <div class="status-item">
-          <div class="status-label">Device</div>
-          <div class="status-value" id="deviceName">Waiting for input</div>
+
+        <div class="controller-stage">
+          <div class="controller-shell">
+            <div class="controller-body"></div>
+
+            <div class="trigger lt" id="btn-lt">LT</div>
+            <div class="trigger rt" id="btn-rt">RT</div>
+
+            <div class="bumper lb" id="btn-lb"></div>
+            <div class="bumper rb" id="btn-rb"></div>
+
+            <div class="dpad-wrap">
+              <div class="dpad-piece dpad-up" id="btn-dpad-up"></div>
+              <div class="dpad-piece dpad-down" id="btn-dpad-down"></div>
+              <div class="dpad-piece dpad-left" id="btn-dpad-left"></div>
+              <div class="dpad-piece dpad-right" id="btn-dpad-right"></div>
+              <div class="dpad-piece dpad-center"></div>
+            </div>
+
+            <div class="stick left-stick"></div>
+            <div class="stick-cap left-stick-cap" id="leftStickCap"></div>
+
+            <div class="stick right-stick"></div>
+            <div class="stick-cap right-stick-cap" id="rightStickCap"></div>
+
+            <div class="face-btn btn-y" id="btn-y">Y</div>
+            <div class="face-btn btn-x" id="btn-x">X</div>
+            <div class="face-btn btn-b" id="btn-b">B</div>
+            <div class="face-btn btn-a" id="btn-a">A</div>
+
+            <div class="center-btn btn-back" id="btn-back"></div>
+            <div class="center-btn btn-home" id="btn-home"></div>
+            <div class="center-btn btn-start" id="btn-start"></div>
+          </div>
         </div>
-        <div class="status-item">
-          <div class="status-label">Mapping</div>
-          <div class="status-value" id="mappingStatus">Unknown</div>
-        </div>
-        <div class="status-item">
-          <div class="status-label">Vibration</div>
-          <div class="status-value warn" id="vibrationStatus">Depends on browser support</div>
+
+        <div class="legend-row">
+          <span><i class="dot active-dot"></i> Button Pressed</span>
+          <span><i class="dot idle-dot"></i> Waiting for Input</span>
         </div>
       </div>
+
+      <div class="right-panel">
+        <div id="sticks" class="card">
+          <div class="card-head">
+            <div>
+              <h2>Analog Sticks</h2>
+              <p>Move the sticks in a full circle to test drift and responsiveness</p>
+            </div>
+            <span class="pill">Live</span>
+          </div>
+
+          <div class="sticks-grid">
+            <div class="mini-card">
+              <div class="stick-circle">
+                <div class="stick-dot" id="leftStickDot" style="left: 50%; top: 50%;"></div>
+              </div>
+              <h3>Left Stick</h3>
+              <p id="leftStickText">X: 0.00 / Y: 0.00</p>
+              <strong id="leftStickState" class="ok">Good</strong>
+            </div>
+
+            <div class="mini-card">
+              <div class="stick-circle">
+                <div class="stick-dot" id="rightStickDot" style="left: 50%; top: 50%;"></div>
+              </div>
+              <h3>Right Stick</h3>
+              <p id="rightStickText">X: 0.00 / Y: 0.00</p>
+              <strong id="rightStickState" class="ok">Good</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2>Triggers</h2>
+              <p>Press LT / RT slowly to test analog trigger pressure</p>
+            </div>
+            <span class="pill">0–1 Range</span>
+          </div>
+
+          <div class="trigger-grid">
+            <div class="mini-card trigger-box">
+              <div class="bar-wrap">
+                <div class="bar-fill" id="ltBar"></div>
+              </div>
+              <div class="trigger-value" id="ltValue">0.00</div>
+              <div class="trigger-label">LT / L2</div>
+            </div>
+
+            <div class="mini-card trigger-box">
+              <div class="bar-wrap">
+                <div class="bar-fill" id="rtBar"></div>
+              </div>
+              <div class="trigger-value" id="rtValue">0.00</div>
+              <div class="trigger-label">RT / R2</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="vibration" class="card">
+          <div class="card-head">
+            <div>
+              <h2>Vibration & Compatibility</h2>
+              <p>Vibration support depends on browser, OS and controller support</p>
+            </div>
+            <span class="pill">Info</span>
+          </div>
+
+          <div class="compatibility-box">
+            <div class="compatibility-item">
+              <span>Best browser</span>
+              <strong>Chrome / Edge Desktop</strong>
+            </div>
+            <div class="compatibility-item">
+              <span>Current support</span>
+              <strong id="vibrationDetail" class="warn">Unknown until controller is connected</strong>
+            </div>
+            <div class="compatibility-item">
+              <span>Recommendation</span>
+              <strong>Reconnect device if vibration fails</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="info-grid">
+      <div class="card info-card">
+        <h2>How to use this gamepad tester</h2>
+        <ol>
+          <li>Connect your controller via USB or Bluetooth</li>
+          <li>Press any button to activate browser detection</li>
+          <li>Check buttons, analog sticks, triggers and vibration</li>
+          <li>Use drift status to evaluate controller health</li>
+        </ol>
+      </div>
+
+      <div class="card info-card">
+        <h2>Supported controllers</h2>
+        <p>
+          Works with Xbox controllers, PS4 / PS5 controllers, Nintendo Switch Pro controllers
+          and most standard USB or Bluetooth gamepads.
+        </p>
+      </div>
+    </section>
+
+    <section class="card seo-block">
+      <h2>What is this Gamepad Tester?</h2>
+      <p>
+        This online gamepad tester lets you test controller buttons, analog sticks, triggers and vibration
+        directly in your browser without installing software.
+      </p>
+
+      <h2>FAQ</h2>
+
+      <h3>Why is my controller not detected?</h3>
+      <p>Make sure your controller is connected and press any button to trigger browser detection.</p>
+
+      <h3>Does this support PS5 controllers?</h3>
+      <p>Yes, most Chromium-based browsers support PS5 DualSense controllers.</p>
+
+      <h3>Why does vibration not work?</h3>
+      <p>Vibration depends on browser and system-level support, so it may not work everywhere.</p>
+    </section>
+
+    <div class="footer">
+      Free browser-based controller diagnostic tool
     </div>
-
-    <section class="panel-section">
-      <div class="container panel-grid">
-
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Controller Visualizer</div>
-              <div class="card-sub" id="controllerSubtitle">Connect your controller and press any button</div>
-            </div>
-            <div class="pill" id="controllerType">Waiting</div>
-          </div>
-
-          <div class="visualizer">
-            <div class="controller-shell">
-              <div class="lt-rt" id="btnLT">LT</div>
-              <div class="lt-rt" id="btnRT">RT</div>
-              <div class="shoulder" id="btnLB"></div>
-              <div class="shoulder" id="btnRB"></div>
-
-              <div class="dpad" id="btnDpad"></div>
-
-              <div class="small-btn" id="btnBack"></div>
-              <div class="small-btn" id="btnHome"></div>
-              <div class="small-btn" id="btnStart"></div>
-
-              <div class="stick" id="leftStickVisual"></div>
-              <div class="stick" id="rightStickVisual"></div>
-
-              <div class="button" id="btnY">Y</div>
-              <div class="button" id="btnX">X</div>
-              <div class="button" id="btnB">B</div>
-              <div class="button" id="btnA">A</div>
-            </div>
-          </div>
-
-          <div class="legend">
-            <div><span class="legend-dot dot-blue"></span>Button Pressed</div>
-            <div><span class="legend-dot dot-gray"></span>Waiting for Input</div>
-          </div>
-        </div>
-
-        <div class="side-stack">
-
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Analog Sticks</div>
-                <div class="card-sub">Move the sticks in a full circle to test drift and responsiveness</div>
-              </div>
-              <div class="pill">Live</div>
-            </div>
-
-            <div class="sticks-wrap">
-              <div class="stick-box">
-                <div class="stick-area">
-                  <div class="stick-dot" id="leftStickDot"></div>
-                </div>
-                <div class="metric-title">Left Stick</div>
-                <div class="metric-sub" id="leftStickValue">X: 0.00 / Y: 0.00</div>
-                <div class="result" id="leftStickResult">Waiting for input</div>
-              </div>
-
-              <div class="stick-box">
-                <div class="stick-area">
-                  <div class="stick-dot" id="rightStickDot"></div>
-                </div>
-                <div class="metric-title">Right Stick</div>
-                <div class="metric-sub" id="rightStickValue">X: 0.00 / Y: 0.00</div>
-                <div class="result" id="rightStickResult">Waiting for input</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Triggers</div>
-                <div class="card-sub">Press LT / RT slowly to test analog trigger pressure</div>
-              </div>
-              <div class="pill">0–1 Range</div>
-            </div>
-
-            <div class="triggers">
-              <div class="trigger-box">
-                <div class="bar"><div class="fill" id="leftTriggerFill"></div></div>
-                <div class="trigger-value" id="leftTriggerValue">0.00</div>
-                <div class="metric-sub">LT / L2</div>
-              </div>
-
-              <div class="trigger-box">
-                <div class="bar"><div class="fill" id="rightTriggerFill"></div></div>
-                <div class="trigger-value" id="rightTriggerValue">0.00</div>
-                <div class="metric-sub">RT / R2</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="panel-section">
-      <div class="container">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Buttons & Raw Data</div>
-              <div class="card-sub">Live button states and axis values for your connected controller</div>
-            </div>
-            <div class="pill" id="rawSummary">Buttons: 0 | Axes: 0</div>
-          </div>
-
-          <div class="buttons-grid" id="buttonsGrid"></div>
-
-          <div class="copy-wrap">
-            <button class="btn btn-secondary" id="copyRawBtn" type="button">Copy Raw Data</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section" id="how-to-use">
-      <div class="container content-grid">
-        <div class="text-card">
-          <h2>How to use this gamepad tester</h2>
-          <ol>
-            <li>Connect your controller with USB or Bluetooth.</li>
-            <li>Press any button to let the browser detect the device.</li>
-            <li>Check the highlighted buttons and analog stick movement.</li>
-            <li>Test triggers and see whether vibration is available in your browser.</li>
-          </ol>
-          <p>
-            This tool is designed for quick controller checks directly in the browser.
-            It is useful for diagnosing button issues, analog stick drift, trigger pressure and mapping problems.
-          </p>
-        </div>
-
-        <div class="text-card">
-          <h2>Supported controllers</h2>
-          <p>
-            This online controller tester works with many common devices, including Xbox controllers,
-            PlayStation controllers, Nintendo Switch Pro controllers and generic USB gamepads.
-          </p>
-          <p>
-            Best experience is usually on desktop Chrome or Edge. Some features, especially vibration,
-            may vary depending on browser, operating system and controller support.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <div class="container">
-        <div class="text-card">
-          <h2>FAQ</h2>
-          <div class="faq">
-            <details>
-              <summary>Why is my controller not detected?</summary>
-              <p>
-                Make sure the controller is connected properly and press any button.
-                Some browsers require user interaction before the gamepad becomes visible.
-              </p>
-            </details>
-
-            <details>
-              <summary>Does this work with PS5 and Xbox controllers?</summary>
-              <p>
-                Yes. In most desktop browsers, Xbox and PlayStation controllers can be detected and tested,
-                including buttons, sticks and triggers.
-              </p>
-            </details>
-
-            <details>
-              <summary>Why does vibration not work?</summary>
-              <p>
-                Vibration support depends on browser, operating system and controller compatibility.
-                Some browsers do not fully support vibration testing.
-              </p>
-            </details>
-
-            <details>
-              <summary>How can I check stick drift?</summary>
-              <p>
-                Release the analog stick and watch the X/Y values. If the stick is not centered when untouched,
-                your controller may have minor or significant drift.
-              </p>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer>
-    <div class="container footer-inner">
-      <div>© 2026 GamepadTester.tools</div>
-      <div>Free browser-based controller diagnostic tool</div>
-    </div>
-  </footer>
-
   <script>
-    const connectionStatus = document.getElementById("connectionStatus");
-    const deviceName = document.getElementById("deviceName");
-    const mappingStatus = document.getElementById("mappingStatus");
-    const vibrationStatus = document.getElementById("vibrationStatus");
-    const controllerSubtitle = document.getElementById("controllerSubtitle");
-    const controllerType = document.getElementById("controllerType");
+    const els = {
+      connectionStatus: document.getElementById("connectionStatus"),
+      deviceName: document.getElementById("deviceName"),
+      mappingType: document.getElementById("mappingType"),
+      vibrationStatus: document.getElementById("vibrationStatus"),
+      vibrationDetail: document.getElementById("vibrationDetail"),
+      controllerSubtitle: document.getElementById("controllerSubtitle"),
+      controllerLabel: document.getElementById("controllerLabel"),
 
-    const leftStickDot = document.getElementById("leftStickDot");
-    const rightStickDot = document.getElementById("rightStickDot");
-    const leftStickValue = document.getElementById("leftStickValue");
-    const rightStickValue = document.getElementById("rightStickValue");
-    const leftStickResult = document.getElementById("leftStickResult");
-    const rightStickResult = document.getElementById("rightStickResult");
+      leftStickText: document.getElementById("leftStickText"),
+      rightStickText: document.getElementById("rightStickText"),
+      leftStickState: document.getElementById("leftStickState"),
+      rightStickState: document.getElementById("rightStickState"),
+      leftStickDot: document.getElementById("leftStickDot"),
+      rightStickDot: document.getElementById("rightStickDot"),
+      leftStickCap: document.getElementById("leftStickCap"),
+      rightStickCap: document.getElementById("rightStickCap"),
 
-    const leftTriggerFill = document.getElementById("leftTriggerFill");
-    const rightTriggerFill = document.getElementById("rightTriggerFill");
-    const leftTriggerValue = document.getElementById("leftTriggerValue");
-    const rightTriggerValue = document.getElementById("rightTriggerValue");
+      ltBar: document.getElementById("ltBar"),
+      rtBar: document.getElementById("rtBar"),
+      ltValue: document.getElementById("ltValue"),
+      rtValue: document.getElementById("rtValue"),
 
-    const rawSummary = document.getElementById("rawSummary");
-    const buttonsGrid = document.getElementById("buttonsGrid");
-    const copyRawBtn = document.getElementById("copyRawBtn");
-
-    const btnA = document.getElementById("btnA");
-    const btnB = document.getElementById("btnB");
-    const btnX = document.getElementById("btnX");
-    const btnY = document.getElementById("btnY");
-    const btnLB = document.getElementById("btnLB");
-    const btnRB = document.getElementById("btnRB");
-    const btnLT = document.getElementById("btnLT");
-    const btnRT = document.getElementById("btnRT");
-    const btnBack = document.getElementById("btnBack");
-    const btnStart = document.getElementById("btnStart");
-    const btnHome = document.getElementById("btnHome");
-    const btnDpad = document.getElementById("btnDpad");
-
-    let latestRawData = "";
-
-    const buttonNameMap = {
-      0: "A / Cross",
-      1: "B / Circle",
-      2: "X / Square",
-      3: "Y / Triangle",
-      4: "LB / L1",
-      5: "RB / R1",
-      6: "LT / L2",
-      7: "RT / R2",
-      8: "Back / Share",
-      9: "Start / Options",
-      10: "Left Stick Press",
-      11: "Right Stick Press",
-      12: "D-Pad Up",
-      13: "D-Pad Down",
-      14: "D-Pad Left",
-      15: "D-Pad Right",
-      16: "Home / Guide"
+      btnA: document.getElementById("btn-a"),
+      btnB: document.getElementById("btn-b"),
+      btnX: document.getElementById("btn-x"),
+      btnY: document.getElementById("btn-y"),
+      btnLB: document.getElementById("btn-lb"),
+      btnRB: document.getElementById("btn-rb"),
+      btnLT: document.getElementById("btn-lt"),
+      btnRT: document.getElementById("btn-rt"),
+      btnBack: document.getElementById("btn-back"),
+      btnStart: document.getElementById("btn-start"),
+      btnHome: document.getElementById("btn-home"),
+      btnUp: document.getElementById("btn-dpad-up"),
+      btnDown: document.getElementById("btn-dpad-down"),
+      btnLeft: document.getElementById("btn-dpad-left"),
+      btnRight: document.getElementById("btn-dpad-right"),
     };
 
-    function classifyStick(x, y) {
-      const magnitude = Math.sqrt(x * x + y * y);
-      if (magnitude < 0.03) return "Good";
-      if (magnitude < 0.08) return "Minor drift detected";
-      return "Significant drift detected";
+    const buttonMap = [
+      { index: 0, el: els.btnA },
+      { index: 1, el: els.btnB },
+      { index: 2, el: els.btnX },
+      { index: 3, el: els.btnY },
+      { index: 4, el: els.btnLB },
+      { index: 5, el: els.btnRB },
+      { index: 6, el: els.btnLT },
+      { index: 7, el: els.btnRT },
+      { index: 8, el: els.btnBack },
+      { index: 9, el: els.btnStart },
+      { index: 12, el: els.btnUp },
+      { index: 13, el: els.btnDown },
+      { index: 14, el: els.btnLeft },
+      { index: 15, el: els.btnRight }
+    ];
+
+    function formatNum(n) {
+      return (Number(n) || 0).toFixed(2);
     }
 
-    function setStickDot(dot, x, y) {
-      const range = 70;
-      const left = 50 + x * (range / 1.0);
-      const top = 50 + y * (range / 1.0);
-      dot.style.left = `${left}%`;
-      dot.style.top = `${top}%`;
+    function setPressed(el, pressed) {
+      if (!el) return;
+      if (pressed) el.classList.add("pressed");
+      else el.classList.remove("pressed");
     }
 
-    function clearPressedStates() {
-      [btnA, btnB, btnX, btnY, btnLB, btnRB, btnLT, btnRT, btnBack, btnStart, btnHome, btnDpad]
-        .forEach(el => el.classList.remove("pressed"));
+    function resetUI() {
+      els.connectionStatus.textContent = "Waiting for controller";
+      els.connectionStatus.className = "";
+      els.deviceName.textContent = "No controller detected";
+      els.mappingType.textContent = "Unknown";
+      els.mappingType.className = "";
+      els.vibrationStatus.textContent = "Depends on browser support";
+      els.vibrationStatus.className = "warn";
+      els.vibrationDetail.textContent = "Unknown until controller is connected";
+      els.vibrationDetail.className = "warn";
+      els.controllerSubtitle.textContent = "Connect a controller and press any button";
+      els.controllerLabel.textContent = "Live";
+
+      els.leftStickText.textContent = "X: 0.00 / Y: 0.00";
+      els.rightStickText.textContent = "X: 0.00 / Y: 0.00";
+      els.leftStickState.textContent = "Good";
+      els.rightStickState.textContent = "Good";
+      els.leftStickState.className = "ok";
+      els.rightStickState.className = "ok";
+
+      els.leftStickDot.style.left = "50%";
+      els.leftStickDot.style.top = "50%";
+      els.rightStickDot.style.left = "50%";
+      els.rightStickDot.style.top = "50%";
+
+      els.leftStickCap.style.transform = "translate(0px, 0px)";
+      els.rightStickCap.style.transform = "translate(0px, 0px)";
+
+      els.ltBar.style.height = "0%";
+      els.rtBar.style.height = "0%";
+      els.ltValue.textContent = "0.00";
+      els.rtValue.textContent = "0.00";
+
+      buttonMap.forEach(({ el }) => setPressed(el, false));
+      setPressed(els.btnHome, false);
     }
 
-    function updateControllerType(name) {
-      const lower = name.toLowerCase();
-      if (lower.includes("xbox")) return "Xbox";
-      if (lower.includes("playstation") || lower.includes("dualsense") || lower.includes("wireless controller")) return "PlayStation";
-      if (lower.includes("switch")) return "Switch";
-      return "Generic";
+    function detectLabel(id) {
+      const text = (id || "").toLowerCase();
+      if (text.includes("xbox")) return "Xbox";
+      if (text.includes("playstation") || text.includes("dualshock") || text.includes("dualsense") || text.includes("wireless controller")) return "PlayStation";
+      if (text.includes("switch")) return "Switch";
+      return "Gamepad";
     }
 
-    function renderButtons(gamepad) {
-      buttonsGrid.innerHTML = "";
-      gamepad.buttons.forEach((btn, index) => {
-        const div = document.createElement("div");
-        div.className = "btn-cell" + (btn.pressed ? " active" : "");
-        div.innerHTML = `
-          <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">Button ${index}</div>
-          <div>${buttonNameMap[index] || "Custom Input"}</div>
-          <div style="margin-top:6px;font-size:12px;">${btn.value.toFixed(2)}</div>
-        `;
-        buttonsGrid.appendChild(div);
-      });
+    function driftState(value) {
+      const abs = Math.abs(value);
+      if (abs > 0.12) return { text: "Significant drift detected", cls: "bad" };
+      if (abs > 0.06) return { text: "Minor drift detected", cls: "warn" };
+      return { text: "Good", cls: "ok" };
     }
 
-    function updateVisualizerButtons(gamepad) {
-      clearPressedStates();
-
-      if (gamepad.buttons[0]?.pressed) btnA.classList.add("pressed");
-      if (gamepad.buttons[1]?.pressed) btnB.classList.add("pressed");
-      if (gamepad.buttons[2]?.pressed) btnX.classList.add("pressed");
-      if (gamepad.buttons[3]?.pressed) btnY.classList.add("pressed");
-      if (gamepad.buttons[4]?.pressed) btnLB.classList.add("pressed");
-      if (gamepad.buttons[5]?.pressed) btnRB.classList.add("pressed");
-      if (gamepad.buttons[6]?.value > 0.05) btnLT.classList.add("pressed");
-      if (gamepad.buttons[7]?.value > 0.05) btnRT.classList.add("pressed");
-      if (gamepad.buttons[8]?.pressed) btnBack.classList.add("pressed");
-      if (gamepad.buttons[9]?.pressed) btnStart.classList.add("pressed");
-      if (gamepad.buttons[16]?.pressed) btnHome.classList.add("pressed");
-
-      if (
-        gamepad.buttons[12]?.pressed ||
-        gamepad.buttons[13]?.pressed ||
-        gamepad.buttons[14]?.pressed ||
-        gamepad.buttons[15]?.pressed
-      ) {
-        btnDpad.classList.add("pressed");
-      }
-    }
-
-    function updateRawData(gamepad) {
-      latestRawData = JSON.stringify({
-        id: gamepad.id,
-        index: gamepad.index,
-        connected: gamepad.connected,
-        mapping: gamepad.mapping,
-        axes: gamepad.axes.map(v => Number(v.toFixed(4))),
-        buttons: gamepad.buttons.map((b, i) => ({
-          index: i,
-          pressed: b.pressed,
-          value: Number(b.value.toFixed(4))
-        }))
-      }, null, 2);
+    function hasVibrationSupport(gamepad) {
+      return !!(
+        gamepad &&
+        (
+          gamepad.vibrationActuator ||
+          (gamepad.hapticActuators && gamepad.hapticActuators.length)
+        )
+      );
     }
 
     function updateGamepadUI(gamepad) {
-      connectionStatus.textContent = "Connected";
-      connectionStatus.className = "status-value good";
-
-      deviceName.textContent = gamepad.id || "Unknown controller";
-      mappingStatus.textContent = gamepad.mapping || "unknown";
-      mappingStatus.className = gamepad.mapping === "standard" ? "status-value good" : "status-value warn";
-
-      controllerSubtitle.textContent = gamepad.id || "Detected controller";
-      controllerType.textContent = updateControllerType(gamepad.id || "");
-
-      const hasVibration =
-        !!gamepad.vibrationActuator ||
-        (Array.isArray(gamepad.hapticActuators) && gamepad.hapticActuators.length > 0);
-
-      vibrationStatus.textContent = hasVibration ? "Available or partially supported" : "Browser/controller limited";
-      vibrationStatus.className = hasVibration ? "status-value good" : "status-value warn";
-
-      const lx = gamepad.axes[0] || 0;
-      const ly = gamepad.axes[1] || 0;
-      const rx = gamepad.axes[2] || 0;
-      const ry = gamepad.axes[3] || 0;
-
-      setStickDot(leftStickDot, lx, ly);
-      setStickDot(rightStickDot, rx, ry);
-
-      leftStickValue.textContent = `X: ${lx.toFixed(2)} / Y: ${ly.toFixed(2)}`;
-      rightStickValue.textContent = `X: ${rx.toFixed(2)} / Y: ${ry.toFixed(2)}`;
-      leftStickResult.textContent = classifyStick(lx, ly);
-      rightStickResult.textContent = classifyStick(rx, ry);
-
-      leftStickResult.className = "result " + (
-        classifyStick(lx, ly) === "Good" ? "good" :
-        classifyStick(lx, ly) === "Minor drift detected" ? "warn" : "danger"
-      );
-
-      rightStickResult.className = "result " + (
-        classifyStick(rx, ry) === "Good" ? "good" :
-        classifyStick(rx, ry) === "Minor drift detected" ? "warn" : "danger"
-      );
-
-      const lt = gamepad.buttons[6]?.value || 0;
-      const rt = gamepad.buttons[7]?.value || 0;
-
-      leftTriggerFill.style.height = `${lt * 100}%`;
-      rightTriggerFill.style.height = `${rt * 100}%`;
-      leftTriggerValue.textContent = lt.toFixed(2);
-      rightTriggerValue.textContent = rt.toFixed(2);
-
-      rawSummary.textContent = `Buttons: ${gamepad.buttons.length} | Axes: ${gamepad.axes.length}`;
-
-      updateVisualizerButtons(gamepad);
-      renderButtons(gamepad);
-      updateRawData(gamepad);
-    }
-
-    function setDisconnectedUI() {
-      connectionStatus.textContent = "Not connected";
-      connectionStatus.className = "status-value danger";
-      deviceName.textContent = "Press any button on your controller";
-      mappingStatus.textContent = "Unknown";
-      mappingStatus.className = "status-value";
-      vibrationStatus.textContent = "Depends on browser support";
-      vibrationStatus.className = "status-value warn";
-      controllerSubtitle.textContent = "Connect your controller and press any button";
-      controllerType.textContent = "Waiting";
-      leftStickValue.textContent = "X: 0.00 / Y: 0.00";
-      rightStickValue.textContent = "X: 0.00 / Y: 0.00";
-      leftStickResult.textContent = "Waiting for input";
-      rightStickResult.textContent = "Waiting for input";
-      leftStickResult.className = "result";
-      rightStickResult.className = "result";
-      leftTriggerFill.style.height = "0%";
-      rightTriggerFill.style.height = "0%";
-      leftTriggerValue.textContent = "0.00";
-      rightTriggerValue.textContent = "0.00";
-      rawSummary.textContent = "Buttons: 0 | Axes: 0";
-      buttonsGrid.innerHTML = "";
-      clearPressedStates();
-      setStickDot(leftStickDot, 0, 0);
-      setStickDot(rightStickDot, 0, 0);
-      latestRawData = "";
-    }
-
-    function pollGamepads() {
-      const pads = navigator.getGamepads ? navigator.getGamepads() : [];
-      const gamepad = pads && [...pads].find(Boolean);
-
-      if (gamepad) {
-        updateGamepadUI(gamepad);
-      } else {
-        setDisconnectedUI();
-      }
-
-      requestAnimationFrame(pollGamepads);
-    }
-
-    window.addEventListener("gamepadconnected", (e) => {
-      updateGamepadUI(e.gamepad);
-    });
-
-    window.addEventListener("gamepaddisconnected", () => {
-      setDisconnectedUI();
-    });
-
-    copyRawBtn.addEventListener("click", async () => {
-      if (!latestRawData) {
-        alert("No controller data available yet.");
+      if (!gamepad) {
+        resetUI();
         return;
       }
-      try {
-        await navigator.clipboard.writeText(latestRawData);
-        copyRawBtn.textContent = "Copied!";
-        setTimeout(() => {
-          copyRawBtn.textContent = "Copy Raw Data";
-        }, 1200);
-      } catch (err) {
-        alert("Copy failed.");
-      }
-    });
 
-    setDisconnectedUI();
-    pollGamepads();
+      els.connectionStatus.textContent = "Connected";
+      els.connectionStatus.className = "ok";
+
+      els.deviceName.textContent = gamepad.id || "Unknown device";
+      els.mappingType.textContent = gamepad.mapping || "Unknown";
+      els.mappingType.className = gamepad.mapping === "standard" ? "ok" : "warn";
+
+      const label = detectLabel(gamepad.id);
+      els.controllerLabel.textContent = label;
+      els.controllerSubtitle.textContent = `${gamepad.id || "Unknown controller"} (${(gamepad.mapping || "unknown").toUpperCase()})`;
+
+      if (hasVibrationSupport(gamepad)) {
+        els.vibrationStatus.textContent = "Available or partially supported";
+        els.vibrationStatus.className = "ok";
+        els.vibrationDetail.textContent = "Browser reports vibration / haptics support";
+        els.vibrationDetail.className = "ok";
+      } else {
+        els.vibrationStatus.textContent = "Limited or unavailable";
+        els.vibrationStatus.className = "warn";
+        els.vibrationDetail.textContent = "No vibration actuator reported by current browser";
+        els.vibrationDetail.className = "warn";
+      }
+
+      const axes = gamepad.axes || [0, 0, 0, 0];
+      const lx = axes[0] || 0;
+      const ly = axes[1] || 0;
+      const rx = axes[2] || 0;
+      const ry = axes[3] || 0;
+
+      els.leftStickText.textContent = `X: ${formatNum(lx)} / Y: ${formatNum(ly)}`;
+      els.rightStickText.textContent = `X: ${formatNum(rx)} / Y: ${formatNum(ry)}`;
+
+      const leftDrift = Math.max(Math.abs(lx), Math.abs(ly));
+      const rightDrift = Math.max(Math.abs(rx), Math.abs(ry));
+
+      const leftState = driftState(leftDrift);
+      const rightState = driftState(rightDrift);
+
+      els.leftStickState.textContent = leftState.text;
+      els.leftStickState.className = leftState.cls;
+      els.rightStickState.textContent = rightState.text;
+      els.rightStickState.className = rightState.cls;
+
+      els.leftStickDot.style.left = `${50 + lx * 38}%`;
+      els.leftStickDot.style.top = `${50 + ly * 38}%`;
+      els.rightStickDot.style.left = `${50 + rx * 38}%`;
+      els.rightStickDot.style.top = `${50 + ry * 38}%`;
+
+      els.leftStickCap.style.transform = `translate(${lx * 18}px, ${ly * 18}px)`;
+      els.rightStickCap.style.transform = `translate(${rx * 18}px, ${ry * 18}px)`;
+
+      const lt = gamepad.buttons?.[6]?.value || 0;
+      const rt = gamepad.buttons?.[7]?.value || 0;
+
+      els.ltBar.style.height = `${lt * 100}%`;
+      els.rtBar.style.height = `${rt * 100}%`;
+      els.ltValue.textContent = formatNum(lt);
+      els.rtValue.textContent = formatNum(rt);
+
+      buttonMap.forEach(({ index, el }) => {
+        const pressed = !!gamepad.buttons?.[index]?.pressed;
+        setPressed(el, pressed);
+      });
+
+      const homePressed = !!gamepad.buttons?.[16]?.pressed;
+      setPressed(els.btnHome, homePressed);
+    }
+
+    function getActiveGamepad() {
+      const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+      if (!gamepads) return null;
+      for (const gp of gamepads) {
+        if (gp) return gp;
+      }
+      return null;
+    }
+
+    function loop() {
+      const gamepad = getActiveGamepad();
+      updateGamepadUI(gamepad);
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("gamepadconnected", () => {});
+    window.addEventListener("gamepaddisconnected", () => {});
+
+    resetUI();
+    requestAnimationFrame(loop);
   </script>
 </body>
 </html>
