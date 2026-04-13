@@ -16,11 +16,13 @@
     :root {
       --primary: #0095FF;
       --success: #2ECC71;
-      --bg: #F8F9FA;
+      --drift: #E74C3C;
+      --bg: #FAFAFA;
       --card: #FFFFFF;
-      --text: #212529;
-      --text-light: #6C757D;
-      --border: #E9ECEF;
+      --text: #1A1A1A;
+      --text-light: #666666;
+      --border: #E5E7EB;
+      --gray-light: #F3F4F6;
     }
     body {
       background: var(--bg);
@@ -31,11 +33,11 @@
     header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+      padding: 0.75rem 2rem;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .header-container {
       max-width: 1400px;
@@ -59,20 +61,20 @@
     }
     .nav {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       align-items: center;
     }
     .nav a {
       text-decoration: none;
       color: var(--text-light);
       font-weight: 500;
-      padding: 0.5rem 0;
-      border-bottom: 2px solid transparent;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
       transition: all 0.2s;
     }
     .nav a.active {
+      background: var(--gray-light);
       color: var(--primary);
-      border-bottom-color: var(--primary);
     }
     /* Main Container */
     .container {
@@ -93,17 +95,23 @@
     /* Grid Layout */
     .grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 1.5rem;
       margin-bottom: 1.5rem;
+    }
+    .grid-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      grid-auto-rows: min-content;
     }
     /* Card Style */
     .card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 1.5rem;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
     .card-header {
       display: flex;
@@ -125,12 +133,29 @@
       font-size: 1.5rem;
     }
     .badge {
-      background: rgba(0, 149, 255, 0.1);
-      color: var(--primary);
+      background: rgba(46, 204, 113, 0.1);
+      color: var(--success);
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       font-size: 0.875rem;
       font-weight: 500;
+    }
+    .player-tabs {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .player-tab {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: var(--gray-light);
+      color: var(--text-light);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .player-tab.active {
+      background: var(--primary);
+      color: white;
     }
     /* Controller Visualizer */
     .visualizer-container {
@@ -141,12 +166,13 @@
       padding: 1rem;
     }
     .controller-svg {
-      width: 300px;
-      height: 220px;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
     }
     .controller-path {
       fill: #F5F5F5;
-      stroke: #E0E0E0;
+      stroke: #CCCCCC;
       stroke-width: 2;
     }
     .stick-point {
@@ -170,11 +196,11 @@
       background: #007ACC;
     }
     .btn-secondary {
-      background: var(--border);
+      background: var(--gray-light);
       color: var(--text);
     }
     .btn-secondary:hover {
-      background: #DEE2E6;
+      background: #E5E7EB;
     }
     .status {
       text-align: center;
@@ -199,6 +225,7 @@
       display: flex;
       justify-content: space-around;
       gap: 2rem;
+      margin-top: 1rem;
     }
     .stick-item {
       text-align: center;
@@ -214,18 +241,26 @@
     .stick-circle::after {
       content: '';
       position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      border: 2px dashed #DEE2E6;
-      border-radius: 50%;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border);
+    }
+    .stick-circle::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
     }
     .stick-dot {
       position: absolute;
       width: 16px;
       height: 16px;
-      background: var(--primary);
+      background: var(--success);
       border-radius: 50%;
       top: 50%;
       left: 50%;
@@ -234,15 +269,17 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .stick-value {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 500;
       margin-top: 0.5rem;
+      color: var(--text-light);
     }
     /* Triggers */
     .trigger-container {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      margin-top: 1rem;
     }
     .trigger-item {
       display: flex;
@@ -255,35 +292,70 @@
       font-weight: 500;
     }
     .trigger-bar {
-      height: 12px;
-      background: var(--border);
-      border-radius: 6px;
+      height: 120px;
+      background: var(--gray-light);
+      border-radius: 8px;
       overflow: hidden;
+      position: relative;
     }
     .trigger-fill {
-      height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       background: var(--primary);
-      width: 0%;
-      transition: width 0.05s linear;
+      height: 0%;
+      transition: height 0.05s linear;
     }
-    /* Buttons */
+    /* Raw Data */
+    .raw-data-container {
+      margin-top: 1rem;
+    }
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .axis-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .axis-bar {
+      height: 8px;
+      background: var(--gray-light);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .axis-fill {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      background: var(--primary);
+      transform: translateX(-50%);
+      width: 0%;
+      transition: all 0.05s linear;
+    }
     .buttons-grid {
       display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 0.75rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
     }
     .btn-key {
       aspect-ratio: 1;
-      border: 2px solid var(--border);
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 500;
+      font-size: 0.875rem;
       background: white;
       transition: all 0.1s;
+      color: var(--text-light);
     }
     .btn-key.active {
       background: var(--primary);
@@ -292,22 +364,23 @@
     }
     /* Vibration */
     .vibration-container {
-      display: flex;
-      justify-content: space-around;
-      gap: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
       margin-top: 1rem;
     }
     .vibration-btn {
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1rem;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: white;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
+      text-align: center;
     }
     .vibration-btn:hover {
-      background: var(--border);
+      background: var(--gray-light);
     }
     /* Footer */
     footer {
@@ -337,8 +410,16 @@
       .grid {
         grid-template-columns: 1fr;
       }
+      .grid-right {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .grid-right {
+        grid-template-columns: 1fr;
+      }
       .nav {
-        gap: 1rem;
+        gap: 0.5rem;
       }
     }
   </style>
@@ -356,9 +437,12 @@
       </a>
       <nav class="nav">
         <a href="/" class="active">Home</a>
-        <a href="#drift">Drift Test</a>
+        <a href="#drift">Drift</a>
+        <a href="#circularity">Circularity</a>
+        <a href="#polling">Polling Rate</a>
         <a href="#vibration">Vibration</a>
         <a href="#tools">Tools</a>
+        <a href="#widgets">Widgets</a>
       </nav>
     </div>
   </header>
@@ -371,39 +455,61 @@
     </div>
 
     <div class="grid">
-      <!-- Left: Controller Visualizer -->
+      <!-- Left: Full Controller Visualizer -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            <i class="fas fa-tv"></i>
+            <i class="fas fa-gamepad"></i>
             <span>Controller Visualizer</span>
-            <span class="badge">P1</span>
+          </div>
+          <div class="player-tabs">
+            <div class="player-tab active">P1</div>
+            <div class="player-tab">P2</div>
+            <div class="player-tab">P3</div>
+            <div class="player-tab">P4</div>
           </div>
         </div>
         <div class="visualizer-container">
-          <svg class="controller-svg" viewBox="0 0 300 220">
-            <!-- Controller Body -->
-            <path class="controller-path" d="M50 110C50 80 75 60 105 60H195C225 60 250 80 250 110C250 140 240 170 220 190H80C60 170 50 140 50 110Z" />
-            <!-- D-Pad -->
-            <circle cx="85" cy="140" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <path d="M85 128V152M76 140H94" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
-            <!-- Left Stick -->
-            <circle cx="85" cy="140" r="22" fill="none" stroke="#CCCCCC" stroke-width="1.5"/>
-            <circle id="leftStick" class="stick-point" cx="85" cy="140" />
-            <!-- ABXY Buttons (标准Xbox菱形布局) -->
-            <circle cx="215" cy="115" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <circle cx="215" cy="145" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <circle cx="235" cy="135" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <circle cx="195" cy="135" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <text x="215" y="118" text-anchor="middle" font-size="10" font-weight="500" fill="#333">Y</text>
-            <text x="215" y="151" text-anchor="middle" font-size="10" font-weight="500" fill="#333">A</text>
-            <text x="235" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">B</text>
-            <text x="195" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">X</text>
+          <svg class="controller-svg" viewBox="0 0 600 400">
+            <!-- Full Xbox Controller Body -->
+            <path class="controller-path" d="M50 200C50 140 80 100 130 80H470C520 100 550 140 550 200C550 260 530 320 490 360H110C70 320 50 260 50 200Z" />
             <!-- Bumpers -->
-            <rect x="130" y="45" width="40" height="12" rx="6" fill="#E0E0E0"/>
-            <rect x="170" y="45" width="40" height="12" rx="6" fill="#E0E0E0"/>
-            <text x="150" y="53" text-anchor="middle" font-size="9" fill="#666">LB</text>
-            <text x="190" y="53" text-anchor="middle" font-size="9" fill="#666">RB</text>
+            <rect x="220" y="60" width="60" height="20" rx="10" fill="#E0E0E0"/>
+            <rect x="320" y="60" width="60" height="20" rx="10" fill="#E0E0E0"/>
+            <text x="250" y="75" text-anchor="middle" font-size="12" fill="#666">LB</text>
+            <text x="350" y="75" text-anchor="middle" font-size="12" fill="#666">RB</text>
+            <!-- Triggers -->
+            <rect x="230" y="30" width="40" height="40" rx="8" fill="#F0F0F0" stroke="#E0E0E0"/>
+            <rect x="330" y="30" width="40" height="40" rx="8" fill="#F0F0F0" stroke="#E0E0E0"/>
+            <!-- Left Stick -->
+            <circle cx="120" cy="200" r="30" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <circle cx="120" cy="200" r="10" fill="#E0E0E0"/>
+            <circle id="leftStick" class="stick-point" cx="120" cy="200" />
+            <!-- Right Stick -->
+            <circle cx="380" cy="280" r="30" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <circle cx="380" cy="280" r="10" fill="#E0E0E0"/>
+            <circle id="rightStick" class="stick-point" cx="380" cy="280" />
+            <!-- D-Pad -->
+            <circle cx="180" cy="280" r="25" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <path d="M180 260V300M160 280H200" stroke="#666666" stroke-width="3" stroke-linecap="round"/>
+            <!-- ABXY Buttons (标准菱形布局) -->
+            <circle cx="420" cy="200" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <circle cx="420" cy="240" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <circle cx="445" cy="220" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <circle cx="395" cy="220" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+            <text x="420" y="205" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Y</text>
+            <text x="420" y="245" text-anchor="middle" font-size="14" font-weight="600" fill="#333">A</text>
+            <text x="445" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#333">B</text>
+            <text x="395" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#333">X</text>
+            <!-- Guide/View/Menu Buttons -->
+            <circle cx="250" cy="160" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+            <path d="M250 156V164M246 160H254" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="220" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+            <circle cx="280" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+            <path d="M277 200H283" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
+            <path d="M280 197V203" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="300" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+            <path d="M297 200H303M300 197V203" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
           </svg>
 
           <div class="status" id="status">
@@ -420,29 +526,21 @@
             </button>
           </div>
         </div>
-
-        <!-- Buttons Grid -->
-        <div class="card" style="margin-top: 1.5rem;">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-keyboard"></i>
-              <span>Button Tester</span>
-            </div>
-          </div>
-          <div class="buttons-grid" id="buttonsGrid"></div>
-        </div>
       </div>
 
-      <!-- Right: Data Panels -->
-      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- Right: Data Panels Grid -->
+      <div class="grid-right">
         <!-- Analog Sticks -->
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <i class="fas fa-crosshairs"></i>
+              <i class="fas fa-crosshairs" style="color: var(--success);"></i>
               <span>Analog Sticks</span>
-              <span class="badge">Linearity & Drift</span>
+              <span class="badge">Linearity, Drift & Circularity</span>
             </div>
+            <button class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 32px; height: 32px;">
+              <i class="fas fa-sync-alt"></i>
+            </button>
           </div>
           <div class="stick-container">
             <div class="stick-item">
@@ -450,14 +548,14 @@
               <div class="stick-circle">
                 <div id="leftStickDot" class="stick-dot"></div>
               </div>
-              <div class="stick-value" id="leftStickValue">X: 0.00, Y: 0.00</div>
+              <div class="stick-value" id="leftStickValue">+0.00, +0.00</div>
             </div>
             <div class="stick-item">
               <h3 style="font-size: 1rem; font-weight: 600;">Right Stick</h3>
               <div class="stick-circle">
                 <div id="rightStickDot" class="stick-dot"></div>
               </div>
-              <div class="stick-value" id="rightStickValue">X: 0.00, Y: 0.00</div>
+              <div class="stick-value" id="rightStickValue">+0.00, +0.00</div>
             </div>
           </div>
         </div>
@@ -466,29 +564,76 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <i class="fas fa-hand-pointer"></i>
+              <i class="fas fa-hand-pointer" style="color: #8E44AD;"></i>
               <span>Triggers</span>
-              <span class="badge">Analog Pressure (0-1)</span>
+              <span class="badge" style="background: rgba(142, 68, 173, 0.1); color: #8E44AD;">Analog Pressure (0-1)</span>
             </div>
           </div>
           <div class="trigger-container">
             <div class="trigger-item">
               <div class="trigger-label">
                 <span>LT / L2</span>
-                <span id="ltValue">0.00</span>
+                <span id="ltValue" style="color: #8E44AD;">0.00</span>
               </div>
               <div class="trigger-bar">
-                <div id="ltBar" class="trigger-fill"></div>
+                <div id="ltBar" class="trigger-fill" style="background: #8E44AD;"></div>
               </div>
             </div>
             <div class="trigger-item">
               <div class="trigger-label">
                 <span>RT / R2</span>
-                <span id="rtValue">0.00</span>
+                <span id="rtValue" style="color: #8E44AD;">0.00</span>
               </div>
               <div class="trigger-bar">
-                <div id="rtBar" class="trigger-fill"></div>
+                <div id="rtBar" class="trigger-fill" style="background: #8E44AD;"></div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Raw Data -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i class="fas fa-database" style="color: #2980B9;"></i>
+              <span>Raw Data</span>
+              <span class="badge" style="background: rgba(41, 128, 185, 0.1); color: #2980B9;">Gamepad API Output</span>
+            </div>
+          </div>
+          <div class="raw-data-container">
+            <div class="axes-grid">
+              <div class="axis-item">
+                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 0</span>
+                <div class="axis-bar">
+                  <div id="axis0" class="axis-fill"></div>
+                </div>
+                <span id="axis0Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
+              </div>
+              <div class="axis-item">
+                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 1</span>
+                <div class="axis-bar">
+                  <div id="axis1" class="axis-fill"></div>
+                </div>
+                <span id="axis1Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
+              </div>
+              <div class="axis-item">
+                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 2</span>
+                <div class="axis-bar">
+                  <div id="axis2" class="axis-fill"></div>
+                </div>
+                <span id="axis2Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
+              </div>
+              <div class="axis-item">
+                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 3</span>
+                <div class="axis-bar">
+                  <div id="axis3" class="axis-fill"></div>
+                </div>
+                <span id="axis3Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
+              </div>
+            </div>
+            <div class="buttons-grid" id="buttonsGrid"></div>
+            <div style="text-align: center; margin-top: 1rem; color: var(--text-light);" id="rawDataStatus">
+              NO CONTROLLER DETECTED
             </div>
           </div>
         </div>
@@ -497,15 +642,16 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <i class="fas fa-bolt"></i>
+              <i class="fas fa-bolt" style="color: #F39C12;"></i>
               <span>Vibration Test</span>
-              <span class="badge">Dual Motor</span>
+              <span class="badge" style="background: rgba(243, 156, 18, 0.1); color: #F39C12;">Dual Motor</span>
             </div>
           </div>
           <div class="vibration-container">
-            <button class="vibration-btn" onclick="testVibration('heavy')">Heavy (Low Freq)</button>
-            <button class="vibration-btn" onclick="testVibration('light')">Light (High Freq)</button>
-            <button class="vibration-btn" onclick="testVibration('burst')">Burst</button>
+            <button class="vibration-btn" onclick="testVibration('heavy')">HEAVY</button>
+            <button class="vibration-btn" onclick="testVibration('light')">LIGHT</button>
+            <button class="vibration-btn" onclick="testVibration('burst')">BURST</button>
+            <button class="vibration-btn" onclick="testVibration('pulse')">PULSE</button>
           </div>
         </div>
       </div>
@@ -531,24 +677,26 @@
   </footer>
 
   <script>
-    // Button Labels (标准顺序，对应手柄物理按键)
+    // Button Labels (标准顺序)
     const buttonLabels = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','Up','Down','Left','Right'];
     const buttonsGrid = document.getElementById('buttonsGrid');
 
     // Create Button Elements
-    buttonLabels.forEach((label, i) => {
+    for (let i = 0; i < 18; i++) {
       const btn = document.createElement('div');
       btn.className = 'btn-key';
       btn.id = `btn-${i}`;
-      btn.textContent = label;
+      btn.textContent = i < 16 ? buttonLabels[i] : i;
       buttonsGrid.appendChild(btn);
-    });
+    }
 
     // Status Elements
     const statusEl = document.getElementById('status');
+    const rawDataStatusEl = document.getElementById('rawDataStatus');
     const leftStickEl = document.getElementById('leftStick');
     const leftStickDotEl = document.getElementById('leftStickDot');
     const leftStickValueEl = document.getElementById('leftStickValue');
+    const rightStickEl = document.getElementById('rightStick');
     const rightStickDotEl = document.getElementById('rightStickDot');
     const rightStickValueEl = document.getElementById('rightStickValue');
     const ltBarEl = document.getElementById('ltBar');
@@ -556,9 +704,20 @@
     const rtBarEl = document.getElementById('rtBar');
     const rtValueEl = document.getElementById('rtValue');
 
+    // Axis Elements
+    const axis0 = document.getElementById('axis0');
+    const axis0Value = document.getElementById('axis0Value');
+    const axis1 = document.getElementById('axis1');
+    const axis1Value = document.getElementById('axis1Value');
+    const axis2 = document.getElementById('axis2');
+    const axis2Value = document.getElementById('axis2Value');
+    const axis3 = document.getElementById('axis3');
+    const axis3Value = document.getElementById('axis3Value');
+
     // Refresh Controllers
     function refreshControllers() {
       statusEl.innerHTML = '<span class="status-dot disconnected"></span>No controller detected';
+      rawDataStatusEl.textContent = 'NO CONTROLLER DETECTED';
       pollGamepads();
     }
 
@@ -572,6 +731,7 @@
         if (type === 'heavy') effect = { duration: 500, strongMagnitude: 1, weakMagnitude: 0.1 };
         if (type === 'light') effect = { duration: 500, strongMagnitude: 0.1, weakMagnitude: 1 };
         if (type === 'burst') effect = { duration: 200, strongMagnitude: 1, weakMagnitude: 1 };
+        if (type === 'pulse') effect = { duration: 1000, strongMagnitude: 0.8, weakMagnitude: 0.8, startDelay: 0, duration: 200, weakMagnitude: 0.8, strongMagnitude: 0.8 };
         
         pad.vibrationActuator.playEffect('dual-rumble', effect);
       }
@@ -588,9 +748,9 @@
 
         // Update Status
         statusEl.innerHTML = `<span class="status-dot connected"></span>Connected: ${pad.id}`;
+        rawDataStatusEl.textContent = 'CONNECTED';
 
-        // Update Buttons (标准Xbox按键映射)
-        // 0:A, 1:B, 2:X, 3:Y, 4:LB, 5:RB, 6:LT, 7:RT, 8:View, 9:Menu, 10:LS, 11:RS, 12:Up, 13:Down, 14:Left, 15:Right
+        // Update Buttons
         pad.buttons.forEach((btn, i) => {
           const el = document.getElementById(`btn-${i}`);
           if (el) el.classList.toggle('active', btn.pressed || btn.value > 0.5);
@@ -601,32 +761,45 @@
         // Left Stick (0,1)
         const lx = axes[0] || 0;
         const ly = axes[1] || 0;
-        leftStickValueEl.textContent = `X: ${lx.toFixed(2)}, Y: ${ly.toFixed(2)}`;
+        leftStickValueEl.textContent = `${lx >= 0 ? '+' : ''}${lx.toFixed(2)}, ${ly >= 0 ? '+' : ''}${ly.toFixed(2)}`;
         const lxPos = 50 + lx * 40;
         const lyPos = 50 + ly * 40;
         leftStickDotEl.style.transform = `translate(calc(${lxPos}% - 50%), calc(${lyPos}% - 50%))`;
-        leftStick.setAttribute('cx', 85 + lx * 20);
-        leftStick.setAttribute('cy', 140 + ly * 20);
+        leftStick.setAttribute('cx', 120 + lx * 25);
+        leftStick.setAttribute('cy', 200 + ly * 25);
 
         // Right Stick (2,3)
         const rx = axes[2] || 0;
         const ry = axes[3] || 0;
-        rightStickValueEl.textContent = `X: ${rx.toFixed(2)}, Y: ${ry.toFixed(2)}`;
+        rightStickValueEl.textContent = `${rx >= 0 ? '+' : ''}${rx.toFixed(2)}, ${ry >= 0 ? '+' : ''}${ry.toFixed(2)}`;
         const rxPos = 50 + rx * 40;
         const ryPos = 50 + ry * 40;
         rightStickDotEl.style.transform = `translate(calc(${rxPos}% - 50%), calc(${ryPos}% - 50%))`;
+        rightStick.setAttribute('cx', 380 + rx * 25);
+        rightStick.setAttribute('cy', 280 + ry * 25);
+
+        // Update Axis Bars
+        axis0.style.width = `${Math.abs(lx) * 100}%`;
+        axis0Value.textContent = `${lx >= 0 ? '+' : ''}${lx.toFixed(2)}`;
+        axis1.style.width = `${Math.abs(ly) * 100}%`;
+        axis1Value.textContent = `${ly >= 0 ? '+' : ''}${ly.toFixed(2)}`;
+        axis2.style.width = `${Math.abs(rx) * 100}%`;
+        axis2Value.textContent = `${rx >= 0 ? '+' : ''}${rx.toFixed(2)}`;
+        axis3.style.width = `${Math.abs(ry) * 100}%`;
+        axis3Value.textContent = `${ry >= 0 ? '+' : ''}${ry.toFixed(2)}`;
 
         // Triggers (6,7 for most controllers)
         const lt = pad.buttons[6]?.value || 0;
         const rt = pad.buttons[7]?.value || 0;
         ltValueEl.textContent = lt.toFixed(2);
-        ltBarEl.style.width = `${lt * 100}%`;
+        ltBarEl.style.height = `${lt * 100}%`;
         rtValueEl.textContent = rt.toFixed(2);
-        rtBarEl.style.width = `${rt * 100}%`;
+        rtBarEl.style.height = `${rt * 100}%`;
       }
 
       if (!connected) {
         statusEl.innerHTML = '<span class="status-dot disconnected"></span>No controller detected';
+        rawDataStatusEl.textContent = 'NO CONTROLLER DETECTED';
       }
 
       requestAnimationFrame(pollGamepads);
