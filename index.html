@@ -6,233 +6,340 @@
 <title>Gamepad Tester – Test Your Controller Online Free</title>
 <meta name="description" content="Free online gamepad tester. Test PS5, Xbox, Switch, or any PC controller — buttons, analog sticks, triggers, vibration, and stick drift. No download needed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ── DESIGN TOKENS ── */
 :root {
-  --bg: #0d0f17;
-  --surface: #13151f;
-  --surface2: #1a1d2a;
-  --surface3: #21253a;
-  --border: #272b3f;
-  --border2: #32384f;
-  --accent: #00e5a0;
-  --accent-dim: rgba(0,229,160,0.12);
-  --accent2: #6c5ce7;
-  --accent3: #fd7043;
-  --blue: #4fc3f7;
-  --text: #e8eaf2;
-  --muted: #6b7190;
-  --muted2: #4a4f6a;
-  --mono: 'Space Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --radius: 14px;
+  --bg:        #f5f6f8;
+  --surface:   #ffffff;
+  --surface2:  #f0f1f5;
+  --surface3:  #e8eaf0;
+  --border:    #e2e4ec;
+  --border2:   #d0d3df;
+  --text:      #1a1d2e;
+  --text2:     #4a4f6a;
+  --text3:     #8b90a8;
+  --accent:    #1a73e8;        /* blue – info/active */
+  --green:     #15b77a;        /* A button / success */
+  --red:       #e53935;        /* B button / error */
+  --orange:    #f57c00;        /* Y button / warning */
+  --purple:    #7c4dff;        /* vibration */
+  --trigger:   #e65100;        /* trigger fill */
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Inter', sans-serif;
+  --r-sm:      8px;
+  --r-md:      12px;
+  --r-lg:      16px;
+  --shadow:    0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 14px; }
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; -webkit-font-smoothing: antialiased; }
 body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; }
 
+/* ── NAV ── */
 nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 2rem; height: 56px;
-  background: var(--surface); border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: var(--shadow);
 }
-.nav-logo { font-family: var(--mono); font-size: 13px; color: var(--accent); text-decoration: none; letter-spacing: 1px; }
-.nav-links { display: flex; gap: 1.75rem; }
-.nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.logo {
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  color: var(--accent); text-decoration: none; letter-spacing: .5px;
+}
+.nav-links { display: flex; gap: 0; }
+.nav-links a {
+  color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500;
+  padding: 0 14px; height: 56px; display: flex; align-items: center;
+  border-bottom: 2px solid transparent; transition: color .15s, border-color .15s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--accent); border-bottom-color: var(--accent); }
 
+/* ── STATUS BAR ── */
 .status-bar {
-  margin: 1.25rem 1.5rem;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; padding: .75rem 1.25rem;
-  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 10px 2rem; display: flex; align-items: center; gap: 10px;
 }
-.status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted2); flex-shrink: 0; transition: all .4s; }
-.status-dot.on { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-#status-text { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.player-tabs { margin-left: auto; display: flex; gap: 6px; }
+.s-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ccc; flex-shrink: 0; transition: background .4s;
+}
+.s-dot.on { background: var(--green); box-shadow: 0 0 0 3px rgba(21,183,122,.15); }
+#s-text { font-family: var(--mono); font-size: 12px; color: var(--text2); }
+.p-tabs { margin-left: auto; display: flex; gap: 4px; }
 .ptab {
-  display: flex; align-items: center; gap: 5px;
-  padding: 3px 10px; border-radius: 100px; font-size: 11px; font-family: var(--mono);
-  border: 1px solid var(--border); color: var(--muted2); cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 5px; padding: 4px 11px;
+  border-radius: 100px; font-size: 11px; font-family: var(--mono); font-weight: 500;
+  border: 1px solid var(--border); color: var(--text3); cursor: pointer;
+  background: var(--surface); transition: all .2s;
 }
-.ptab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-.ptab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted2); }
-.ptab.active .ptab-dot { background: var(--accent); }
+.ptab.on { border-color: var(--accent); color: var(--accent); background: #edf3fe; }
+.ptab-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); }
+.ptab.on .ptab-dot { background: var(--accent); }
 
+/* ── NO CONTROLLER ── */
 #no-ctrl {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 60vh; text-align: center; padding: 2rem;
+  min-height: calc(100vh - 113px); text-align: center; padding: 3rem;
 }
-.no-ctrl-glyph { font-size: 56px; margin-bottom: 1.5rem; opacity: .2; }
-.no-ctrl-title { font-size: 20px; font-weight: 600; margin-bottom: .5rem; }
-.no-ctrl-sub { color: var(--muted); font-size: 14px; max-width: 380px; line-height: 1.7; margin-bottom: 2rem; }
-.steps { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
-.step { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem; width: 140px; text-align: center; }
-.step-n { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-bottom: 5px; }
-.step p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.no-icon { font-size: 64px; margin-bottom: 1.5rem; opacity: .25; }
+.no-title { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
+.no-sub { color: var(--text3); font-size: 14px; max-width: 380px; line-height: 1.7; margin-bottom: 2rem; }
+.steps-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.step-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 1rem 1.25rem; width: 150px; text-align: center; box-shadow: var(--shadow);
+}
+.step-n { font-family: var(--mono); font-size: 11px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+.step-card p { font-size: 12px; color: var(--text2); line-height: 1.5; }
 
-#ctrl-view { display: none; padding: 0 1.5rem 2rem; }
+/* ── DASHBOARD ── */
+#dash { display: none; }
+.dash-wrap { max-width: 1200px; margin: 0 auto; padding: 1.25rem 1.5rem 3rem; }
 
-.dashboard {
+/* Main 2-col grid */
+.main-grid {
   display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 1rem;
+  grid-template-columns: 420px 1fr;
+  gap: 1.25rem;
   align-items: start;
 }
-@media (max-width: 860px) { .dashboard { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
 
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.panel-head { display: flex; align-items: center; justify-content: space-between; padding: .65rem 1.1rem; border-bottom: 1px solid var(--border); }
-.panel-head-left { display: flex; align-items: center; gap: 8px; }
-.panel-title { font-size: 12px; font-weight: 600; color: var(--text); }
-.panel-sub { font-size: 10px; color: var(--muted); font-family: var(--mono); }
-.panel-body { padding: 1rem 1.1rem; }
+/* ── CARD ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow); overflow: hidden;
+}
+.card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+}
+.card-head-left { display: flex; align-items: center; gap: 9px; }
+.ch-icon {
+  width: 30px; height: 30px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ch-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.ch-sub   { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.card-body { padding: 16px; }
 
-/* Controller visual */
-.ctrl-top { display: flex; align-items: flex-start; justify-content: space-between; padding: .75rem 1.1rem; border-bottom: 1px solid var(--border); }
-.ctrl-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.ctrl-idstr { font-size: 10px; color: var(--muted); font-family: var(--mono); margin-top: 3px; max-width: 260px; word-break: break-all; }
-.ctrl-badge { font-size: 10px; font-family: var(--mono); padding: 3px 9px; border-radius: 100px; border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+/* ── CONTROLLER CARD ── */
+.ctrl-meta { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.ctrl-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.ctrl-id   { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-top: 3px; }
+.ctrl-badge {
+  font-size: 10px; font-family: var(--mono); padding: 3px 9px;
+  border-radius: 100px; border: 1px solid var(--border2);
+  color: var(--text2); background: var(--surface2); white-space: nowrap;
+}
 
-.ctrl-svg-wrap { display: flex; justify-content: center; padding: 1.5rem 1rem 1rem; }
+/* SVG container */
+.svg-wrap { display: flex; justify-content: center; padding: 20px 16px 12px; background: var(--surface2); }
 
-/* SVG class styles */
-.c-body { fill: var(--surface2); stroke: var(--border2); stroke-width: 1.5; }
-.c-stick-base { fill: var(--surface3); stroke: var(--border2); stroke-width: 1.2; }
-.c-stick-knob { fill: var(--surface2); stroke: var(--border2); stroke-width: 1; }
-.btn-face { fill: var(--surface3); stroke: var(--border2); stroke-width: 1.2; transition: fill .08s, stroke .08s; }
-.btn-face.lit-a { fill: #2e7d32; stroke: #66bb6a; }
-.btn-face.lit-b { fill: #c62828; stroke: #ef5350; }
-.btn-face.lit-x { fill: #1565c0; stroke: #64b5f6; }
-.btn-face.lit-y { fill: #e65100; stroke: #ffb74d; }
-.btn-gen { fill: var(--surface3); stroke: var(--border2); stroke-width: 1.2; transition: fill .08s; }
-.btn-gen.lit { fill: rgba(0,229,160,.3); stroke: var(--accent); }
-.btn-shoulder { fill: var(--surface3); stroke: var(--border2); stroke-width: 1.2; transition: fill .08s; }
-.btn-shoulder.lit { fill: rgba(108,92,231,.4); stroke: #a78bfa; }
-.btn-trigger { fill: var(--surface2); stroke: var(--border2); stroke-width: 1.5; transition: fill .08s; }
-.btn-trigger.lit { fill: rgba(253,112,67,.4); stroke: #ff8a65; }
-.dpad-piece { fill: var(--surface3); stroke: var(--border2); stroke-width: 1.2; transition: fill .08s; }
-.dpad-piece.lit { fill: rgba(0,229,160,.35); stroke: var(--accent); }
-.btn-lbl { font-size: 7.5px; font-weight: 700; font-family: 'Space Mono',monospace; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+/* ── CONTROLLER SVG BUTTON CLASSES ── */
+/* Base fills - light neutral style */
+.ct-body    { fill: #e8eaf0; stroke: #c8cad8; stroke-width: 1.5; }
+.ct-grip    { fill: #dfe1ea; stroke: #c8cad8; stroke-width: 1.2; }
+.ct-sbase   { fill: #d4d6e2; stroke: #b8bacb; stroke-width: 1.2; }   /* stick outer ring */
+.ct-sknob   { fill: #c4c6d4; stroke: #a8aabe; stroke-width: 1; }    /* stick top */
+.ct-detail  { fill: #cbcdd9; stroke: #b0b3c3; stroke-width: 1; }
 
-.ctrl-legend { display: flex; gap: 1.2rem; padding: .65rem 1.1rem; border-top: 1px solid var(--border); }
-.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+/* Buttons – all share the same resting style */
+.cb { fill: #d0d2df; stroke: #b4b7ca; stroke-width: 1.2; transition: fill .07s, stroke .07s; }
+/* Face button colors when lit */
+.cb.lit-a { fill: #1b8a4a; stroke: #27ae60; }
+.cb.lit-b { fill: #c0392b; stroke: #e74c3c; }
+.cb.lit-x { fill: #1a5ba8; stroke: #2980b9; }
+.cb.lit-y { fill: #c07a00; stroke: #e67e22; }
+/* Generic lit (bumpers, center, dpad) */
+.cb.lit   { fill: #1a73e8; stroke: #1558b0; }
+/* Trigger lit */
+.ct-trig  { fill: #d0d2df; stroke: #b4b7ca; stroke-width: 1.5; transition: fill .07s; }
+.ct-trig.lit { fill: #e65100; stroke: #bf360c; }
+
+/* Text labels on SVG */
+.svg-lbl {
+  font-family: 'Inter', sans-serif; font-size: 8px; font-weight: 600;
+  text-anchor: middle; dominant-baseline: central; pointer-events: none;
+  fill: #7a7d94;
+}
+.svg-lbl.face-a { fill: #155724; }
+.svg-lbl.face-b { fill: #7f1d1d; }
+.svg-lbl.face-x { fill: #1e3a6e; }
+.svg-lbl.face-y { fill: #7c3c00; }
+
+/* Legend */
+.ctrl-legend {
+  display: flex; gap: 1.5rem; padding: 10px 16px;
+  border-top: 1px solid var(--border); background: var(--surface);
+}
+.leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); }
 .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
 
-.info-strip { display: flex; gap: 1.25rem; flex-wrap: wrap; padding: .65rem 1.1rem; border-top: 1px solid var(--border); }
-.info-k { font-size: 9px; font-family: var(--mono); color: var(--muted2); text-transform: uppercase; letter-spacing: .5px; }
-.info-v { font-size: 12px; font-family: var(--mono); color: var(--text); margin-top: 1px; }
-
-/* Right column */
-.right-col { display: flex; flex-direction: column; gap: 1rem; }
-
-/* Sticks */
-.sticks-row { display: flex; gap: 1.5rem; justify-content: center; padding: .5rem 0; }
-.stick-group { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.stick-circle {
-  position: relative; width: 108px; height: 108px;
-  background: var(--surface2); border-radius: 50%; border: 1.5px solid var(--border2);
+/* Info row */
+.info-row {
+  display: flex; gap: 0; border-top: 1px solid var(--border);
+  overflow-x: auto;
 }
-.stick-circle::before, .stick-circle::after {
+.info-cell {
+  flex: 1; padding: 8px 14px; border-right: 1px solid var(--border);
+  min-width: 70px;
+}
+.info-cell:last-child { border-right: none; }
+.ik { font-size: 9px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: .5px; }
+.iv { font-size: 12px; font-family: var(--mono); color: var(--text); font-weight: 500; margin-top: 2px; }
+
+/* ── RIGHT COLUMN ── */
+.right-col { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── ANALOG STICKS ── */
+.sticks-wrap { display: flex; gap: 2rem; justify-content: center; padding: 8px 0; }
+.stick-grp { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.stick-ring {
+  position: relative; width: 120px; height: 120px;
+  border-radius: 50%; background: var(--surface2);
+  border: 1.5px solid var(--border2);
+}
+/* crosshair lines */
+.stick-ring::before, .stick-ring::after {
   content: ''; position: absolute; background: var(--border2);
 }
-.stick-circle::before { width: 1px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
-.stick-circle::after  { height: 1px; width: 100%; top: 50%; left: 0; transform: translateY(-50%); }
-.stick-dot {
-  position: absolute; width: 14px; height: 14px; border-radius: 50%;
-  background: var(--accent); top: 50%; left: 50%; transform: translate(-50%,-50%);
-  box-shadow: 0 0 6px rgba(0,229,160,.6); transition: top .05s, left .05s; z-index: 2;
+.stick-ring::before { width: 1px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
+.stick-ring::after  { height: 1px; width: 100%; top: 50%;  left: 0; transform: translateY(-50%); }
+/* deadzone circle */
+.stick-dz {
+  position: absolute; width: 20%; height: 20%;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  border: 1px dashed var(--border2); border-radius: 50%;
 }
-.stick-name { font-size: 11px; font-weight: 600; font-family: var(--mono); }
-.stick-xy   { font-size: 10px; color: var(--muted); font-family: var(--mono); }
-.stick-err  { font-size: 10px; color: var(--accent3); font-family: var(--mono); }
+.stick-dot-el {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); border: 2px solid #fff;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  box-shadow: 0 1px 4px rgba(26,115,232,.4);
+  transition: top .04s, left .04s; z-index: 2;
+}
+.stick-lbl { font-size: 11px; font-weight: 600; color: var(--text); font-family: var(--mono); }
+.stick-xy  { font-size: 10px; color: var(--text3); font-family: var(--mono); }
+.stick-err { font-size: 10px; color: var(--trigger); font-family: var(--mono); font-weight: 500; }
 
-/* Triggers */
-.triggers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.trig-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.trig-label { font-size: 11px; font-family: var(--mono); color: var(--muted); }
-.trig-bar-wrap { width: 100%; height: 110px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
-.trig-bar { width: 100%; height: 0%; background: var(--accent3); transition: height .05s; }
-.trig-val { font-size: 13px; font-family: var(--mono); font-weight: 700; color: var(--text); }
+/* ── TRIGGERS ── */
+.trig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.trig-col  { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.trig-lbl  { font-size: 11px; font-weight: 600; font-family: var(--mono); color: var(--text2); }
+.trig-track {
+  width: 100%; height: 130px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r-sm); overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end; position: relative;
+}
+/* grid lines */
+.trig-track::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 32px, var(--border) 32px, var(--border) 33px);
+  pointer-events: none;
+}
+.trig-fill { width: 100%; height: 0%; background: var(--trigger); border-radius: 0 0 6px 6px; transition: height .04s; position: relative; z-index: 1; }
+.trig-val  { font-size: 15px; font-family: var(--mono); font-weight: 700; color: var(--text); }
+.trig-pct  { font-size: 10px; color: var(--text3); font-family: var(--mono); }
 
-/* Vibration */
+/* ── VIBRATION ── */
 .vib-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .vib-btn {
-  padding: 10px 8px; border-radius: 8px; font-size: 11px; font-family: var(--mono);
-  cursor: pointer; transition: all .15s; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--muted); text-align: center;
-  font-weight: 700; letter-spacing: .5px;
+  padding: 12px 8px; border-radius: var(--r-sm);
+  font-size: 11px; font-family: var(--mono); font-weight: 700;
+  cursor: pointer; transition: all .15s;
+  border: 1.5px solid var(--border); background: var(--surface2);
+  color: var(--text2); text-align: center; letter-spacing: .3px;
 }
-.vib-btn:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(108,92,231,.12); }
-.vib-btn.active { background: rgba(108,92,231,.2); border-color: var(--accent2); color: var(--accent2); }
-.vib-sublabel { font-size: 9px; font-weight: 400; display: block; margin-top: 2px; color: var(--muted2); letter-spacing: 0; }
-.vib-note { font-size: 11px; color: var(--muted2); margin-top: 10px; line-height: 1.5; }
+.vib-btn span { display: block; font-size: 9px; font-weight: 400; color: var(--text3); margin-top: 3px; letter-spacing: 0; }
+.vib-btn:hover { border-color: var(--purple); color: var(--purple); background: #f3efff; }
+.vib-btn.on    { border-color: var(--purple); color: var(--purple); background: #ede9ff; }
+.vib-note { font-size: 11px; color: var(--text3); margin-top: 10px; line-height: 1.6; }
 
-/* Bottom strip */
-.bottom-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-@media (max-width: 700px) { .bottom-strip { grid-template-columns: 1fr; } }
+/* ── BOTTOM GRID ── */
+.bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.25rem; }
+@media (max-width: 700px) { .bottom-grid { grid-template-columns: 1fr; } }
 
 /* Raw data */
-.raw-section { margin-bottom: 12px; }
-.raw-lbl { font-size: 10px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 7px; }
-.btn-chips { display: flex; flex-wrap: wrap; gap: 4px; }
-.btn-chip {
-  min-width: 34px; height: 26px; border-radius: 5px;
-  background: var(--surface2); border: 1px solid var(--border);
-  font-size: 9px; font-family: var(--mono); color: var(--muted2);
-  display: flex; align-items: center; justify-content: center; padding: 0 4px;
-  transition: all .08s;
+.sec-lbl { font-size: 10px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.btn-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+.bchip {
+  min-width: 36px; height: 28px; padding: 0 6px;
+  border-radius: 6px; background: var(--surface2);
+  border: 1px solid var(--border); font-size: 9px;
+  font-family: var(--mono); color: var(--text3);
+  display: flex; align-items: center; justify-content: center;
+  transition: all .07s;
 }
-.btn-chip.lit { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.bchip.lit { background: #edf3fe; border-color: var(--accent); color: var(--accent); font-weight: 600; }
 
-.axes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 14px; }
-.axis-row { display: flex; align-items: center; gap: 6px; }
-.axis-id { font-size: 10px; font-family: var(--mono); color: var(--muted2); width: 12px; }
-.axis-track { flex: 1; height: 4px; background: var(--surface3); border-radius: 2px; position: relative; overflow: visible; }
-.axis-center { position: absolute; left: 50%; top: -2px; width: 1px; height: 8px; background: var(--border2); }
-.axis-fill { position: absolute; height: 100%; background: var(--blue); border-radius: 2px; top: 0; transition: all .05s; }
-.axis-val { font-size: 9px; font-family: var(--mono); color: var(--muted); width: 38px; text-align: right; }
+.axes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 16px; }
+.ax-row { display: flex; align-items: center; gap: 6px; }
+.ax-id  { font-size: 9px; font-family: var(--mono); color: var(--text3); width: 12px; }
+.ax-track { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; position: relative; border: 1px solid var(--border); }
+.ax-mid   { position: absolute; left: 50%; top: -3px; width: 1px; height: 10px; background: var(--border2); }
+.ax-fill  { position: absolute; height: 100%; background: var(--accent); border-radius: 2px; top: 0; transition: all .04s; }
+.ax-val   { font-size: 9px; font-family: var(--mono); color: var(--text2); width: 40px; text-align: right; }
 
 /* Drift */
-.drift-rows { display: flex; flex-direction: column; gap: 9px; }
-.drift-row { display: flex; align-items: center; gap: 8px; }
-.drift-k { font-size: 10px; font-family: var(--mono); color: var(--muted); width: 28px; }
-.drift-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
-.drift-fill { height: 100%; width: 0%; border-radius: 3px; background: var(--accent); transition: width .1s, background .3s; }
-.drift-fill.warn { background: #ffcc00; }
-.drift-fill.crit { background: #ff4757; }
-.drift-v { font-size: 10px; font-family: var(--mono); color: var(--muted); width: 38px; text-align: right; }
+.drift-rows { display: flex; flex-direction: column; gap: 10px; }
+.dr-row { display: flex; align-items: center; gap: 8px; }
+.dr-k { font-size: 10px; font-family: var(--mono); color: var(--text2); width: 28px; }
+.dr-track { flex: 1; height: 7px; background: var(--surface2); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+.dr-fill { height: 100%; width: 0%; border-radius: 3px; background: var(--green); transition: width .1s, background .3s; }
+.dr-fill.w { background: #f0b429; }
+.dr-fill.d { background: var(--red); }
+.dr-v { font-size: 10px; font-family: var(--mono); color: var(--text2); width: 38px; text-align: right; }
 
-/* Metric cards */
-.metrics-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .9rem 1.1rem; }
-.metric-k { font-size: 9px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
-.metric-v { font-size: 26px; font-family: var(--mono); font-weight: 700; color: var(--accent); }
-.metric-u { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+/* ── METRICS ROW ── */
+.metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.25rem; }
+.metric-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 14px 16px; box-shadow: var(--shadow);
+}
+.mk { font-size: 10px; font-family: var(--mono); color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.mv { font-size: 28px; font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.mu { font-size: 12px; font-family: var(--mono); color: var(--text3); }
 
-/* FAQ */
-.faq { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
-.faq h2 { font-size: 18px; font-weight: 600; letter-spacing: -.5px; margin-bottom: 1rem; }
-.faq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .75rem; margin-bottom: 2.5rem; }
-.faq-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
-.faq-card h3 { font-size: 13px; font-weight: 500; margin-bottom: .35rem; }
-.faq-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+/* ── FAQ ── */
+.faq { max-width: 1200px; margin: 2rem auto 0; padding: 0 1.5rem 4rem; }
+.faq-h { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: .75rem; }
+.faq-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px 16px; box-shadow: var(--shadow);
+}
+.faq-card h3 { font-size: 13px; font-weight: 600; margin-bottom: .35rem; }
+.faq-card p  { font-size: 12px; color: var(--text2); line-height: 1.6; }
 
-footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.footer-links { display: flex; gap: 1.5rem; }
-.footer-links a { color: var(--muted); text-decoration: none; font-size: 12px; }
-.footer-links a:hover { color: var(--text); }
-.footer-copy { font-size: 11px; color: var(--muted2); font-family: var(--mono); }
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); background: var(--surface);
+  padding: 16px 2rem; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.fl { display: flex; gap: 1.5rem; }
+.fl a { color: var(--text2); text-decoration: none; font-size: 12px; }
+.fl a:hover { color: var(--text); }
+.fc { font-size: 11px; color: var(--text3); font-family: var(--mono); }
 
 .hidden { display: none !important; }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="index.html">GAMEPAD_TESTER</a>
+  <a class="logo" href="index.html">GAMEPAD_TESTER</a>
   <div class="nav-links">
     <a href="index.html" class="active">Test</a>
     <a href="about.html">About</a>
@@ -244,444 +351,497 @@ footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: fle
 
 <!-- STATUS BAR -->
 <div class="status-bar">
-  <div class="status-dot" id="sdot"></div>
-  <span id="status-text">No controller detected — connect via USB or Bluetooth and press any button</span>
-  <div class="player-tabs">
-    <div class="ptab active" data-idx="0"><div class="ptab-dot"></div>P1</div>
-    <div class="ptab" data-idx="1"><div class="ptab-dot"></div>P2</div>
-    <div class="ptab" data-idx="2"><div class="ptab-dot"></div>P3</div>
-    <div class="ptab" data-idx="3"><div class="ptab-dot"></div>P4</div>
+  <div class="s-dot" id="sdot"></div>
+  <span id="s-text">No controller detected — connect via USB or Bluetooth and press any button</span>
+  <div class="p-tabs">
+    <div class="ptab on" data-i="0"><div class="ptab-dot"></div>P1</div>
+    <div class="ptab" data-i="1"><div class="ptab-dot"></div>P2</div>
+    <div class="ptab" data-i="2"><div class="ptab-dot"></div>P3</div>
+    <div class="ptab" data-i="3"><div class="ptab-dot"></div>P4</div>
   </div>
 </div>
 
-<!-- NO CONTROLLER STATE -->
+<!-- NO CONTROLLER -->
 <div id="no-ctrl">
-  <div class="no-ctrl-glyph">🎮</div>
-  <div class="no-ctrl-title">Connect Your Controller</div>
-  <p class="no-ctrl-sub">Plug in via USB or pair via Bluetooth, then press any button to wake the Gamepad API.</p>
-  <div class="steps">
-    <div class="step"><div class="step-n">01</div><p>Connect via USB or Bluetooth</p></div>
-    <div class="step"><div class="step-n">02</div><p>Press any button to activate</p></div>
-    <div class="step"><div class="step-n">03</div><p>Inputs appear in real time</p></div>
+  <div class="no-icon">🎮</div>
+  <div class="no-title">Connect Your Controller</div>
+  <p class="no-sub">Plug in via USB or pair via Bluetooth, then press any button to wake the browser Gamepad API.</p>
+  <div class="steps-row">
+    <div class="step-card"><div class="step-n">01</div><p>Connect via USB or Bluetooth</p></div>
+    <div class="step-card"><div class="step-n">02</div><p>Press any button to activate</p></div>
+    <div class="step-card"><div class="step-n">03</div><p>All inputs appear in real time</p></div>
   </div>
 </div>
 
-<!-- MAIN DASHBOARD -->
-<div id="ctrl-view">
+<!-- DASHBOARD -->
+<div id="dash">
+<div class="dash-wrap">
+<div class="main-grid">
 
-  <div class="dashboard">
-
-    <!-- LEFT: CONTROLLER VISUAL -->
-    <div class="panel">
-      <div class="ctrl-top">
+  <!-- ══ LEFT: CONTROLLER VISUAL ══ -->
+  <div class="card">
+    <div class="ctrl-meta">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
         <div>
           <div class="ctrl-name" id="ctrl-name">Controller</div>
-          <div class="ctrl-idstr" id="ctrl-idstr">—</div>
+          <div class="ctrl-id" id="ctrl-id">—</div>
         </div>
         <div class="ctrl-badge" id="ctrl-badge">STANDARD GAMEPAD</div>
       </div>
+    </div>
 
-      <div class="ctrl-svg-wrap">
-        <!--
-          Xbox Series X style controller — clean outline, properly shaped grips.
-          ViewBox: 400 x 290
-        -->
-        <svg viewBox="0 0 400 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:370px">
+    <!-- ── CONTROLLER SVG ── 
+         Clean Xbox Series X outline style, similar to controllertest.io:
+         - soft rounded body
+         - visible bumpers/triggers above
+         - Xbox stick placement (L stick bottom-left, R stick bottom-center-right)
+         - clean separate face buttons with letter labels
+         - D-pad cross with individual highlight zones
+    -->
+    <div class="svg-wrap">
+      <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px">
 
-          <!-- TRIGGERS (rendered behind body) -->
-          <path id="svg-lt" class="btn-trigger" d="M 54,8 Q 52,8 50,10 L 46,30 Q 44,38 50,42 L 120,42 Q 126,38 124,30 L 120,10 Q 118,8 116,8 Z"/>
-          <text x="85" y="28" class="btn-lbl" fill="#4a4f6a">LT</text>
+        <!-- ── TRIGGERS (drawn first, behind body) ── -->
+        <!-- LT: left trigger, angled pill shape -->
+        <path id="svg-lt" class="ct-trig"
+          d="M 58,6 C 56,6 52,8 50,12 L 44,36 C 42,44 48,50 56,50 L 134,50 C 142,50 146,44 144,36 L 140,16 C 138,8 134,6 130,6 Z"/>
+        <text x="94" y="31" class="svg-lbl">LT</text>
 
-          <path id="svg-rt" class="btn-trigger" d="M 284,8 Q 282,8 280,10 L 276,30 Q 274,38 280,42 L 350,42 Q 356,38 354,30 L 350,10 Q 348,8 346,8 Z"/>
-          <text x="315" y="28" class="btn-lbl" fill="#4a4f6a">RT</text>
+        <!-- RT: right trigger -->
+        <path id="svg-rt" class="ct-trig"
+          d="M 382,6 C 384,6 388,8 390,12 L 396,36 C 398,44 392,50 384,50 L 306,50 C 298,50 294,44 296,36 L 300,16 C 302,8 306,6 310,6 Z"/>
+        <text x="346" y="31" class="svg-lbl">RT</text>
 
-          <!-- BUMPERS -->
-          <rect id="svg-lb" class="btn-shoulder" x="52" y="44" width="72" height="20" rx="7"/>
-          <text x="88" y="57" class="btn-lbl" fill="#4a4f6a">LB</text>
+        <!-- ── BUMPERS ── -->
+        <rect id="svg-lb" class="cb" x="56" y="52" width="82" height="22" rx="8"/>
+        <text x="97" y="66" class="svg-lbl">LB</text>
 
-          <rect id="svg-rb" class="btn-shoulder" x="276" y="44" width="72" height="20" rx="7"/>
-          <text x="312" y="57" class="btn-lbl" fill="#4a4f6a">RB</text>
+        <rect id="svg-rb" class="cb" x="302" y="52" width="82" height="22" rx="8"/>
+        <text x="343" y="66" class="svg-lbl">RB</text>
 
-          <!-- MAIN BODY (Xbox Series X shape) -->
-          <path class="c-body" d="
-            M 108,64
-            Q 88,64 72,76
-            L 36,128
-            Q 20,156 22,192
-            Q 24,226 52,244
-            Q 72,256 96,248
-            Q 118,240 136,216
-            L 150,194
-            L 250,194
-            L 264,216
-            Q 282,240 304,248
-            Q 328,256 348,244
-            Q 376,226 378,192
-            Q 380,156 364,128
-            L 328,76
-            Q 312,64 292,64
-            Z
-          "/>
+        <!-- ── MAIN BODY ── -->
+        <!-- Outer body: Xbox Series X silhouette, wide grips, rounded shoulder transition -->
+        <path class="ct-body" d="
+          M 118,76
+          C 96,76 78,84 66,98
+          L 28,152
+          C 14,174 12,200 16,224
+          C 20,248 38,266 64,272
+          C 82,278 102,272 118,258
+          C 130,248 140,232 148,214
+          L 160,196
+          L 280,196
+          L 292,214
+          C 300,232 310,248 322,258
+          C 338,272 358,278 376,272
+          C 402,266 420,248 424,224
+          C 428,200 426,174 412,152
+          L 374,98
+          C 362,84 344,76 322,76
+          Z
+        "/>
 
-          <!-- Subtle grip lines -->
-          <path d="M 38,175 Q 44,208 60,232" stroke="var(--border)" stroke-width="1.2" fill="none"/>
-          <path d="M 50,170 Q 56,202 72,226" stroke="var(--border)" stroke-width="1.2" fill="none"/>
-          <path d="M 362,175 Q 356,208 340,232" stroke="var(--border)" stroke-width="1.2" fill="none"/>
-          <path d="M 350,170 Q 344,202 328,226" stroke="var(--border)" stroke-width="1.2" fill="none"/>
+        <!-- subtle grip texture -->
+        <path d="M 30,195 C 36,222 50,248 68,264" stroke="#b8bacb" stroke-width="1.2" fill="none" opacity=".6"/>
+        <path d="M 44,188 C 50,215 64,240 80,256" stroke="#b8bacb" stroke-width="1.2" fill="none" opacity=".6"/>
+        <path d="M 410,195 C 404,222 390,248 372,264" stroke="#b8bacb" stroke-width="1.2" fill="none" opacity=".6"/>
+        <path d="M 396,188 C 390,215 376,240 360,256" stroke="#b8bacb" stroke-width="1.2" fill="none" opacity=".6"/>
 
-          <!-- D-PAD -->
-          <rect id="dp-up"    class="dpad-piece" x="86"  y="104" width="22" height="30" rx="4"/>
-          <rect id="dp-down"  class="dpad-piece" x="86"  y="148" width="22" height="30" rx="4"/>
-          <rect id="dp-left"  class="dpad-piece" x="62"  y="128" width="30" height="22" rx="4"/>
-          <rect id="dp-right" class="dpad-piece" x="102" y="128" width="30" height="22" rx="4"/>
-          <!-- D-pad center -->
-          <rect x="86" y="128" width="22" height="22" fill="var(--surface3)"/>
-          <!-- Arrows -->
-          <text x="97"  y="120" class="btn-lbl" fill="#4a4f6a">▲</text>
-          <text x="97"  y="163" class="btn-lbl" fill="#4a4f6a">▼</text>
-          <text x="73"  y="140" class="btn-lbl" fill="#4a4f6a">◀</text>
-          <text x="121" y="140" class="btn-lbl" fill="#4a4f6a">▶</text>
+        <!-- ── D-PAD ── 
+             Individual rectangles for each arm so each can highlight independently -->
+        <rect id="dp-up"    class="cb" x="93"  y="112" width="24" height="32" rx="5"/>
+        <rect id="dp-down"  class="cb" x="93"  y="160" width="24" height="32" rx="5"/>
+        <rect id="dp-left"  class="cb" x="65"  y="140" width="32" height="24" rx="5"/>
+        <rect id="dp-right" class="cb" x="113" y="140" width="32" height="24" rx="5"/>
+        <!-- D-pad center fill to cover join seams -->
+        <rect x="93" y="140" width="24" height="24" fill="#d0d2df"/>
+        <!-- direction arrows (Unicode chars) -->
+        <text x="105" y="131" class="svg-lbl" font-size="9">▲</text>
+        <text x="105" y="180" class="svg-lbl" font-size="9">▼</text>
+        <text x="78"  y="153" class="svg-lbl" font-size="9">◀</text>
+        <text x="131" y="153" class="svg-lbl" font-size="9">▶</text>
 
-          <!-- CENTER BUTTONS: View + Menu -->
-          <rect id="svg-b8"  class="btn-gen" x="168" y="110" width="24" height="14" rx="5"/>
-          <text x="180" y="120" class="btn-lbl" fill="#4a4f6a" font-size="6.5">VIEW</text>
+        <!-- ── CENTER BUTTONS ── -->
+        <!-- View (back/select) -->
+        <rect id="svg-b8" class="cb" x="180" y="122" width="26" height="16" rx="6"/>
+        <text x="193" y="133" class="svg-lbl" font-size="6.5">VIEW</text>
 
-          <rect id="svg-b9"  class="btn-gen" x="208" y="110" width="24" height="14" rx="5"/>
-          <text x="220" y="120" class="btn-lbl" fill="#4a4f6a" font-size="6.5">MENU</text>
+        <!-- Menu (start) -->
+        <rect id="svg-b9" class="cb" x="234" y="122" width="26" height="16" rx="6"/>
+        <text x="247" y="133" class="svg-lbl" font-size="6.5">MENU</text>
 
-          <!-- Xbox / Home button -->
-          <circle id="svg-b16" class="btn-gen" cx="200" cy="148" r="15"/>
-          <circle cx="200" cy="148" r="9" fill="none" stroke="var(--border2)" stroke-width="1.2"/>
-          <text x="200" y="152" class="btn-lbl" fill="#4a4f6a" font-size="9">X</text>
+        <!-- Home / Xbox button – circle with X -->
+        <circle id="svg-b16" class="cb" cx="220" cy="158" r="16"/>
+        <circle cx="220" cy="158" r="10" fill="none" stroke="#b4b7ca" stroke-width="1.2"/>
+        <text x="220" y="162" class="svg-lbl" font-size="9" font-weight="700">X</text>
 
-          <!-- FACE BUTTONS -->
-          <!-- A (bottom, green) -->
-          <circle id="svg-b0" class="btn-face" cx="308" cy="162" r="14"/>
-          <text id="lbl-b0" x="308" y="166" class="btn-lbl" fill="#388e3c">A</text>
-          <!-- B (right, red) -->
-          <circle id="svg-b1" class="btn-face" cx="328" cy="140" r="14"/>
-          <text id="lbl-b1" x="328" y="144" class="btn-lbl" fill="#c62828">B</text>
-          <!-- X (left, blue) -->
-          <circle id="svg-b2" class="btn-face" cx="288" cy="140" r="14"/>
-          <text id="lbl-b2" x="288" y="144" class="btn-lbl" fill="#1565c0">X</text>
-          <!-- Y (top, orange) -->
-          <circle id="svg-b3" class="btn-face" cx="308" cy="118" r="14"/>
-          <text id="lbl-b3" x="308" y="122" class="btn-lbl" fill="#e65100">Y</text>
+        <!-- ── FACE BUTTONS ── -->
+        <!-- A – bottom, green -->
+        <circle id="svg-b0" class="cb" cx="346" cy="168" r="15"/>
+        <text id="lbl0" x="346" y="172" class="svg-lbl face-a">A</text>
 
-          <!-- LEFT ANALOG STICK (Xbox layout: bottom-left position) -->
-          <circle class="c-stick-base" cx="152" cy="164" r="30"/>
-          <circle id="svg-sl" class="c-stick-knob" cx="152" cy="164" r="20"/>
-          <!-- Stick L3 click -->
-          <circle id="svg-b10" fill="transparent" stroke="transparent" cx="152" cy="164" r="20"/>
-          <text x="152" y="168" class="btn-lbl" fill="#32384f" font-size="6.5">L3</text>
+        <!-- B – right, red -->
+        <circle id="svg-b1" class="cb" cx="368" cy="145" r="15"/>
+        <text id="lbl1" x="368" y="149" class="svg-lbl face-b">B</text>
 
-          <!-- RIGHT ANALOG STICK (Xbox layout: bottom-right of center) -->
-          <circle class="c-stick-base" cx="258" cy="164" r="30"/>
-          <circle id="svg-sr" class="c-stick-knob" cx="258" cy="164" r="20"/>
-          <circle id="svg-b11" fill="transparent" stroke="transparent" cx="258" cy="164" r="20"/>
-          <text x="258" y="168" class="btn-lbl" fill="#32384f" font-size="6.5">R3</text>
+        <!-- X – left, blue -->
+        <circle id="svg-b2" class="cb" cx="324" cy="145" r="15"/>
+        <text id="lbl2" x="324" y="149" class="svg-lbl face-x">X</text>
 
-        </svg>
+        <!-- Y – top, orange -->
+        <circle id="svg-b3" class="cb" cx="346" cy="122" r="15"/>
+        <text id="lbl3" x="346" y="126" class="svg-lbl face-y">Y</text>
+
+        <!-- ── LEFT ANALOG STICK (Xbox: lower-left) ── -->
+        <circle class="ct-sbase" cx="162" cy="172" r="32"/>
+        <circle id="svg-sl" class="ct-sknob" cx="162" cy="172" r="21"/>
+        <!-- L3 click zone (transparent) -->
+        <circle id="svg-b10" fill="transparent" stroke="transparent" cx="162" cy="172" r="21"/>
+        <text x="162" y="176" class="svg-lbl" font-size="7">L3</text>
+
+        <!-- ── RIGHT ANALOG STICK (Xbox: lower-right of center) ── -->
+        <circle class="ct-sbase" cx="278" cy="172" r="32"/>
+        <circle id="svg-sr" class="ct-sknob" cx="278" cy="172" r="21"/>
+        <circle id="svg-b11" fill="transparent" stroke="transparent" cx="278" cy="172" r="21"/>
+        <text x="278" y="176" class="svg-lbl" font-size="7">R3</text>
+
+      </svg>
+    </div><!-- /svg-wrap -->
+
+    <!-- Legend -->
+    <div class="ctrl-legend">
+      <div class="leg">
+        <div class="leg-dot" style="background:var(--accent)"></div>
+        Button Pressed
       </div>
-
-      <div class="ctrl-legend">
-        <div class="leg-item"><div class="leg-dot" style="background:var(--accent)"></div>Button Pressed</div>
-        <div class="leg-item"><div class="leg-dot" style="background:var(--surface3);border:1px solid var(--border2)"></div>Waiting for Input</div>
-      </div>
-
-      <div class="info-strip">
-        <div><div class="info-k">Index</div><div class="info-v" id="ii-index">—</div></div>
-        <div><div class="info-k">Connected</div><div class="info-v" id="ii-conn">—</div></div>
-        <div><div class="info-k">Mapping</div><div class="info-v" id="ii-map">—</div></div>
-        <div><div class="info-k">Buttons</div><div class="info-v" id="ii-btns">—</div></div>
-        <div><div class="info-k">Axes</div><div class="info-v" id="ii-axes">—</div></div>
-        <div><div class="info-k">Vibration</div><div class="info-v" id="ii-vib">—</div></div>
+      <div class="leg">
+        <div class="leg-dot" style="background:var(--surface3);border:1px solid var(--border2)"></div>
+        Waiting for Input
       </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="right-col">
+    <!-- Info strip -->
+    <div class="info-row">
+      <div class="info-cell"><div class="ik">Index</div><div class="iv" id="ii-idx">—</div></div>
+      <div class="info-cell"><div class="ik">Connected</div><div class="iv" id="ii-con">—</div></div>
+      <div class="info-cell"><div class="ik">Mapping</div><div class="iv" id="ii-map">—</div></div>
+      <div class="info-cell"><div class="ik">Buttons</div><div class="iv" id="ii-btn">—</div></div>
+      <div class="info-cell"><div class="ik">Axes</div><div class="iv" id="ii-axs">—</div></div>
+      <div class="info-cell"><div class="ik">Vibration</div><div class="iv" id="ii-vib">—</div></div>
+    </div>
+  </div><!-- /controller card -->
 
-      <!-- Analog Sticks -->
-      <div class="panel">
-        <div class="panel-head">
-          <div class="panel-head-left">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><circle cx="8" cy="8" r="6" stroke="var(--accent)" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="var(--accent)"/></svg>
-            <div>
-              <div class="panel-title" style="color:var(--accent)">Analog Sticks</div>
-              <div class="panel-sub">Linearity, Drift &amp; Circularity</div>
-            </div>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div class="sticks-row">
-            <div class="stick-group">
-              <div class="stick-circle"><div class="stick-dot" id="sl-dot"></div></div>
-              <div class="stick-name">LEFT STICK</div>
-              <div class="stick-xy" id="sl-xy">+0.00, +0.00</div>
-              <div class="stick-err" id="sl-err">Err: 0.0%</div>
-            </div>
-            <div class="stick-group">
-              <div class="stick-circle"><div class="stick-dot" id="sr-dot"></div></div>
-              <div class="stick-name">RIGHT STICK</div>
-              <div class="stick-xy" id="sr-xy">+0.00, +0.00</div>
-              <div class="stick-err" id="sr-err">Err: 0.0%</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- ══ RIGHT COLUMN ══ -->
+  <div class="right-col">
 
-      <!-- Triggers -->
-      <div class="panel">
-        <div class="panel-head">
-          <div class="panel-head-left">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M4 14 L8 2 L12 14" stroke="var(--accent3)" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
-            <div>
-              <div class="panel-title" style="color:var(--accent3)">Triggers</div>
-              <div class="panel-sub">Analog Pressure (0–1)</div>
-            </div>
+    <!-- Analog Sticks -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="ch-icon" style="background:#edf3fe">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#1a73e8" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" fill="#1a73e8"/></svg>
           </div>
-        </div>
-        <div class="panel-body">
-          <div class="triggers-grid">
-            <div class="trig-group">
-              <div class="trig-bar-wrap"><div class="trig-bar" id="tbar-l"></div></div>
-              <div class="trig-val" id="tval-l">0.00</div>
-              <div class="trig-label">LT / L2</div>
-            </div>
-            <div class="trig-group">
-              <div class="trig-bar-wrap"><div class="trig-bar" id="tbar-r"></div></div>
-              <div class="trig-val" id="tval-r">0.00</div>
-              <div class="trig-label">RT / R2</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vibration -->
-      <div class="panel">
-        <div class="panel-head">
-          <div class="panel-head-left">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0"><path d="M2 6 Q4 3 6 8 Q8 13 10 8 Q12 3 14 6" stroke="var(--accent2)" stroke-width="1.5" fill="none"/></svg>
-            <div>
-              <div class="panel-title" style="color:var(--accent2)">Vibration Test</div>
-              <div class="panel-sub">Dual Motor</div>
-            </div>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div class="vib-grid">
-            <button class="vib-btn" id="vb-heavy" onclick="doVib('heavy',this)">HEAVY<span class="vib-sublabel">Strong rumble</span></button>
-            <button class="vib-btn" id="vb-light" onclick="doVib('light',this)">LIGHT<span class="vib-sublabel">Gentle buzz</span></button>
-            <button class="vib-btn" id="vb-burst" onclick="doVib('burst',this)">BURST<span class="vib-sublabel">Quick × 3</span></button>
-            <button class="vib-btn" id="vb-pulse" onclick="doVib('pulse',this)">PULSE<span class="vib-sublabel">Repeating</span></button>
-          </div>
-          <p class="vib-note" id="vib-note">Requires Chrome or Edge on Windows. Firefox / Safari do not support the Vibration API.</p>
-        </div>
-      </div>
-
-    </div><!-- /right-col -->
-  </div><!-- /dashboard -->
-
-  <!-- BOTTOM ROW -->
-  <div class="bottom-strip">
-
-    <!-- Raw Data -->
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-head-left">
-          <div style="font-size:13px;font-family:var(--mono);color:var(--blue);line-height:1">01<br>10</div>
           <div>
-            <div class="panel-title">Raw Data</div>
-            <div class="panel-sub" id="raw-sub">standard · —</div>
+            <div class="ch-title" style="color:#1a73e8">Analog Sticks</div>
+            <div class="ch-sub">Linearity, Drift &amp; Circularity</div>
           </div>
         </div>
       </div>
-      <div class="panel-body">
-        <div class="raw-section">
-          <div class="raw-lbl">Axes</div>
-          <div class="axes-grid" id="axes-grid"></div>
-        </div>
-        <div class="raw-section" style="margin-bottom:0">
-          <div class="raw-lbl">Buttons</div>
-          <div class="btn-chips" id="btn-chips"></div>
+      <div class="card-body">
+        <div class="sticks-wrap">
+          <div class="stick-grp">
+            <div class="stick-ring">
+              <div class="stick-dz"></div>
+              <div class="stick-dot-el" id="sl-dot"></div>
+            </div>
+            <div class="stick-lbl">LEFT STICK</div>
+            <div class="stick-xy"  id="sl-xy">+0.00, +0.00</div>
+            <div class="stick-err" id="sl-err">Err: 0.0%</div>
+          </div>
+          <div class="stick-grp">
+            <div class="stick-ring">
+              <div class="stick-dz"></div>
+              <div class="stick-dot-el" id="sr-dot"></div>
+            </div>
+            <div class="stick-lbl">RIGHT STICK</div>
+            <div class="stick-xy"  id="sr-xy">+0.00, +0.00</div>
+            <div class="stick-err" id="sr-err">Err: 0.0%</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Drift Monitor -->
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-head-left">
+    <!-- Triggers -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="ch-icon" style="background:#fff3e0">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 14L8 2L12 14" stroke="#e65100" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
+          </div>
           <div>
-            <div class="panel-title">Stick Drift Monitor</div>
-            <div class="panel-sub">Resting offset per axis</div>
+            <div class="ch-title" style="color:#e65100">Triggers</div>
+            <div class="ch-sub">Analog Pressure (0–1)</div>
           </div>
         </div>
       </div>
-      <div class="panel-body">
-        <div class="drift-rows">
-          <div class="drift-row"><div class="drift-k">L · X</div><div class="drift-track"><div class="drift-fill" id="df-lx"></div></div><div class="drift-v" id="dv-lx">0.0%</div></div>
-          <div class="drift-row"><div class="drift-k">L · Y</div><div class="drift-track"><div class="drift-fill" id="df-ly"></div></div><div class="drift-v" id="dv-ly">0.0%</div></div>
-          <div class="drift-row"><div class="drift-k">R · X</div><div class="drift-track"><div class="drift-fill" id="df-rx"></div></div><div class="drift-v" id="dv-rx">0.0%</div></div>
-          <div class="drift-row"><div class="drift-k">R · Y</div><div class="drift-track"><div class="drift-fill" id="df-ry"></div></div><div class="drift-v" id="dv-ry">0.0%</div></div>
+      <div class="card-body">
+        <div class="trig-grid">
+          <div class="trig-col">
+            <div class="trig-track"><div class="trig-fill" id="tf-l"></div></div>
+            <div class="trig-val" id="tv-l">0.00</div>
+            <div class="trig-pct" id="tp-l">0%</div>
+            <div class="trig-lbl">LT / L2</div>
+          </div>
+          <div class="trig-col">
+            <div class="trig-track"><div class="trig-fill" id="tf-r"></div></div>
+            <div class="trig-val" id="tv-r">0.00</div>
+            <div class="trig-pct" id="tp-r">0%</div>
+            <div class="trig-lbl">RT / R2</div>
+          </div>
         </div>
-        <p style="font-size:10px;color:var(--muted2);margin-top:12px;line-height:1.5">Release all sticks. Above 2% may indicate drift; above 10% = significant wear.</p>
       </div>
     </div>
 
-  </div><!-- /bottom-strip -->
+    <!-- Vibration -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="ch-icon" style="background:#f3efff">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 7Q4 4 6 8Q8 12 10 8Q12 4 14 7" stroke="#7c4dff" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <div>
+            <div class="ch-title" style="color:#7c4dff">Vibration Test</div>
+            <div class="ch-sub">Dual Motor</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="vib-grid">
+          <button class="vib-btn" id="vb-heavy" onclick="doVib('heavy',this)">HEAVY<span>Strong rumble</span></button>
+          <button class="vib-btn" id="vb-light" onclick="doVib('light',this)">LIGHT<span>Gentle buzz</span></button>
+          <button class="vib-btn" id="vb-burst" onclick="doVib('burst',this)">BURST<span>Quick × 3</span></button>
+          <button class="vib-btn" id="vb-pulse" onclick="doVib('pulse',this)">PULSE<span>Repeating</span></button>
+        </div>
+        <p class="vib-note" id="vib-note">Requires Chrome or Edge on Windows. Firefox and Safari do not support the Vibration API.</p>
+      </div>
+    </div>
 
-  <!-- METRIC CARDS -->
-  <div class="metrics-row">
-    <div class="metric-card">
-      <div class="metric-k">Avg Input Latency</div>
-      <div><span class="metric-v" id="met-lat">—</span> <span class="metric-u">ms</span></div>
+  </div><!-- /right-col -->
+</div><!-- /main-grid -->
+
+<!-- BOTTOM GRID: Raw Data + Drift -->
+<div class="bottom-grid">
+
+  <!-- Raw Data -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="ch-icon" style="background:#e8f5e9;font-family:var(--mono);font-size:11px;color:#388e3c;font-weight:700;line-height:1.1;text-align:center">01<br>10</div>
+        <div>
+          <div class="ch-title">Raw Data</div>
+          <div class="ch-sub" id="raw-sub">standard · —</div>
+        </div>
+      </div>
     </div>
-    <div class="metric-card">
-      <div class="metric-k">Poll Rate</div>
-      <div><span class="metric-v" id="met-hz">—</span> <span class="metric-u">Hz</span></div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-k">Timestamp</div>
-      <div><span class="metric-v" id="met-ts" style="font-size:16px;line-height:2">—</span></div>
+    <div class="card-body">
+      <div class="sec-lbl">Buttons</div>
+      <div class="btn-chips" id="btn-chips"></div>
+      <div class="sec-lbl">Axes</div>
+      <div class="axes-grid" id="axes-grid"></div>
     </div>
   </div>
 
-</div><!-- /ctrl-view -->
+  <!-- Drift Monitor -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="ch-icon" style="background:#fff8e1">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="#f0b429" stroke-width="1.5"/><circle cx="8" cy="8" r="3" stroke="#e65100" stroke-width="1"/></svg>
+        </div>
+        <div>
+          <div class="ch-title">Stick Drift Monitor</div>
+          <div class="ch-sub">Resting offset per axis — release sticks to measure</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="drift-rows">
+        <div class="dr-row"><div class="dr-k">L · X</div><div class="dr-track"><div class="dr-fill" id="df-lx"></div></div><div class="dr-v" id="dv-lx">0.0%</div></div>
+        <div class="dr-row"><div class="dr-k">L · Y</div><div class="dr-track"><div class="dr-fill" id="df-ly"></div></div><div class="dr-v" id="dv-ly">0.0%</div></div>
+        <div class="dr-row"><div class="dr-k">R · X</div><div class="dr-track"><div class="dr-fill" id="df-rx"></div></div><div class="dr-v" id="dv-rx">0.0%</div></div>
+        <div class="dr-row"><div class="dr-k">R · Y</div><div class="dr-track"><div class="dr-fill" id="df-ry"></div></div><div class="dr-v" id="dv-ry">0.0%</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--text3);margin-top:14px;line-height:1.6">
+        Values above <strong style="color:#f0b429">2%</strong> may indicate drift.
+        Above <strong style="color:var(--red)">10%</strong> = significant wear — consider cleaning or replacing the stick module.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /bottom-grid -->
+
+<!-- METRIC CARDS -->
+<div class="metrics-row">
+  <div class="metric-card">
+    <div class="mk">Avg Input Latency</div>
+    <div><span class="mv" id="m-lat">—</span> <span class="mu">ms</span></div>
+  </div>
+  <div class="metric-card">
+    <div class="mk">Poll Rate</div>
+    <div><span class="mv" id="m-hz">—</span> <span class="mu">Hz</span></div>
+  </div>
+  <div class="metric-card">
+    <div class="mk">Timestamp</div>
+    <div><span class="mv" id="m-ts" style="font-size:18px;line-height:2.2">—</span></div>
+  </div>
+</div>
+
+</div><!-- /dash-wrap -->
+</div><!-- /dash -->
 
 <!-- FAQ -->
 <div class="faq">
-  <h2>What Can You Test?</h2>
+  <div class="faq-h">What Can You Test?</div>
   <div class="faq-grid">
-    <div class="faq-card"><h3>🔘 All Buttons</h3><p>Every face, shoulder, trigger, D-pad, stick click, and system button highlights on press.</p></div>
-    <div class="faq-card"><h3>🕹️ Analog Sticks</h3><p>XY position shown as a moving dot with numeric readout and circularity error percentage.</p></div>
-    <div class="faq-card"><h3>📉 Stick Drift</h3><p>Release all sticks and watch for non-zero resting values. Above 2% may indicate hardware wear.</p></div>
-    <div class="faq-card"><h3>📳 Vibration</h3><p>Test left and right rumble motors with heavy, light, burst, and pulse patterns.</p></div>
-    <div class="faq-card"><h3>⚡ Input Latency</h3><p>Estimates round-trip detection time in ms. Compare wired vs Bluetooth input lag.</p></div>
-    <div class="faq-card"><h3>🎮 Multi-Controller</h3><p>Up to 4 simultaneous pads via P1–P4 tabs. Switch active controller with one click.</p></div>
+    <div class="faq-card"><h3>🔘 All Buttons</h3><p>Every face, shoulder, trigger, D-pad, stick click, and system button highlights the moment it's pressed.</p></div>
+    <div class="faq-card"><h3>🕹️ Analog Sticks</h3><p>Real-time XY position shown as a moving dot with numeric readout and circularity error per stick.</p></div>
+    <div class="faq-card"><h3>📉 Stick Drift</h3><p>Release all sticks and watch for non-zero values. Above 2% may indicate hardware wear.</p></div>
+    <div class="faq-card"><h3>📳 Vibration</h3><p>Test left and right rumble motors with heavy, light, burst, and pulse patterns (Chrome/Edge on Windows).</p></div>
+    <div class="faq-card"><h3>⚡ Input Latency</h3><p>Estimates round-trip detection time in ms. Great for comparing wired vs Bluetooth lag.</p></div>
+    <div class="faq-card"><h3>🎮 Multi-Controller</h3><p>Up to 4 simultaneous pads supported via the P1–P4 tabs. Switch active controller with one click.</p></div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-links">
+  <div class="fl">
     <a href="about.html">About</a>
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
     <a href="contact.html">Contact</a>
   </div>
-  <span class="footer-copy">© 2025 gamepadtester1 — runs entirely in your browser · no data collected</span>
+  <span class="fc">© 2025 gamepadtester1 — runs entirely in your browser · no data collected</span>
 </footer>
 
 <script>
+/* ─── State ─── */
 let activeIdx = 0;
-let pollTimes = [];
-let latHistory = [];
-let lastPressT = null;
-let raf = null;
-let uiBuilt = false;
+let pollTs    = [];
+let latHist   = [];
+let presT     = null;
+let raf       = null;
+let uiReady   = false;
 
-// Player tabs
+/* ─── Player tabs ─── */
 document.querySelectorAll('.ptab').forEach(t => {
   t.addEventListener('click', () => {
-    document.querySelectorAll('.ptab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    activeIdx = +t.dataset.idx;
+    document.querySelectorAll('.ptab').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    activeIdx = +t.dataset.i;
   });
 });
 
+/* ─── Detect controller type from ID string ─── */
 function detectType(id) {
   const s = (id || '').toLowerCase();
   if (/playstation|dualshock|dualsense|054c/.test(s)) return 'PlayStation';
-  if (/xbox|045e|xinput|x360|xb/.test(s)) return 'Xbox';
-  if (/nintendo|pro controller|057e/.test(s)) return 'Nintendo';
+  if (/xbox|045e|xinput|x360/.test(s))                return 'Xbox';
+  if (/nintendo|pro controller|057e/.test(s))          return 'Nintendo';
   return 'Generic';
 }
 
-function applyFaceLabels(type) {
-  const map = {
-    PlayStation: {b0:'✕', b1:'○', b2:'□', b3:'△'},
-    Nintendo:    {b0:'B',  b1:'A',  b2:'Y',  b3:'X'},
-    Xbox:        {b0:'A',  b1:'B',  b2:'X',  b3:'Y'},
-    Generic:     {b0:'A',  b1:'B',  b2:'X',  b3:'Y'},
+/* Apply correct face button labels per controller type */
+function setFaceLabels(type) {
+  const L = {
+    PlayStation: ['✕','○','□','△'],
+    Nintendo:    ['B','A','Y','X'],
+    Xbox:        ['A','B','X','Y'],
+    Generic:     ['A','B','X','Y'],
   }[type];
-  Object.entries(map).forEach(([k,v]) => {
-    const el = document.getElementById('lbl-' + k);
-    if (el) el.textContent = v;
+  ['lbl0','lbl1','lbl2','lbl3'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = L[i];
   });
 }
 
+/* ─── Build dynamic UI (button chips + axis bars) ─── */
 function buildUI(gp) {
-  if (uiBuilt) return;
-  uiBuilt = true;
+  if (uiReady) return;
+  uiReady = true;
 
-  // Axes
-  const ag = document.getElementById('axes-grid');
-  ag.innerHTML = '';
-  for (let i = 0; i < gp.axes.length; i++) {
-    const d = document.createElement('div');
-    d.className = 'axis-row';
-    d.innerHTML = `<div class="axis-id">${i}</div>
-      <div class="axis-track">
-        <div class="axis-center"></div>
-        <div class="axis-fill" id="axf-${i}" style="left:50%;width:0%"></div>
-      </div>
-      <div class="axis-val" id="axv-${i}">+0.00</div>`;
-    ag.appendChild(d);
-  }
-
-  // Buttons
+  /* Button chips */
   const NAMES = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','L3','R3','↑','↓','←','→','Home'];
   const bc = document.getElementById('btn-chips');
   bc.innerHTML = '';
   for (let i = 0; i < gp.buttons.length; i++) {
     const d = document.createElement('div');
-    d.className = 'btn-chip'; d.id = 'bchip-' + i;
+    d.className = 'bchip'; d.id = 'bc-' + i;
+    d.textContent = i < NAMES.length ? NAMES[i] : String(i);
     d.title = 'Button ' + i;
-    d.textContent = NAMES[i] !== undefined ? NAMES[i] : String(i);
     bc.appendChild(d);
+  }
+
+  /* Axis bars */
+  const ag = document.getElementById('axes-grid');
+  ag.innerHTML = '';
+  for (let i = 0; i < gp.axes.length; i++) {
+    const d = document.createElement('div');
+    d.className = 'ax-row';
+    d.innerHTML = `<div class="ax-id">${i}</div>
+      <div class="ax-track">
+        <div class="ax-mid"></div>
+        <div class="ax-fill" id="af-${i}" style="left:50%;width:0%"></div>
+      </div>
+      <div class="ax-val" id="av-${i}">+0.00</div>`;
+    ag.appendChild(d);
   }
 }
 
+/* ─── Connect ─── */
 function onConnect(gp) {
   document.getElementById('no-ctrl').classList.add('hidden');
-  document.getElementById('ctrl-view').style.display = 'block';
+  document.getElementById('dash').style.display = 'block';
   document.getElementById('sdot').classList.add('on');
 
   const type = detectType(gp.id);
-  const shortId = gp.id.length > 52 ? gp.id.slice(0, 52) + '…' : gp.id;
+  const shortId = gp.id.length > 55 ? gp.id.slice(0,55) + '…' : gp.id;
 
-  document.getElementById('status-text').textContent = 'Controller connected: ' + gp.id;
-  document.getElementById('ctrl-name').textContent = type + ' Controller';
-  document.getElementById('ctrl-idstr').textContent = shortId;
+  /* Status bar — always English, strip any non-ASCII safely */
+  const safeId = gp.id.replace(/[^\x00-\x7F]/g, '').trim() || gp.id;
+  document.getElementById('s-text').textContent =
+    'Controller connected: ' + safeId + ' (Index ' + gp.index + ')';
+
+  document.getElementById('ctrl-name').textContent  = type + ' Controller';
+  document.getElementById('ctrl-id').textContent    = shortId;
   document.getElementById('ctrl-badge').textContent = (gp.mapping || 'UNKNOWN').toUpperCase();
-  document.getElementById('ii-index').textContent = gp.index;
-  document.getElementById('ii-conn').textContent = 'Yes';
-  document.getElementById('ii-map').textContent = gp.mapping || 'none';
-  document.getElementById('ii-btns').textContent = gp.buttons.length;
-  document.getElementById('ii-axes').textContent = gp.axes.length;
-  document.getElementById('ii-vib').textContent = gp.vibrationActuator ? 'Yes' : 'No';
-  document.getElementById('raw-sub').textContent = (gp.mapping || 'none') + ' · ' + Math.round(gp.timestamp);
 
-  applyFaceLabels(type);
+  document.getElementById('ii-idx').textContent = gp.index;
+  document.getElementById('ii-con').textContent = 'Yes';
+  document.getElementById('ii-map').textContent = gp.mapping || 'none';
+  document.getElementById('ii-btn').textContent = gp.buttons.length;
+  document.getElementById('ii-axs').textContent = gp.axes.length;
+  document.getElementById('ii-vib').textContent = gp.vibrationActuator ? 'Yes' : 'No';
+  document.getElementById('raw-sub').textContent = (gp.mapping||'none') + ' · ts ' + Math.round(gp.timestamp);
+
+  setFaceLabels(type);
   buildUI(gp);
   if (!raf) loop();
 }
 
-window.addEventListener('gamepadconnected', e => onConnect(e.gamepad));
+window.addEventListener('gamepadconnected',    e => onConnect(e.gamepad));
 window.addEventListener('gamepaddisconnected', () => {
   document.getElementById('sdot').classList.remove('on');
-  document.getElementById('status-text').textContent = 'Controller disconnected — reconnect and press any button';
+  document.getElementById('s-text').textContent =
+    'Controller disconnected — reconnect and press any button';
 });
 
-// Helpers
-function setAxisBar(i, v) {
-  const f = document.getElementById('axf-' + i);
-  const d = document.getElementById('axv-' + i);
+/* ─── Helpers ─── */
+function setAxis(i, v) {
+  const f = document.getElementById('af-' + i);
+  const d = document.getElementById('av-' + i);
   if (!f) return;
   const pct = Math.abs(v) * 50;
-  if (v >= 0) { f.style.left = '50%'; f.style.width = pct + '%'; }
-  else { f.style.width = pct + '%'; f.style.left = (50 - pct) + '%'; }
+  if (v >= 0) { f.style.left = '50%';           f.style.width = pct + '%'; }
+  else         { f.style.left = (50-pct) + '%'; f.style.width = pct + '%'; }
   if (d) d.textContent = (v >= 0 ? '+' : '') + v.toFixed(2);
 }
 
@@ -691,30 +851,34 @@ function setDrift(sfx, v) {
   const d = document.getElementById('dv-' + sfx);
   if (!f) return;
   f.style.width = Math.min(pct, 100) + '%';
-  f.className = 'drift-fill' + (pct > 10 ? ' crit' : pct > 2 ? ' warn' : '');
+  f.className = 'dr-fill' + (pct > 10 ? ' d' : pct > 2 ? ' w' : '');
   if (d) d.textContent = pct.toFixed(1) + '%';
 }
 
-function setStickUI(dotId, xyId, errId, svgId, x, y, svgCx, svgCy) {
+function setStick(dotId, xyId, errId, svgId, x, y, bx, by) {
   const dot = document.getElementById(dotId);
   if (dot) {
-    dot.style.left = (50 + x * 42) + '%';
-    dot.style.top  = (50 + y * 42) + '%';
+    dot.style.left = (50 + x * 43) + '%';
+    dot.style.top  = (50 + y * 43) + '%';
   }
   const xyEl = document.getElementById(xyId);
   if (xyEl) xyEl.textContent = (x>=0?'+':'')+x.toFixed(2)+', '+(y>=0?'+':'')+y.toFixed(2);
-  const pct = Math.sqrt(x*x+y*y)*100;
+  const err = Math.sqrt(x*x+y*y)*100;
   const errEl = document.getElementById(errId);
-  if (errEl) errEl.textContent = 'Err: ' + pct.toFixed(1) + '%';
-  const s = document.getElementById(svgId);
-  if (s) {
-    s.setAttribute('cx', svgCx + x * 12);
-    s.setAttribute('cy', svgCy + y * 12);
-    s.style.fill = (Math.abs(x)>0.06||Math.abs(y)>0.06) ? 'rgba(0,229,160,0.65)' : 'var(--surface2)';
+  if (errEl) errEl.textContent = 'Err: ' + err.toFixed(1) + '%';
+
+  /* Move SVG knob */
+  const knob = document.getElementById(svgId);
+  if (knob) {
+    knob.setAttribute('cx', bx + x*13);
+    knob.setAttribute('cy', by + y*13);
+    const moving = Math.abs(x) > 0.07 || Math.abs(y) > 0.07;
+    knob.style.fill   = moving ? '#a8d4f5' : '';
+    knob.style.stroke = moving ? '#1a73e8' : '';
   }
 }
 
-// SVG button map
+/* SVG button → element ID map */
 const SVG_MAP = {
   0:'svg-b0', 1:'svg-b1', 2:'svg-b2', 3:'svg-b3',
   4:'svg-lb', 5:'svg-rb', 6:'svg-lt', 7:'svg-rt',
@@ -722,119 +886,128 @@ const SVG_MAP = {
   12:'dp-up', 13:'dp-down', 14:'dp-left', 15:'dp-right',
   16:'svg-b16'
 };
-// CSS lit class per button
-const LIT_CLASS = {
+/* Which lit class each face button uses */
+const LIT_CLS = {
   'svg-b0':'lit-a','svg-b1':'lit-b','svg-b2':'lit-x','svg-b3':'lit-y'
 };
 
+/* ─── Main loop ─── */
 function loop() {
   const gps = navigator.getGamepads ? navigator.getGamepads() : [];
-  const gp = gps[activeIdx];
+  const gp  = gps[activeIdx];
   if (!gp || !gp.connected) { raf = requestAnimationFrame(loop); return; }
 
   const now = performance.now();
-  pollTimes.push(now);
-  if (pollTimes.length > 120) pollTimes.shift();
-  if (pollTimes.length > 1) {
-    const span = pollTimes[pollTimes.length-1] - pollTimes[0];
-    document.getElementById('met-hz').textContent = Math.round((pollTimes.length-1)/span*1000);
-  }
-  document.getElementById('met-ts').textContent = Math.round(gp.timestamp);
-  document.getElementById('raw-sub').textContent = (gp.mapping||'none') + ' · ' + Math.round(gp.timestamp);
 
-  // Axes
-  for (let i = 0; i < gp.axes.length; i++) setAxisBar(i, gp.axes[i]);
+  /* Poll rate */
+  pollTs.push(now);
+  if (pollTs.length > 120) pollTs.shift();
+  if (pollTs.length > 2) {
+    const span = pollTs[pollTs.length-1] - pollTs[0];
+    document.getElementById('m-hz').textContent = Math.round((pollTs.length-1)/span*1000);
+  }
+  document.getElementById('m-ts').textContent = Math.round(gp.timestamp);
+  document.getElementById('raw-sub').textContent = (gp.mapping||'none') + ' · ts ' + Math.round(gp.timestamp);
+
+  /* Axes */
+  for (let i = 0; i < gp.axes.length; i++) setAxis(i, gp.axes[i]);
 
   const lx = gp.axes[0]||0, ly = gp.axes[1]||0;
   const rx = gp.axes[2]||0, ry = gp.axes[3]||0;
 
-  setStickUI('sl-dot','sl-xy','sl-err','svg-sl', lx, ly, 152, 164);
-  setStickUI('sr-dot','sr-xy','sr-err','svg-sr', rx, ry, 258, 164);
+  setStick('sl-dot','sl-xy','sl-err','svg-sl', lx, ly, 162, 172);
+  setStick('sr-dot','sr-xy','sr-err','svg-sr', rx, ry, 278, 172);
 
   setDrift('lx',lx); setDrift('ly',ly);
   setDrift('rx',rx); setDrift('ry',ry);
 
-  // Triggers
+  /* Triggers */
   const ltv = gp.buttons[6] ? gp.buttons[6].value : 0;
   const rtv = gp.buttons[7] ? gp.buttons[7].value : 0;
-  document.getElementById('tbar-l').style.height = (ltv*100) + '%';
-  document.getElementById('tbar-r').style.height = (rtv*100) + '%';
-  document.getElementById('tval-l').textContent = ltv.toFixed(2);
-  document.getElementById('tval-r').textContent = rtv.toFixed(2);
+  document.getElementById('tf-l').style.height = (ltv*100) + '%';
+  document.getElementById('tf-r').style.height = (rtv*100) + '%';
+  document.getElementById('tv-l').textContent = ltv.toFixed(2);
+  document.getElementById('tv-r').textContent = rtv.toFixed(2);
+  document.getElementById('tp-l').textContent = Math.round(ltv*100) + '%';
+  document.getElementById('tp-r').textContent = Math.round(rtv*100) + '%';
 
-  // Buttons
+  /* Buttons */
   gp.buttons.forEach((btn, i) => {
-    // chip
-    const chip = document.getElementById('bchip-' + i);
+    /* chip */
+    const chip = document.getElementById('bc-' + i);
     if (chip) btn.pressed ? chip.classList.add('lit') : chip.classList.remove('lit');
 
-    // SVG
-    const svgId = SVG_MAP[i];
-    if (svgId) {
-      const el = document.getElementById(svgId);
+    /* SVG element */
+    const sid = SVG_MAP[i];
+    if (sid) {
+      const el = document.getElementById(sid);
       if (el) {
-        const litCls = LIT_CLASS[svgId] || 'lit';
-        btn.pressed ? el.classList.add(litCls) : el.classList.remove(litCls);
+        const cls = LIT_CLS[sid] || 'lit';
+        btn.pressed ? el.classList.add(cls) : el.classList.remove(cls);
       }
     }
 
-    // Latency
-    if (btn.pressed && lastPressT === null) lastPressT = now;
-    else if (!btn.pressed && lastPressT !== null) {
-      const lat = now - lastPressT;
+    /* Latency */
+    if (btn.pressed && presT === null) presT = now;
+    else if (!btn.pressed && presT !== null) {
+      const lat = now - presT;
       if (lat < 300) {
-        latHistory.push(lat);
-        if (latHistory.length > 30) latHistory.shift();
-        const avg = latHistory.reduce((a,b)=>a+b,0)/latHistory.length;
-        document.getElementById('met-lat').textContent = Math.round(avg);
+        latHist.push(lat);
+        if (latHist.length > 30) latHist.shift();
+        const avg = latHist.reduce((a,b)=>a+b,0) / latHist.length;
+        document.getElementById('m-lat').textContent = Math.round(avg);
       }
-      lastPressT = null;
+      presT = null;
     }
   });
 
   raf = requestAnimationFrame(loop);
 }
 
-// Vibration
-let vibInt = null;
+/* ─── Vibration ─── */
+let vibTimer = null;
 function doVib(type, btn) {
   const gp = (navigator.getGamepads ? navigator.getGamepads() : [])[activeIdx];
   if (!gp || !gp.vibrationActuator) {
-    document.getElementById('vib-note').textContent = '⚠ Vibration not supported on this controller or browser.';
+    document.getElementById('vib-note').textContent =
+      '⚠ Vibration not supported on this controller or browser combination.';
     return;
   }
-  if (vibInt) { clearInterval(vibInt); vibInt = null; }
-  document.querySelectorAll('.vib-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (vibTimer) { clearInterval(vibTimer); vibTimer = null; }
+  document.querySelectorAll('.vib-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
 
   if (type === 'burst') {
     let n = 0;
-    vibInt = setInterval(() => {
-      if (n++ >= 3) { clearInterval(vibInt); vibInt = null; return; }
-      const g = (navigator.getGamepads())[activeIdx];
+    vibTimer = setInterval(() => {
+      if (n++ >= 3) { clearInterval(vibTimer); vibTimer = null; return; }
+      const g = navigator.getGamepads()[activeIdx];
       if (g && g.vibrationActuator)
-        g.vibrationActuator.playEffect('dual-rumble', {duration:120,strongMagnitude:.9,weakMagnitude:.9});
+        g.vibrationActuator.playEffect('dual-rumble',
+          { duration:120, strongMagnitude:.9, weakMagnitude:.9 });
     }, 220);
-  } else if (type === 'pulse') {
+    return;
+  }
+  if (type === 'pulse') {
     let on = false;
-    vibInt = setInterval(() => {
+    vibTimer = setInterval(() => {
       on = !on;
-      const g = (navigator.getGamepads())[activeIdx];
+      const g = navigator.getGamepads()[activeIdx];
       if (g && g.vibrationActuator)
         g.vibrationActuator.playEffect('dual-rumble', on
-          ? {duration:160,strongMagnitude:.7,weakMagnitude:.7}
-          : {duration:100,strongMagnitude:0,weakMagnitude:0});
+          ? { duration:160, strongMagnitude:.7, weakMagnitude:.7 }
+          : { duration:100, strongMagnitude:0,  weakMagnitude:0  });
     }, 240);
-  } else {
-    const cfgs = {
-      heavy: {duration:800,strongMagnitude:1.0,weakMagnitude:1.0},
-      light: {duration:350,strongMagnitude:0.2,weakMagnitude:0.35},
-    };
-    gp.vibrationActuator.playEffect('dual-rumble', cfgs[type]);
+    return;
   }
+  const CFGS = {
+    heavy: { duration:800, strongMagnitude:1.0, weakMagnitude:1.0 },
+    light: { duration:350, strongMagnitude:0.2, weakMagnitude:0.3 },
+  };
+  gp.vibrationActuator.playEffect('dual-rumble', CFGS[type]);
 }
 
-// Auto-detect on page load
+/* ─── Auto-detect already-connected controllers ─── */
 setTimeout(() => {
   const gps = navigator.getGamepads ? navigator.getGamepads() : [];
   for (const g of gps) { if (g && g.connected) { onConnect(g); break; } }
