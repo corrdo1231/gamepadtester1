@@ -3,114 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gamepad Tester - Test Controller Online | GamePadTester.tools</title>
-  <meta name="description" content="Free online gamepad tester. Test buttons, joysticks, vibration, drift for Xbox, PlayStation, Switch & PC controllers. No installation required.">
-  <meta name="keywords" content="gamepad tester, controller test, joystick test, gamepad online, test controller buttons, controller drift">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    body{background:#f8f9fa;color:#212529;line-height:1.6}
-    .container{max-width:1000px;margin:0 auto;padding:20px}
-    .header{text-align:center;margin:20px 0}
-    .header h1{font-size:2.2rem;color:#222;margin-bottom:10px}
-    .header p{font-size:1.1rem;color:#555}
-    .ad{background:#fff;border-radius:10px;padding:15px;text-align:center;margin:20px 0;min-height:90px}
-    .status{background:#fff;padding:15px;border-radius:12px;text-align:center;font-size:18px;margin-bottom:20px}
-    .grid{display:grid;grid-template-columns:3fr 1fr;gap:20px}
-    .card{background:#fff;padding:25px;border-radius:15px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-    .card h3{margin-bottom:15px;color:#333}
-    .buttons{display:flex;flex-wrap:wrap;gap:10px}
-    .btn{width:55px;height:55px;border:2px solid #dee2e6;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;transition:0.2s}
-    .btn.active{background:#28a745;color:white;border-color:#218838}
-    .stick{font-size:16px;margin:12px 0;color:#333}
-    .vibrate-btn{background:#007bff;color:white;border:none;padding:12px 24px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px}
-    .footer{text-align:center;margin-top:40px;padding:20px;color:#666;font-size:14px}
-    .footer a{margin:0 10px;color:#007bff;text-decoration:none}
-    @media(max-width:768px){.grid{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-<div class="container">
-  <div class="header">
-    <h1>Gamepad Tester Online</h1>
-    <p>Test your controller buttons, sticks, vibration & drift — free & no install.</p>
-  </div>
-
-  <!-- AdSense Top Banner -->
-  <div class="ad">
-    <p style="color:#999">Advertisement</p>
-  </div>
-
-  <div class="status" id="status">Connect your gamepad and press any button to start</div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Buttons</h3>
-      <div class="buttons" id="buttons"></div>
-    </div>
-    <div class="card">
-      <h3>Joysticks</h3>
-      <div class="stick" id="stick1">Left Stick: X: 0.00, Y: 0.00</div>
-      <div class="stick" id="stick2">Right Stick: X: 0.00, Y: 0.00</div>
-      <button class="vibrate-btn" onclick="testVibration()">Test Vibration</button>
-    </div>
-  </div>
-
-  <!-- AdSense Middle Ad -->
-  <div class="ad">
-    <p style="color:#999">Advertisement</p>
-  </div>
-
-  <div class="footer">
-    <a href="/about.html">About</a>
-    <a href="/privacy.html">Privacy Policy</a>
-    <a href="/terms.html">Terms</a>
-    <a href="/contact.html">Contact</a>
-    <p>© 2026 GamePadTester.tools — All rights reserved</p>
-  </div>
-</div>
-
-<script>
-const btnLabels = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','Up','Down','Left','Right'];
-const container = document.getElementById('buttons');
-
-btnLabels.forEach((label,i)=>{
-  const el = document.createElement('div');
-  el.className = 'btn';
-  el.id = `btn${i}`;
-  el.textContent = label;
-  container.appendChild(el);
-});
-
-function pollGamepads() {
-  const pads = navigator.getGamepads();
-  for(const pad of pads) {
-    if(!pad) continue;
-    document.getElementById('status').textContent = `Connected: ${pad.id}`;
-    pad.buttons.forEach((btn,i)=>{
-      const el = document.getElementById(`btn${i}`);
-      if(el) el.classList.toggle('active', btn.pressed);
-    });
-    const axes = pad.axes;
-    document.getElementById('stick1').textContent = `Left Stick: X: ${axes[0]?.toFixed(2)}, Y: ${axes[1]?.toFixed(2)}`;
-    document.getElementById('stick2').textContent = `Right Stick: X: ${axes[2]?.toFixed(2)}, Y: ${axes[3]?.toFixed(2)}`;
-  }
-  requestAnimationFrame(pollGamepads);
-}
-
-function testVibration() {
-  const pads = navigator.getGamepads();
-  for(const pad of pads) {
-    if(pad?.vibrationActuator) {
-      pad.vibrationActuator.playEffect('dual-rumble', {
-        duration: 600,
-        strongMagnitude: 0.7,
-        weakMagnitude: 0.5
-      });
+  <title>ControllerTest.io - Advanced Controller Tester</title>
+  <meta name="description" content="Advanced online gamepad tester with visualizer, drift detection, polling rate, vibration test, and raw data output for Xbox, PlayStation, Switch, and PC controllers.">
+  <meta name="keywords" content="controller test, gamepad tester, drift test, polling rate, vibration test, analog stick analyzer">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00A8FF',
+            secondary: '#2ECC71',
+            drift: '#E74C3C',
+            light: '#F5F5F5',
+            dark: '#2C3E50'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
     }
-  }
-}
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .controller-shadow {
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+      }
+      .stick-active {
+        transform: translate(-50%, -50%);
+      }
+      .tab-active {
+        border-bottom: 2px solid theme('colors.primary');
+        color: theme('colors.primary');
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-inter text-dark">
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-gamepad text-2xl text-primary"></i>
+        <h1 class="text-xl md:text-2xl font-bold">ControllerTest.io</h1>
+      </div>
+      <div class="flex items-center space-x-6">
+        <nav class="hidden md:flex space-x-6">
+          <a href="#" class="tab-active font-medium">Home</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Drift</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Circularity</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Polling Rate</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Vibration</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Tools</a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">Widgets</a>
+        </nav>
+        <div class="flex items-center space-x-3">
+          <button class="text-gray-600 hover:text-primary">
+            <i class="fa fa-globe"></i>
+          </button>
+          <button class="text-gray-600 hover:text-primary">
+            <i class="fa fa-moon-o"></i>
+          </button>
+          <button class="text-gray-600 hover:text-primary">
+            <i class="fa fa-discord"></i>
+          </button>
+          <button class="bg-primary/10 text-primary px-3 py-1 rounded-md hover:bg-primary/20 transition-colors">
+            <i class="fa fa-user-o mr-1"></i> Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-pollGamepads();
-</script>
-</body>
-</html>
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- AdSense Top Banner -->
+    <div class="w-full bg-gray-100 rounded-lg p-4 flex items-center justify-center mb-6">
+      <p class="text-gray-500">Advertisement</p>
+      <!-- AdSense Placeholder -->
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column: Controller Visualizer -->
+      <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="p-5 border-b border-gray-100">
+          <h2 class="text-xl font-semibold flex items-center">
+            <i class="fa fa-television text-primary mr-2"></i>
+            Controller Visualizer
+            <span class="ml-2 text-sm px-2 py-1 bg-primary/10 text-primary rounded-full">P1</span>
+            <span class="ml-1 text-sm px-2 py-1 bg-gray-100 text-gray-500 rounded-full">P2</span>
+            <span class="ml-1 text-sm px-2 py-1 bg-gray-100 text-gray-500 rounded-full">P3</span>
+            <span class="ml-1 text-sm px-2 py-1 bg-gray-100 text-gray-500 rounded-full">P4</span>
+          </h2>
+          <p class="text-gray-500 mt-1">Press any button on your controller to connect</p>
+        </div>
+        
+        <div class="p-6 flex flex-col md:flex-row items-center justify-center gap-8">
+          <!-- Controller Outline -->
+          <div class="relative controller-shadow">
+            <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Controller Body -->
+              <path d="M60 100C60 70 85 50 115 50H165C195 50 220 70 220 100C220 130 210 160 190 180H90C70 160 60 130 60 100Z" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="2"/>
+              <!-- D-Pad -->
+              <circle cx="85" cy="130" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+              <path d="M85 118V142M76 130H94" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
+              <!-- Left Stick -->
+              <circle cx="85" cy="130" r="22" fill="none" stroke="#CCCCCC" stroke-width="1.5"/>
+              <circle id="leftStick" cx="85" cy="130" r="8" fill="#00A8FF" class="stick-active"/>
+              <!-- ABXY Buttons -->
+              <circle cx="195" cy="115" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+              <circle cx="195" cy="135" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+              <circle cx="215" cy="125" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+              <circle cx="175" cy="125" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+              <text x="195" y="118" text-anchor="middle" font-size="10" font-weight="500" fill="#333">X</text>
+              <text x="195" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">A</text>
+              <text x="215" y="131" text-anchor="middle" font-size="10" font-weight="500" fill="#333">B</text>
+              <text x="175" y="131" text-anchor="middle" font-size="10" font-weight="500" fill="#333">Y</text>
+              <!-- Bumpers & Triggers -->
+              <rect x="150" y="35" width="40" height="12" rx="6" fill="#E0E0E0"/>
+              <rect x="190" y="35" width="40" height="12" rx="6" fill="#E0E0E0"/>
+              <text x="170" y="43" text-anchor="middle" font-size="9" fill="#666">LB</text>
+              <text x="210" y="43" text-anchor="middle" font-size="9" fill="#666">RB</text>
+              <!-- Home/Options Buttons -->
+              <circle cx="140" cy="80" r="3" fill="#666"/>
+              <circle cx="150" cy="80" r="6" fill="#333"/>
+              <circle cx="160" cy="80" r="3" fill="#666"/>
+            </svg>
+          </div>
+
+          <!-- Status & Connection -->
+          <div class="text-center md:text-left">
+            <div id="connectionStatus" class="text-lg font-medium mb-2">
+              <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+              No controller detected
+            </div>
+            <p class="text-gray-500 mb-4">Connect your gamepad via USB or Bluetooth to start testing</p>
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+              <button class="px-4 py-2 bg-gray-100 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors">
+                <i class="fa fa-refresh mr-1"></i> Refresh
+              </button>
+              <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                <i class="fa fa-calendar-check-o mr-1"></i> Calibrate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Data Panels -->
+      <div class="space-y-6">
+        <!-- Analog Sticks Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-5 border-b border-gray-100">
+            <h2 class="text-xl font-semibold flex items-center">
+              <i class="fa fa-crosshairs text-primary mr-2"></i>
+              Analog Sticks
+              <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-600 rounded-full">Linearity, Drift & Circularity</span>
+            </h2>
+          </div>
+          <div class="p-6 space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-medium text-gray-700">Left Stick</h3>
+                <p class="text-sm text-gray-500">Linearity, Drift & Circularity</p>
+              </div>
+              <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200">
+                <i class="fa fa-refresh"></i>
+              </button>
+            </div>
+            <div class="relative w-32 h-32 mx-auto">
+              <div class="absolute inset-0 rounded-full border-2 border-gray-200"></div>
+              <div class="absolute inset-0 rounded-full border-2 border-dashed border-gray-300 m-4"></div>
+              <div id="leftStickVisual" class="absolute w-6 h-6 bg-primary rounded-full shadow-md" style="top: 50%; left: 50%; transform: translate(-50%, -50%)"></div>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-semibold" id="leftStickX">+0.00</p>
+              <p class="text-gray-500" id="leftStickY">+0.00</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Triggers Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-5 border-b border-gray-100">
+            <h2 class="text-xl font-semibold flex items-center">
+              <i class="fa fa-hand-pointer-o text-primary mr-2"></i>
+              Triggers
+              <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-600 rounded-full">Analog Pressure (0-1)</span>
+            </h2>
+          </div>
+          <div class="p-6 space-y-6">
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="font-medium">LT / L2</span>
+                  <span id="ltValue" class="text-primary">0.00</span>
+                </div>
+                <div class="h-4 bg-gray-100 rounded-full overflow-hidden">
+                  <div id="ltBar" class="h-full bg-primary rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="font-medium">RT / R2</span>
+                  <span id="rtValue" class="text-primary">0.00</span>
+                </div>
+                <div class="h-4 bg-gray-100 rounded-full overflow-hidden">
+                  <div id="rtBar" class="h-full bg-primary rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vibration Test Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-5 border-b border-gray-100">
+            <h2 class="text-xl font-semibold flex items-center">
+              <i class="fa fa-bolt text-primary mr-2"></i>
+              Vibration Test
+              <span class="ml-2 text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded-full">Dual Motor</span>
+            </h2>
+          </div>
+          <div class="p-6 space-y-6">
+            <div class="flex justify-center space-x-8">
+              <div class="text-center">
+                <div class="w-12 h-12 mx-auto rounded-full bg-orange-100 flex items-center justify-center text-orange-500">
+                  <i class="fa fa-circle-o"></i>
+                </div>
+                <p class="mt-2 font-medium">Heavy</p>
+                <p class="text-xs text-gray-500">Low Frequency</p>
+              </div>
+              <div class="text-center">
