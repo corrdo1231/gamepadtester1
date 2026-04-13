@@ -390,15 +390,15 @@
             <!-- Left Stick -->
             <circle cx="85" cy="140" r="22" fill="none" stroke="#CCCCCC" stroke-width="1.5"/>
             <circle id="leftStick" class="stick-point" cx="85" cy="140" />
-            <!-- ABXY Buttons -->
-            <circle cx="215" cy="125" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+            <!-- ABXY Buttons (标准Xbox菱形布局) -->
+            <circle cx="215" cy="115" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
             <circle cx="215" cy="145" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
             <circle cx="235" cy="135" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
             <circle cx="195" cy="135" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <text x="215" y="128" text-anchor="middle" font-size="10" font-weight="500" fill="#333">X</text>
+            <text x="215" y="118" text-anchor="middle" font-size="10" font-weight="500" fill="#333">Y</text>
             <text x="215" y="151" text-anchor="middle" font-size="10" font-weight="500" fill="#333">A</text>
             <text x="235" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">B</text>
-            <text x="195" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">Y</text>
+            <text x="195" y="141" text-anchor="middle" font-size="10" font-weight="500" fill="#333">X</text>
             <!-- Bumpers -->
             <rect x="130" y="45" width="40" height="12" rx="6" fill="#E0E0E0"/>
             <rect x="170" y="45" width="40" height="12" rx="6" fill="#E0E0E0"/>
@@ -531,7 +531,7 @@
   </footer>
 
   <script>
-    // Button Labels
+    // Button Labels (标准顺序，对应手柄物理按键)
     const buttonLabels = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','Up','Down','Left','Right'];
     const buttonsGrid = document.getElementById('buttonsGrid');
 
@@ -589,7 +589,8 @@
         // Update Status
         statusEl.innerHTML = `<span class="status-dot connected"></span>Connected: ${pad.id}`;
 
-        // Update Buttons
+        // Update Buttons (标准Xbox按键映射)
+        // 0:A, 1:B, 2:X, 3:Y, 4:LB, 5:RB, 6:LT, 7:RT, 8:View, 9:Menu, 10:LS, 11:RS, 12:Up, 13:Down, 14:Left, 15:Right
         pad.buttons.forEach((btn, i) => {
           const el = document.getElementById(`btn-${i}`);
           if (el) el.classList.toggle('active', btn.pressed || btn.value > 0.5);
