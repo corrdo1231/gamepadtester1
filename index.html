@@ -3,810 +3,300 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gamepad Tester - Advanced Controller Test Online | GamePadTester.tools</title>
-  <meta name="description" content="Free advanced online gamepad tester. Test buttons, joysticks, drift, vibration, polling rate for Xbox, PlayStation, Switch & PC controllers. No installation required.">
-  <meta name="keywords" content="gamepad tester, controller test, joystick drift test, vibration test, analog stick tester">
+  <title>Gamepad Tester - GamePadTester.tools</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    :root {
-      --primary: #0095FF;
-      --success: #2ECC71;
-      --drift: #E74C3C;
-      --bg: #FAFAFA;
-      --card: #FFFFFF;
-      --text: #1A1A1A;
-      --text-light: #666666;
-      --border: #E5E7EB;
-      --gray-light: #F3F4F6;
+      font-family: Arial, sans-serif;
     }
     body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      background: #f5f5f5;
+      padding: 20px;
     }
-    /* Header */
-    header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    .header-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .logo i {
-      color: var(--primary);
-      font-size: 1.75rem;
-    }
-    .nav {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-    .nav a {
-      text-decoration: none;
-      color: var(--text-light);
-      font-weight: 500;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .nav a.active {
-      background: var(--gray-light);
-      color: var(--primary);
-    }
-    /* Main Container */
     .container {
-      max-width: 1400px;
-      margin: 2rem auto;
-      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    /* Ad Banner */
-    .ad-banner {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.5rem;
+    .header {
       text-align: center;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-      border: 1px solid var(--border);
+      margin-bottom: 30px;
     }
-    /* Grid Layout */
-    .grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
+    .header h1 {
+      font-size: 26px;
+      color: #222;
     }
-    .grid-right {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      grid-auto-rows: min-content;
-    }
-    /* Card Style */
-    .card {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-    .card-header {
+    .main {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .card-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 600;
+    .left {
+      flex: 2;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .card-title i {
-      color: var(--primary);
-      font-size: 1.5rem;
-    }
-    .badge {
-      background: rgba(46, 204, 113, 0.1);
-      color: var(--success);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    .player-tabs {
-      display: flex;
-      gap: 0.25rem;
-    }
-    .player-tab {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background: var(--gray-light);
-      color: var(--text-light);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .player-tab.active {
-      background: var(--primary);
-      color: white;
-    }
-    /* Controller Visualizer */
-    .visualizer-container {
+    .right {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-      padding: 1rem;
+      gap: 15px;
     }
-    .controller-svg {
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .controller {
       width: 100%;
-      max-width: 600px;
-      height: auto;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
     }
-    .controller-path {
-      fill: #F5F5F5;
-      stroke: #CCCCCC;
-      stroke-width: 2;
-    }
-    .stick-point {
-      fill: var(--primary);
-      r: 8;
-    }
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      border: none;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 1rem;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-    .btn-primary:hover {
-      background: #007ACC;
-    }
-    .btn-secondary {
-      background: var(--gray-light);
-      color: var(--text);
-    }
-    .btn-secondary:hover {
-      background: #E5E7EB;
+    .controller svg {
+      width: 100%;
     }
     .status {
       text-align: center;
-      font-size: 1.125rem;
-      font-weight: 500;
+      margin: 15px 0;
+      font-size: 16px;
+      font-weight: bold;
     }
-    .status-dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
+    .stick {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background: #007bff;
       border-radius: 50%;
-      margin-right: 0.5rem;
+      transition: 0.05s;
     }
-    .status-dot.disconnected {
-      background: #DC3545;
+    .btn {
+      padding: 10px 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    .status-dot.connected {
-      background: var(--success);
-    }
-    /* Analog Sticks */
-    .stick-container {
+    .btn-group {
       display: flex;
-      justify-content: space-around;
-      gap: 2rem;
-      margin-top: 1rem;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
     }
-    .stick-item {
-      text-align: center;
+    .sticks {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
-    .stick-circle {
+    .stick-box {
       width: 120px;
       height: 120px;
-      border: 2px solid var(--border);
+      border: 2px solid #ddd;
       border-radius: 50%;
       position: relative;
-      margin: 1rem auto;
-    }
-    .stick-circle::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--border);
-    }
-    .stick-circle::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--border);
     }
     .stick-dot {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: var(--success);
+      width: 20px;
+      height: 20px;
+      background: #28a745;
       border-radius: 50%;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: transform 0.05s linear;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .stick-value {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-top: 0.5rem;
-      color: var(--text-light);
+    .value {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 14px;
     }
-    /* Triggers */
-    .trigger-container {
+    .triggers {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 1rem;
+      gap: 20px;
+      justify-content: center;
     }
-    .trigger-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .trigger-label {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 500;
-    }
-    .trigger-bar {
+    .trigger {
+      width: 60px;
       height: 120px;
-      background: var(--gray-light);
-      border-radius: 8px;
-      overflow: hidden;
+      background: #eee;
+      border-radius: 6px;
       position: relative;
     }
     .trigger-fill {
       position: absolute;
       bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--primary);
-      height: 0%;
-      transition: height 0.05s linear;
+      width: 100%;
+      background: #007bff;
+      border-radius: 6px;
     }
-    /* Raw Data */
-    .raw-data-container {
-      margin-top: 1rem;
-    }
-    .axes-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .axis-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .axis-bar {
-      height: 8px;
-      background: var(--gray-light);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-    .axis-fill {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      background: var(--primary);
-      transform: translateX(-50%);
-      width: 0%;
-      transition: all 0.05s linear;
-    }
-    .buttons-grid {
+    .buttons {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 0.5rem;
+      gap: 8px;
+      margin-top: 15px;
     }
-    .btn-key {
-      aspect-ratio: 1;
-      border: 1px solid var(--border);
+    .key {
+      padding: 10px;
+      background: #eee;
       border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 500;
-      font-size: 0.875rem;
-      background: white;
-      transition: all 0.1s;
-      color: var(--text-light);
-    }
-    .btn-key.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-    /* Vibration */
-    .vibration-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-    .vibration-btn {
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: white;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
       text-align: center;
+      font-weight: bold;
+      transition: 0.1s;
     }
-    .vibration-btn:hover {
-      background: var(--gray-light);
-    }
-    /* Footer */
-    footer {
-      background: var(--card);
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      margin-top: 3rem;
-    }
-    .footer-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .footer-container a {
-      color: var(--text-light);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-container a:hover {
-      color: var(--primary);
-    }
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      .grid-right {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    @media (max-width: 640px) {
-      .grid-right {
-        grid-template-columns: 1fr;
-      }
-      .nav {
-        gap: 0.5rem;
-      }
+    .key.active {
+      background: #007bff;
+      color: white;
     }
   </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <a href="/" class="logo">
-        <i class="fas fa-gamepad"></i>
-        <span>GamePadTester.tools</span>
-      </a>
-      <nav class="nav">
-        <a href="/" class="active">Home</a>
-        <a href="#drift">Drift</a>
-        <a href="#circularity">Circularity</a>
-        <a href="#polling">Polling Rate</a>
-        <a href="#vibration">Vibration</a>
-        <a href="#tools">Tools</a>
-        <a href="#widgets">Widgets</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <!-- Ad Banner -->
-    <div class="ad-banner">
-      <p>Advertisement</p>
-      <!-- AdSense Code Placeholder -->
+  <div class="container">
+    <div class="header">
+      <h1>Gamepad Tester - GamePadTester.tools</h1>
     </div>
 
-    <div class="grid">
-      <!-- Left: Full Controller Visualizer -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-gamepad"></i>
-            <span>Controller Visualizer</span>
-          </div>
-          <div class="player-tabs">
-            <div class="player-tab active">P1</div>
-            <div class="player-tab">P2</div>
-            <div class="player-tab">P3</div>
-            <div class="player-tab">P4</div>
-          </div>
-        </div>
-        <div class="visualizer-container">
-          <svg class="controller-svg" viewBox="0 0 600 400">
-            <!-- Full Xbox Controller Body -->
-            <path class="controller-path" d="M50 200C50 140 80 100 130 80H470C520 100 550 140 550 200C550 260 530 320 490 360H110C70 320 50 260 50 200Z" />
-            <!-- Bumpers -->
-            <rect x="220" y="60" width="60" height="20" rx="10" fill="#E0E0E0"/>
-            <rect x="320" y="60" width="60" height="20" rx="10" fill="#E0E0E0"/>
-            <text x="250" y="75" text-anchor="middle" font-size="12" fill="#666">LB</text>
-            <text x="350" y="75" text-anchor="middle" font-size="12" fill="#666">RB</text>
-            <!-- Triggers -->
-            <rect x="230" y="30" width="40" height="40" rx="8" fill="#F0F0F0" stroke="#E0E0E0"/>
-            <rect x="330" y="30" width="40" height="40" rx="8" fill="#F0F0F0" stroke="#E0E0E0"/>
-            <!-- Left Stick -->
-            <circle cx="120" cy="200" r="30" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <circle cx="120" cy="200" r="10" fill="#E0E0E0"/>
-            <circle id="leftStick" class="stick-point" cx="120" cy="200" />
-            <!-- Right Stick -->
-            <circle cx="380" cy="280" r="30" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <circle cx="380" cy="280" r="10" fill="#E0E0E0"/>
-            <circle id="rightStick" class="stick-point" cx="380" cy="280" />
-            <!-- D-Pad -->
-            <circle cx="180" cy="280" r="25" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <path d="M180 260V300M160 280H200" stroke="#666666" stroke-width="3" stroke-linecap="round"/>
-            <!-- ABXY Buttons (标准菱形布局) -->
-            <circle cx="420" cy="200" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <circle cx="420" cy="240" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <circle cx="445" cy="220" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <circle cx="395" cy="220" r="20" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-            <text x="420" y="205" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Y</text>
-            <text x="420" y="245" text-anchor="middle" font-size="14" font-weight="600" fill="#333">A</text>
-            <text x="445" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#333">B</text>
-            <text x="395" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#333">X</text>
-            <!-- Guide/View/Menu Buttons -->
-            <circle cx="250" cy="160" r="12" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <path d="M250 156V164M246 160H254" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="220" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <circle cx="280" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <path d="M277 200H283" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
-            <path d="M280 197V203" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="300" cy="200" r="10" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
-            <path d="M297 200H303M300 197V203" stroke="#666666" stroke-width="2" stroke-linecap="round"/>
+    <div class="main">
+      <div class="left">
+        <div class="controller">
+          <svg viewBox="0 0 500 300" fill="none">
+            <path d="M70 150C70 100 100 70 150 60H350C400 70 430 100 430 150C430 200 410 250 380 280H120C90 250 70 200 70 150Z" fill="#f0f0f0" stroke="#ccc" stroke-width="2"/>
+            <circle cx="120" cy="180" r="30" stroke="#ccc" fill="white"/>
+            <circle cx="330" cy="220" r="30" stroke="#ccc" fill="white"/>
+            <circle cx="170" cy="230" r="25" stroke="#ccc" fill="white"/>
+            <path d="M170 210V250M150 230H190" stroke="#666" stroke-width="2"/>
+            <circle cx="370" cy="160" r="20" stroke="#ccc" fill="white"/>
+            <circle cx="370" cy="200" r="20" stroke="#ccc" fill="white"/>
+            <circle cx="395" cy="180" r="20" stroke="#ccc" fill="white"/>
+            <circle cx="345" cy="180" r="20" stroke="#ccc" fill="white"/>
+            <text x="370" y="165" text-anchor="middle">Y</text>
+            <text x="370" y="205" text-anchor="middle">A</text>
+            <text x="395" y="185" text-anchor="middle">B</text>
+            <text x="345" y="185" text-anchor="middle">X</text>
           </svg>
+          <div id="lStick" class="stick" style="top:160px; left:102px;"></div>
+          <div id="rStick" class="stick" style="top:202px; left:312px;"></div>
+        </div>
 
-          <div class="status" id="status">
-            <span class="status-dot disconnected"></span>
-            No controller detected
-          </div>
+        <div class="status" id="status">No controller connected</div>
 
-          <div style="display: flex; gap: 1rem;">
-            <button class="btn btn-secondary" onclick="refreshControllers()">
-              <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-            <button class="btn btn-primary" onclick="testVibration()">
-              <i class="fas fa-bolt"></i> Test Vibration
-            </button>
-          </div>
+        <div class="btn-group">
+          <button class="btn" onclick="connect()">Refresh</button>
+          <button class="btn" onclick="vibrate()">Vibrate</button>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <h2>Buttons</h2>
+          <div class="buttons" id="buttons"></div>
         </div>
       </div>
 
-      <!-- Right: Data Panels Grid -->
-      <div class="grid-right">
-        <!-- Analog Sticks -->
+      <div class="right">
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-crosshairs" style="color: var(--success);"></i>
-              <span>Analog Sticks</span>
-              <span class="badge">Linearity, Drift & Circularity</span>
-            </div>
-            <button class="btn btn-secondary" style="padding: 0.5rem; border-radius: 50%; width: 32px; height: 32px;">
-              <i class="fas fa-sync-alt"></i>
-            </button>
-          </div>
-          <div class="stick-container">
-            <div class="stick-item">
-              <h3 style="font-size: 1rem; font-weight: 600;">Left Stick</h3>
-              <div class="stick-circle">
-                <div id="leftStickDot" class="stick-dot"></div>
+          <h2>Analog Sticks</h2>
+          <div class="sticks">
+            <div>
+              <div class="stick-box">
+                <div id="lDot" class="stick-dot"></div>
               </div>
-              <div class="stick-value" id="leftStickValue">+0.00, +0.00</div>
+              <div class="value" id="lVal">X:0.00 Y:0.00</div>
             </div>
-            <div class="stick-item">
-              <h3 style="font-size: 1rem; font-weight: 600;">Right Stick</h3>
-              <div class="stick-circle">
-                <div id="rightStickDot" class="stick-dot"></div>
+            <div>
+              <div class="stick-box">
+                <div id="rDot" class="stick-dot"></div>
               </div>
-              <div class="stick-value" id="rightStickValue">+0.00, +0.00</div>
+              <div class="value" id="rVal">X:0.00 Y:0.00</div>
             </div>
           </div>
         </div>
 
-        <!-- Triggers -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-hand-pointer" style="color: #8E44AD;"></i>
-              <span>Triggers</span>
-              <span class="badge" style="background: rgba(142, 68, 173, 0.1); color: #8E44AD;">Analog Pressure (0-1)</span>
+          <h2>Triggers</h2>
+          <div class="triggers">
+            <div>
+              <div class="trigger"><div id="lt" class="trigger-fill" style="height:0%"></div></div>
+              <div class="value">LT</div>
             </div>
-          </div>
-          <div class="trigger-container">
-            <div class="trigger-item">
-              <div class="trigger-label">
-                <span>LT / L2</span>
-                <span id="ltValue" style="color: #8E44AD;">0.00</span>
-              </div>
-              <div class="trigger-bar">
-                <div id="ltBar" class="trigger-fill" style="background: #8E44AD;"></div>
-              </div>
+            <div>
+              <div class="trigger"><div id="rt" class="trigger-fill" style="height:0%"></div></div>
+              <div class="value">RT</div>
             </div>
-            <div class="trigger-item">
-              <div class="trigger-label">
-                <span>RT / R2</span>
-                <span id="rtValue" style="color: #8E44AD;">0.00</span>
-              </div>
-              <div class="trigger-bar">
-                <div id="rtBar" class="trigger-fill" style="background: #8E44AD;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Raw Data -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-database" style="color: #2980B9;"></i>
-              <span>Raw Data</span>
-              <span class="badge" style="background: rgba(41, 128, 185, 0.1); color: #2980B9;">Gamepad API Output</span>
-            </div>
-          </div>
-          <div class="raw-data-container">
-            <div class="axes-grid">
-              <div class="axis-item">
-                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 0</span>
-                <div class="axis-bar">
-                  <div id="axis0" class="axis-fill"></div>
-                </div>
-                <span id="axis0Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
-              </div>
-              <div class="axis-item">
-                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 1</span>
-                <div class="axis-bar">
-                  <div id="axis1" class="axis-fill"></div>
-                </div>
-                <span id="axis1Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
-              </div>
-              <div class="axis-item">
-                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 2</span>
-                <div class="axis-bar">
-                  <div id="axis2" class="axis-fill"></div>
-                </div>
-                <span id="axis2Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
-              </div>
-              <div class="axis-item">
-                <span style="font-size: 0.875rem; color: var(--text-light);">AXES 3</span>
-                <div class="axis-bar">
-                  <div id="axis3" class="axis-fill"></div>
-                </div>
-                <span id="axis3Value" style="font-size: 0.875rem; color: var(--text-light);">+0.00</span>
-              </div>
-            </div>
-            <div class="buttons-grid" id="buttonsGrid"></div>
-            <div style="text-align: center; margin-top: 1rem; color: var(--text-light);" id="rawDataStatus">
-              NO CONTROLLER DETECTED
-            </div>
-          </div>
-        </div>
-
-        <!-- Vibration Test -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-bolt" style="color: #F39C12;"></i>
-              <span>Vibration Test</span>
-              <span class="badge" style="background: rgba(243, 156, 18, 0.1); color: #F39C12;">Dual Motor</span>
-            </div>
-          </div>
-          <div class="vibration-container">
-            <button class="vibration-btn" onclick="testVibration('heavy')">HEAVY</button>
-            <button class="vibration-btn" onclick="testVibration('light')">LIGHT</button>
-            <button class="vibration-btn" onclick="testVibration('burst')">BURST</button>
-            <button class="vibration-btn" onclick="testVibration('pulse')">PULSE</button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Ad Banner Bottom -->
-    <div class="ad-banner">
-      <p>Advertisement</p>
-      <!-- AdSense Code Placeholder -->
-    </div>
-  </main>
-
-  <footer>
-    <div class="footer-container">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/contact.html">Contact</a>
-    </div>
-    <div style="text-align: center; margin-top: 1rem; color: var(--text-light);">
-      <p>© 2026 GamePadTester.tools. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
 
   <script>
-    // Button Labels (标准顺序)
-    const buttonLabels = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','Up','Down','Left','Right'];
-    const buttonsGrid = document.getElementById('buttonsGrid');
+    const names = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','↑','↓','←','→'];
+    const btnContainer = document.getElementById('buttons');
+    names.forEach((n,i) => {
+      const d = document.createElement('div');
+      d.className = 'key';
+      d.id = `k${i}`;
+      d.innerText = n;
+      btnContainer.appendChild(d);
+    });
 
-    // Create Button Elements
-    for (let i = 0; i < 18; i++) {
-      const btn = document.createElement('div');
-      btn.className = 'btn-key';
-      btn.id = `btn-${i}`;
-      btn.textContent = i < 16 ? buttonLabels[i] : i;
-      buttonsGrid.appendChild(btn);
+    function connect() {
+      navigator.getGamepads();
     }
 
-    // Status Elements
-    const statusEl = document.getElementById('status');
-    const rawDataStatusEl = document.getElementById('rawDataStatus');
-    const leftStickEl = document.getElementById('leftStick');
-    const leftStickDotEl = document.getElementById('leftStickDot');
-    const leftStickValueEl = document.getElementById('leftStickValue');
-    const rightStickEl = document.getElementById('rightStick');
-    const rightStickDotEl = document.getElementById('rightStickDot');
-    const rightStickValueEl = document.getElementById('rightStickValue');
-    const ltBarEl = document.getElementById('ltBar');
-    const ltValueEl = document.getElementById('ltValue');
-    const rtBarEl = document.getElementById('rtBar');
-    const rtValueEl = document.getElementById('rtValue');
-
-    // Axis Elements
-    const axis0 = document.getElementById('axis0');
-    const axis0Value = document.getElementById('axis0Value');
-    const axis1 = document.getElementById('axis1');
-    const axis1Value = document.getElementById('axis1Value');
-    const axis2 = document.getElementById('axis2');
-    const axis2Value = document.getElementById('axis2Value');
-    const axis3 = document.getElementById('axis3');
-    const axis3Value = document.getElementById('axis3Value');
-
-    // Refresh Controllers
-    function refreshControllers() {
-      statusEl.innerHTML = '<span class="status-dot disconnected"></span>No controller detected';
-      rawDataStatusEl.textContent = 'NO CONTROLLER DETECTED';
-      pollGamepads();
-    }
-
-    // Vibration Test
-    function testVibration(type = 'default') {
+    function vibrate() {
       const pads = navigator.getGamepads();
-      for (const pad of pads) {
-        if (!pad || !pad.vibrationActuator) continue;
-        
-        let effect = { duration: 500, strongMagnitude: 0.7, weakMagnitude: 0.7 };
-        if (type === 'heavy') effect = { duration: 500, strongMagnitude: 1, weakMagnitude: 0.1 };
-        if (type === 'light') effect = { duration: 500, strongMagnitude: 0.1, weakMagnitude: 1 };
-        if (type === 'burst') effect = { duration: 200, strongMagnitude: 1, weakMagnitude: 1 };
-        if (type === 'pulse') effect = { duration: 1000, strongMagnitude: 0.8, weakMagnitude: 0.8, startDelay: 0, duration: 200, weakMagnitude: 0.8, strongMagnitude: 0.8 };
-        
-        pad.vibrationActuator.playEffect('dual-rumble', effect);
+      for(let p of pads) if(p?.vibrationActuator) {
+        p.vibrationActuator.playEffect('dual-rumble', {duration:500, strongMagnitude:0.8, weakMagnitude:0.8});
       }
     }
 
-    // Main Polling Loop
-    function pollGamepads() {
+    function loop() {
       const pads = navigator.getGamepads();
-      let connected = false;
+      let ok = false;
+      for(let pad of pads) {
+        if(!pad) continue;
+        ok = true;
+        document.getElementById('status').innerText = 'Connected: '+pad.id;
 
-      for (const pad of pads) {
-        if (!pad) continue;
-        connected = true;
-
-        // Update Status
-        statusEl.innerHTML = `<span class="status-dot connected"></span>Connected: ${pad.id}`;
-        rawDataStatusEl.textContent = 'CONNECTED';
-
-        // Update Buttons
-        pad.buttons.forEach((btn, i) => {
-          const el = document.getElementById(`btn-${i}`);
-          if (el) el.classList.toggle('active', btn.pressed || btn.value > 0.5);
+        pad.buttons.forEach((b,i) => {
+          const el = document.getElementById(`k${i}`);
+          if(el) el.classList.toggle('active', b.pressed);
         });
 
-        // Update Axes (Sticks)
-        const axes = pad.axes;
-        // Left Stick (0,1)
-        const lx = axes[0] || 0;
-        const ly = axes[1] || 0;
-        leftStickValueEl.textContent = `${lx >= 0 ? '+' : ''}${lx.toFixed(2)}, ${ly >= 0 ? '+' : ''}${ly.toFixed(2)}`;
-        const lxPos = 50 + lx * 40;
-        const lyPos = 50 + ly * 40;
-        leftStickDotEl.style.transform = `translate(calc(${lxPos}% - 50%), calc(${lyPos}% - 50%))`;
-        leftStick.setAttribute('cx', 120 + lx * 25);
-        leftStick.setAttribute('cy', 200 + ly * 25);
+        const ax = pad.axes;
+        const lx = ax[0]||0, ly=ax[1]||0;
+        const rx=ax[2]||0, ry=ax[3]||0;
 
-        // Right Stick (2,3)
-        const rx = axes[2] || 0;
-        const ry = axes[3] || 0;
-        rightStickValueEl.textContent = `${rx >= 0 ? '+' : ''}${rx.toFixed(2)}, ${ry >= 0 ? '+' : ''}${ry.toFixed(2)}`;
-        const rxPos = 50 + rx * 40;
-        const ryPos = 50 + ry * 40;
-        rightStickDotEl.style.transform = `translate(calc(${rxPos}% - 50%), calc(${ryPos}% - 50%))`;
-        rightStick.setAttribute('cx', 380 + rx * 25);
-        rightStick.setAttribute('cy', 280 + ry * 25);
+        document.getElementById('lVal').innerText = `X:${lx.toFixed(2)} Y:${ly.toFixed(2)}`;
+        document.getElementById('rVal').innerText = `X:${rx.toFixed(2)} Y:${ry.toFixed(2)}`;
 
-        // Update Axis Bars
-        axis0.style.width = `${Math.abs(lx) * 100}%`;
-        axis0Value.textContent = `${lx >= 0 ? '+' : ''}${lx.toFixed(2)}`;
-        axis1.style.width = `${Math.abs(ly) * 100}%`;
-        axis1Value.textContent = `${ly >= 0 ? '+' : ''}${ly.toFixed(2)}`;
-        axis2.style.width = `${Math.abs(rx) * 100}%`;
-        axis2Value.textContent = `${rx >= 0 ? '+' : ''}${rx.toFixed(2)}`;
-        axis3.style.width = `${Math.abs(ry) * 100}%`;
-        axis3Value.textContent = `${ry >= 0 ? '+' : ''}${ry.toFixed(2)}`;
+        const ls = document.getElementById('lDot');
+        const rs = document.getElementById('rDot');
+        ls.style.transform = `translate(calc(${50+lx*40}% - 50%), calc(${50+ly*40}% - 50%))`;
+        rs.style.transform = `translate(calc(${50+rx*40}% - 50%), calc(${50+ry*40}% - 50%))`;
 
-        // Triggers (6,7 for most controllers)
-        const lt = pad.buttons[6]?.value || 0;
-        const rt = pad.buttons[7]?.value || 0;
-        ltValueEl.textContent = lt.toFixed(2);
-        ltBarEl.style.height = `${lt * 100}%`;
-        rtValueEl.textContent = rt.toFixed(2);
-        rtBarEl.style.height = `${rt * 100}%`;
+        const lsv = document.getElementById('lStick');
+        const rsv = document.getElementById('rStick');
+        lsv.style.transform = `translate(${lx*20}px, ${ly*20}px)`;
+        rsv.style.transform = `translate(${rx*20}px, ${ry*20}px)`;
+
+        const lt = pad.buttons[6]?.value||0;
+        const rt = pad.buttons[7]?.value||0;
+        document.getElementById('lt').style.height = lt*100+'%';
+        document.getElementById('rt').style.height = rt*100+'%';
       }
-
-      if (!connected) {
-        statusEl.innerHTML = '<span class="status-dot disconnected"></span>No controller detected';
-        rawDataStatusEl.textContent = 'NO CONTROLLER DETECTED';
-      }
-
-      requestAnimationFrame(pollGamepads);
+      if(!ok) document.getElementById('status').innerText = 'No controller connected';
+      requestAnimationFrame(loop);
     }
-
-    // Start Polling
-    pollGamepads();
+    loop();
   </script>
 </body>
 </html>
