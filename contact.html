@@ -1,26 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Contact - GamePadTester.tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    .container{max-width:800px;margin:40px auto;padding:0 20px}
-    .content{background:#fff;padding:30px;border-radius:15px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact – Gamepad Tester</title>
+<meta name="description" content="Get in touch with the Gamepad Tester team — report bugs, request features, or ask questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0e14;--surface:#161820;--surface2:#1e2028;--border:#2a2c38;
+    --accent:#00e5a0;--accent2:#6c5ce7;--text:#eef0f7;--muted:#7a7d8e;
+    --danger:#ff4757;--mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;}
+  .nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .page{max-width:600px;margin:0 auto;padding:4rem 2rem;}
+  h1{font-size:2.2rem;font-weight:600;letter-spacing:-1px;margin-bottom:0.5rem;}
+  h1 span{color:var(--accent);}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:3rem;line-height:1.6;}
+  .form-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;}
+  label{display:block;font-size:12px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+  input,select,textarea{
+    display:block;width:100%;background:var(--surface2);border:1px solid var(--border);
+    border-radius:8px;color:var(--text);font-family:var(--sans);font-size:14px;
+    padding:10px 14px;margin-bottom:1.25rem;transition:border-color 0.2s;
+    outline:none;
+  }
+  input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+  textarea{min-height:120px;resize:vertical;}
+  select option{background:var(--surface2);}
+  .submit-btn{
+    width:100%;padding:12px;background:var(--accent);color:#0d0e14;
+    border:none;border-radius:8px;font-family:var(--mono);font-size:14px;
+    font-weight:700;cursor:pointer;transition:opacity 0.2s;letter-spacing:0.5px;
+  }
+  .submit-btn:hover{opacity:0.85;}
+  .alt-contact{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);}
+  .alt-contact p{font-size:14px;color:var(--muted);line-height:1.7;}
+  .alt-contact a{color:var(--accent);text-decoration:none;}
+  .success{display:none;text-align:center;padding:2rem;}
+  .success h2{font-size:20px;margin-bottom:0.5rem;}
+  .success p{color:var(--muted);font-size:14px;}
+  .success .icon{font-size:48px;margin-bottom:1rem;}
+  footer{border-top:1px solid var(--border);padding:2rem;max-width:600px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;}
+  .footer-links{display:flex;gap:1.5rem;}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:13px;}
+  .footer-links a:hover{color:var(--text);}
+  .footer-copy{font-size:12px;color:var(--muted);font-family:var(--mono);}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="content">
-    <h1>Contact Us</h1>
-    <br>
-    <p>If you have questions or feedback, contact us at:</p>
-    <br>
-    <p>Email: <strong>support@gamepadtester.tools</strong></p>
-    <br>
-    <p><a href="/">Back to Home</a></p>
+<nav>
+  <a class="nav-logo" href="index.html">GAMEPAD_TESTER</a>
+  <div class="nav-links">
+    <a href="index.html">Test</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</nav>
+
+<div class="page">
+  <h1>Get in <span>Touch</span></h1>
+  <p class="sub">Found a bug? Have a feature request? Controller not detected? We'd love to hear from you.</p>
+
+  <div class="form-card">
+    <div id="form-wrap">
+      <label for="name">Your name</label>
+      <input type="text" id="name" placeholder="e.g. Alex">
+
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="you@example.com">
+
+      <label for="subject">Subject</label>
+      <select id="subject">
+        <option value="">Select a topic…</option>
+        <option value="bug">Bug report</option>
+        <option value="feature">Feature request</option>
+        <option value="controller">Controller not detected</option>
+        <option value="vibration">Vibration not working</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="browser">Browser & OS (optional)</label>
+      <input type="text" id="browser" placeholder="e.g. Chrome 124, Windows 11">
+
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Describe your issue or suggestion in detail…"></textarea>
+
+      <button class="submit-btn" onclick="submitForm()">SEND MESSAGE</button>
+    </div>
+
+    <div class="success" id="success-msg">
+      <div class="icon">✅</div>
+      <h2>Message sent!</h2>
+      <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
+    </div>
+
+    <div class="alt-contact">
+      <p>You can also open issues or pull requests on <a href="#">GitHub</a>. The project is open source — contributions are welcome.</p>
+    </div>
   </div>
 </div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Test</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+  <span class="footer-copy">© 2025 gamepadtester1</span>
+</footer>
+
+<script>
+function submitForm() {
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  if (!email || !message) { alert('Please fill in your email and message.'); return; }
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
 </body>
 </html>
