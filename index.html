@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamepad Tester - Test Controller Online | GamePadTester.tools</title>
+  <meta name="description" content="Free online gamepad tester. Test buttons, joysticks, vibration, drift for Xbox, PlayStation, Switch & PC controllers. No installation required.">
+  <meta name="keywords" content="gamepad tester, controller test, joystick test, gamepad online, test controller buttons, controller drift">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    body{background:#f8f9fa;color:#212529;line-height:1.6}
+    .container{max-width:1000px;margin:0 auto;padding:20px}
+    .header{text-align:center;margin:20px 0}
+    .header h1{font-size:2.2rem;color:#222;margin-bottom:10px}
+    .header p{font-size:1.1rem;color:#555}
+    .ad{background:#fff;border-radius:10px;padding:15px;text-align:center;margin:20px 0;min-height:90px}
+    .status{background:#fff;padding:15px;border-radius:12px;text-align:center;font-size:18px;margin-bottom:20px}
+    .grid{display:grid;grid-template-columns:3fr 1fr;gap:20px}
+    .card{background:#fff;padding:25px;border-radius:15px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+    .card h3{margin-bottom:15px;color:#333}
+    .buttons{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{width:55px;height:55px;border:2px solid #dee2e6;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;transition:0.2s}
+    .btn.active{background:#28a745;color:white;border-color:#218838}
+    .stick{font-size:16px;margin:12px 0;color:#333}
+    .vibrate-btn{background:#007bff;color:white;border:none;padding:12px 24px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px}
+    .footer{text-align:center;margin-top:40px;padding:20px;color:#666;font-size:14px}
+    .footer a{margin:0 10px;color:#007bff;text-decoration:none}
+    @media(max-width:768px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Gamepad Tester Online</h1>
+    <p>Test your controller buttons, sticks, vibration & drift — free & no install.</p>
+  </div>
+
+  <!-- AdSense Top Banner -->
+  <div class="ad">
+    <p style="color:#999">Advertisement</p>
+  </div>
+
+  <div class="status" id="status">Connect your gamepad and press any button to start</div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Buttons</h3>
+      <div class="buttons" id="buttons"></div>
+    </div>
+    <div class="card">
+      <h3>Joysticks</h3>
+      <div class="stick" id="stick1">Left Stick: X: 0.00, Y: 0.00</div>
+      <div class="stick" id="stick2">Right Stick: X: 0.00, Y: 0.00</div>
+      <button class="vibrate-btn" onclick="testVibration()">Test Vibration</button>
+    </div>
+  </div>
+
+  <!-- AdSense Middle Ad -->
+  <div class="ad">
+    <p style="color:#999">Advertisement</p>
+  </div>
+
+  <div class="footer">
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/contact.html">Contact</a>
+    <p>© 2026 GamePadTester.tools — All rights reserved</p>
+  </div>
+</div>
+
+<script>
+const btnLabels = ['A','B','X','Y','LB','RB','LT','RT','View','Menu','LS','RS','Up','Down','Left','Right'];
+const container = document.getElementById('buttons');
+
+btnLabels.forEach((label,i)=>{
+  const el = document.createElement('div');
+  el.className = 'btn';
+  el.id = `btn${i}`;
+  el.textContent = label;
+  container.appendChild(el);
+});
+
+function pollGamepads() {
+  const pads = navigator.getGamepads();
+  for(const pad of pads) {
+    if(!pad) continue;
+    document.getElementById('status').textContent = `Connected: ${pad.id}`;
+    pad.buttons.forEach((btn,i)=>{
+      const el = document.getElementById(`btn${i}`);
+      if(el) el.classList.toggle('active', btn.pressed);
+    });
+    const axes = pad.axes;
+    document.getElementById('stick1').textContent = `Left Stick: X: ${axes[0]?.toFixed(2)}, Y: ${axes[1]?.toFixed(2)}`;
+    document.getElementById('stick2').textContent = `Right Stick: X: ${axes[2]?.toFixed(2)}, Y: ${axes[3]?.toFixed(2)}`;
+  }
+  requestAnimationFrame(pollGamepads);
+}
+
+function testVibration() {
+  const pads = navigator.getGamepads();
+  for(const pad of pads) {
+    if(pad?.vibrationActuator) {
+      pad.vibrationActuator.playEffect('dual-rumble', {
+        duration: 600,
+        strongMagnitude: 0.7,
+        weakMagnitude: 0.5
+      });
+    }
+  }
+}
+
+pollGamepads();
+</script>
+</body>
+</html>
