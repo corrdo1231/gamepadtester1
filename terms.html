@@ -1,29 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Terms of Service - GamePadTester.tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    .container{max-width:800px;margin:40px auto;padding:0 20px}
-    .content{background:#fff;padding:30px;border-radius:15px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service – Gamepad Tester</title>
+<meta name="description" content="Terms of service for Gamepad Tester — free online controller testing tool.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0e14;--surface:#161820;--surface2:#1e2028;--border:#2a2c38;
+    --accent:#00e5a0;--text:#eef0f7;--muted:#7a7d8e;
+    --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;}
+  .nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .page{max-width:720px;margin:0 auto;padding:4rem 2rem;}
+  .tag{display:inline-block;background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.2);border-radius:100px;font-size:11px;font-family:var(--mono);padding:3px 12px;margin-bottom:1.5rem;}
+  h1{font-size:2.2rem;font-weight:600;letter-spacing:-1px;margin-bottom:0.5rem;}
+  h1 span{color:var(--accent);}
+  .updated{font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:3rem;}
+  h2{font-size:17px;font-weight:500;margin:2.5rem 0 0.8rem;color:var(--text);padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+  p{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:1rem;}
+  a{color:var(--accent);text-decoration:none;}
+  footer{border-top:1px solid var(--border);padding:2rem;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;}
+  .footer-links{display:flex;gap:1.5rem;}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:13px;}
+  .footer-links a:hover{color:var(--text);}
+  .footer-copy{font-size:12px;color:var(--muted);font-family:var(--mono);}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="content">
-    <h1>Terms of Service</h1>
-    <br>
-    <p>By using GamePadTester.tools, you agree to the following terms:</p>
-    <br>
-    <p>1. The tool is provided as-is, without warranties of any kind.</p>
-    <p>2. We are not responsible for any damages to your devices.</p>
-    <p>3. You may use this tool for personal, non-commercial use.</p>
-    <p>4. We reserve the right to modify these terms at any time.</p>
-    <br>
-    <p><a href="/">Back to Home</a></p>
+<nav>
+  <a class="nav-logo" href="index.html">GAMEPAD_TESTER</a>
+  <div class="nav-links">
+    <a href="index.html">Test</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html" class="active">Terms</a>
   </div>
+</nav>
+
+<div class="page">
+  <div class="tag">last updated: January 2025</div>
+  <h1>Terms of <span>Service</span></h1>
+  <p class="updated">Effective date: January 1, 2025</p>
+
+  <p>By using Gamepad Tester ("the Site"), you agree to the following terms. If you do not agree, please do not use the Site.</p>
+
+  <h2>Use of the Site</h2>
+  <p>Gamepad Tester is provided as a free, browser-based diagnostic tool. You may use the Site for personal and commercial purposes without restriction. The Site runs entirely in your browser — no account is required and nothing is uploaded to our servers.</p>
+
+  <h2>No warranty</h2>
+  <p>The Site is provided "as is" without warranties of any kind, express or implied. We do not guarantee that the Gamepad API results are perfectly accurate for every controller and browser combination. Results may vary depending on your operating system, browser version, and hardware drivers.</p>
+
+  <h2>Limitation of liability</h2>
+  <p>To the maximum extent permitted by law, the Site operator shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of or inability to use the Site, including any decisions made based on test results displayed here.</p>
+
+  <h2>Intellectual property</h2>
+  <p>The source code for this project is open source. Controller brand names (PlayStation, Xbox, Nintendo, etc.) are trademarks of their respective owners. We are not affiliated with or endorsed by any controller manufacturer.</p>
+
+  <h2>Third-party links</h2>
+  <p>The Site may link to third-party resources. We are not responsible for the content or privacy practices of third-party sites.</p>
+
+  <h2>Changes</h2>
+  <p>We may update these terms at any time. Continued use of the Site after changes constitutes acceptance of the updated terms.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about these terms? <a href="contact.html">Contact us</a>.</p>
 </div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Test</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <span class="footer-copy">© 2025 gamepadtester1</span>
+</footer>
 </body>
 </html>
