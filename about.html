@@ -1,27 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>About Us - GamePadTester.tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    .container{max-width:800px;margin:40px auto;padding:0 20px}
-    .content{background:#fff;padding:30px;border-radius:15px}
-    a{color:#007bff}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – Gamepad Tester</title>
+<meta name="description" content="Learn how Gamepad Tester works — a free browser-based controller testing tool using the HTML5 Gamepad API.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0e14;--surface:#161820;--surface2:#1e2028;--border:#2a2c38;
+    --accent:#00e5a0;--accent2:#6c5ce7;--text:#eef0f7;--muted:#7a7d8e;
+    --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;}
+  .nav-logo{font-family:var(--mono);font-size:15px;color:var(--accent);text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .page{max-width:720px;margin:0 auto;padding:4rem 2rem;}
+  h1{font-size:2.2rem;font-weight:600;letter-spacing:-1px;margin-bottom:0.5rem;}
+  h1 span{color:var(--accent);}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:3rem;line-height:1.6;}
+  h2{font-size:18px;font-weight:500;margin:2.5rem 0 1rem;color:var(--text);}
+  p{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:1rem;}
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+  @media(max-width:500px){.feature-grid{grid-template-columns:1fr;}}
+  .feature-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;}
+  .feature-card h3{font-size:14px;font-weight:500;margin-bottom:0.4rem;}
+  .feature-card p{font-size:13px;margin-bottom:0;}
+  .tag{display:inline-block;background:rgba(0,229,160,0.1);color:var(--accent);border:1px solid rgba(0,229,160,0.2);border-radius:100px;font-size:11px;font-family:var(--mono);padding:3px 12px;margin-bottom:1.5rem;}
+  footer{border-top:1px solid var(--border);padding:2rem;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;}
+  .footer-links{display:flex;gap:1.5rem;}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:13px;}
+  .footer-links a:hover{color:var(--text);}
+  .footer-copy{font-size:12px;color:var(--muted);font-family:var(--mono);}
+  code{font-family:var(--mono);background:var(--surface2);padding:2px 7px;border-radius:4px;font-size:13px;color:var(--accent);}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="content">
-    <h1>About GamePadTester.tools</h1>
-    <br>
-    <p>GamePadTester.tools is a free online tool designed to help gamers test their gamepads, controllers, joysticks for buttons, sticks, vibration, and drift issues — all in your browser, no downloads required.</p>
-    <br>
-    <p>Our mission is to provide a simple, fast, reliable tool for all gamers to quickly diagnose their controller problems.</p>
-    <br>
-    <p><a href="/">Back to Home</a></p>
+<nav>
+  <a class="nav-logo" href="index.html">GAMEPAD_TESTER</a>
+  <div class="nav-links">
+    <a href="index.html">Test</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
   </div>
+</nav>
+
+<div class="page">
+  <div class="tag">open source · no tracking · free forever</div>
+  <h1>About <span>Gamepad Tester</span></h1>
+  <p class="sub">A fast, browser-based tool for diagnosing and testing any game controller — built on the HTML5 Gamepad API.</p>
+
+  <h2>What is Gamepad Tester?</h2>
+  <p>Gamepad Tester is a free online tool that lets you check every function of your game controller directly in your web browser. There are no downloads, no plugins, no accounts, and no cost. Everything runs locally — your controller input never leaves your device.</p>
+  <p>Whether you're checking a brand-new controller for factory defects, diagnosing stick drift on a well-used pad, or comparing wired vs Bluetooth latency, this tool gives you the raw data from the browser's Gamepad API in real time.</p>
+
+  <h2>How it works</h2>
+  <p>Modern browsers expose a <code>navigator.getGamepads()</code> API that reports the real-time state of any connected USB or Bluetooth HID gamepad. We poll that API every animation frame (typically 60 times per second) and reflect the state visually.</p>
+  <p>Button states, analog axis values, trigger pressure, and vibration commands all flow through this standard web API — the same one game engines like Unity and Godot use when targeting the browser.</p>
+
+  <h2>What can you test?</h2>
+  <div class="feature-grid">
+    <div class="feature-card"><h3>All buttons</h3><p>Face, shoulder, trigger, D-pad, stick click, and system buttons all light up on press.</p></div>
+    <div class="feature-card"><h3>Analog sticks</h3><p>XY position displayed as a real-time moving dot with numeric axis readout.</p></div>
+    <div class="feature-card"><h3>Stick drift</h3><p>Release sticks to measure resting offset. Values above 2% may indicate hardware wear.</p></div>
+    <div class="feature-card"><h3>Triggers</h3><p>Full 0–100% pressure range for LT and RT shown as live fill bars.</p></div>
+    <div class="feature-card"><h3>Vibration</h3><p>Test left and right rumble motors at light, medium, and heavy intensities.</p></div>
+    <div class="feature-card"><h3>Input latency</h3><p>Approximate round-trip time from button press to browser detection in milliseconds.</p></div>
+  </div>
+
+  <h2>Supported controllers</h2>
+  <p>Any controller that appears as a standard HID gamepad on your OS will work. This includes PS5 DualSense, PS4 DualShock, Xbox Series, Xbox One, Xbox 360, Nintendo Switch Pro Controller, 8BitDo devices, and most generic USB and Bluetooth gamepads.</p>
+  <p>PS5 adaptive trigger resistance and DualSense haptics require Sony's proprietary protocol and cannot be accessed through the standard browser Gamepad API.</p>
+
+  <h2>Browser compatibility</h2>
+  <p>The Gamepad API works in Chrome, Edge, and Firefox on Windows, macOS, and Linux. Safari has partial support. Vibration testing works only in Chrome and Edge on Windows. Mobile support is available in Chrome for Android on devices with USB OTG or Bluetooth pairing.</p>
+
+  <h2>Privacy</h2>
+  <p>All processing happens in your browser. We do not collect, store, or transmit any controller data, usage data, or personal information. See our <a href="privacy.html" style="color:var(--accent);text-decoration:none;">Privacy Policy</a> for full details.</p>
 </div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Test</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <span class="footer-copy">© 2025 gamepadtester1</span>
+</footer>
 </body>
 </html>
