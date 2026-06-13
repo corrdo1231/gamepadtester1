@@ -990,7 +990,6 @@ input[type="range"] {
   position: absolute;
   display: grid;
   place-items: center;
-  border: 0;
   color: var(--text);
   font-size: 1rem;
   width: 58px;
@@ -1042,9 +1041,10 @@ input[type="range"] {
 
 .face-button {
   position: absolute;
+  display: grid;
+  place-items: center;
   width: 56px;
   height: 56px;
-  border: 0;
   border-radius: 50%;
   color: #07111c;
   font-weight: 700;
@@ -1180,7 +1180,6 @@ input[type="range"] {
 
 .center-button {
   text-align: left;
-  border: 0;
   color: var(--text);
 }
 
@@ -1198,6 +1197,18 @@ input[type="range"] {
   margin-top: 6px;
   color: var(--muted);
   font-size: 0.8rem;
+}
+
+.stick-readout-compact {
+  margin-top: -8px;
+  width: 100%;
+  justify-content: center;
+  gap: 18px;
+}
+
+.stick-readout-compact span {
+  min-width: 72px;
+  text-align: center;
 }
 
 .center-deadzone label {

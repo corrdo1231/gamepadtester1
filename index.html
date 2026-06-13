@@ -188,16 +188,20 @@
                   <div class="controller-wing controller-wing-right"></div>
 
                   <div class="controller-cluster controller-cluster-left">
-                    <div class="dpad-cluster">
-                      <button class="dpad-button dpad-up" type="button" aria-label="D-pad Up" data-button="up">&uarr;</button>
-                      <button class="dpad-button dpad-left" type="button" aria-label="D-pad Left" data-button="left">&larr;</button>
-                      <button class="dpad-button dpad-center" type="button" aria-hidden="true"></button>
-                      <button class="dpad-button dpad-right" type="button" aria-label="D-pad Right" data-button="right">&rarr;</button>
-                      <button class="dpad-button dpad-down" type="button" aria-label="D-pad Down" data-button="down">&darr;</button>
+                    <div class="dpad-cluster" aria-label="D-pad visualizer">
+                      <div class="dpad-button dpad-up" data-button="up" aria-hidden="true">&uarr;</div>
+                      <div class="dpad-button dpad-left" data-button="left" aria-hidden="true">&larr;</div>
+                      <div class="dpad-button dpad-center" aria-hidden="true"></div>
+                      <div class="dpad-button dpad-right" data-button="right" aria-hidden="true">&rarr;</div>
+                      <div class="dpad-button dpad-down" data-button="down" aria-hidden="true">&darr;</div>
                     </div>
                     <div class="visual-stick visual-stick-left">
                       <div class="visual-stick-ring"></div>
                       <div class="visual-stick-cap visual-stick-cap-left"></div>
+                    </div>
+                    <div class="stick-readout stick-readout-compact">
+                      <span>X: <strong data-stick-x="left">0.000</strong></span>
+                      <span>Y: <strong data-stick-y="left">0.000</strong></span>
                     </div>
                   </div>
 
@@ -208,14 +212,14 @@
                       <span class="mini-note">Slot <span data-controller-index>--</span></span>
                     </div>
                     <div class="center-button-row">
-                      <button class="center-button" type="button" data-button="select">
+                      <div class="center-button" data-button="select">
                         <strong>Select</strong>
                         <span>Back / Share</span>
-                      </button>
-                      <button class="center-button" type="button" data-button="start">
+                      </div>
+                      <div class="center-button" data-button="start">
                         <strong>Start</strong>
                         <span>Menu / Options</span>
-                      </button>
+                      </div>
                     </div>
                     <div class="center-deadzone">
                       <label for="deadzone-input">
@@ -227,15 +231,19 @@
                   </div>
 
                   <div class="controller-cluster controller-cluster-right">
-                    <div class="face-cluster">
-                      <button class="face-button face-button-y" type="button" data-button="y">Y</button>
-                      <button class="face-button face-button-x" type="button" data-button="x">X</button>
-                      <button class="face-button face-button-b" type="button" data-button="b">B</button>
-                      <button class="face-button face-button-a" type="button" data-button="a">A</button>
+                    <div class="face-cluster" aria-label="Face button visualizer">
+                      <div class="face-button face-button-y" data-button="y" aria-hidden="true">Y</div>
+                      <div class="face-button face-button-x" data-button="x" aria-hidden="true">X</div>
+                      <div class="face-button face-button-b" data-button="b" aria-hidden="true">B</div>
+                      <div class="face-button face-button-a" data-button="a" aria-hidden="true">A</div>
                     </div>
                     <div class="visual-stick visual-stick-right">
                       <div class="visual-stick-ring"></div>
                       <div class="visual-stick-cap visual-stick-cap-right"></div>
+                    </div>
+                    <div class="stick-readout stick-readout-compact">
+                      <span>X: <strong data-stick-x="right">0.000</strong></span>
+                      <span>Y: <strong data-stick-y="right">0.000</strong></span>
                     </div>
                   </div>
                 </div>
