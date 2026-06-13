@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gamepad Tester | Browser-Based Controller Test | GamepadTester.tools</title>
+  <meta name="description" content="Test your controller in the browser with live button, trigger, and stick diagnostics. GamepadTester.tools helps you inspect drift, deadzone, Xbox, and PS5 controller input with the Gamepad API.">
+  <link rel="canonical" href="https://gamepadtester.tools/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gamepad Tester | Browser-Based Controller Test">
+  <meta property="og:description" content="Live browser-based controller diagnostics for sticks, buttons, triggers, drift, and deadzone behavior.">
+  <meta property="og:url" content="https://gamepadtester.tools/">
+  <meta property="og:site_name" content="GamepadTester.tools">
+  <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does GamepadTester.tools read controller input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The site uses the browser Gamepad API with navigator.getGamepads, gamepadconnected, gamepaddisconnected, and requestAnimationFrame for live updates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this tester work without installing software?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Everything runs in the browser as a static front end, so there is no desktop installer, account, or server-side processing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I test controller drift and deadzone issues?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The tester shows live stick movement, peak idle offset, and a deadzone control to help you identify drift and tune a practical deadzone value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which controllers are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Browsers usually work best with standard-mapped Xbox, PS5 DualSense, Switch Pro, and many generic USB or Bluetooth gamepads."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body data-page="home">
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">G</span>
+        <span class="brand-label">
+          <strong>GamepadTester.tools</strong>
+          <span>Controller diagnostics in your browser</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a class="active" href="/">Gamepad Tester</a>
+        <a href="/controller-drift-test.html">Drift Test</a>
+        <a href="/deadzone-test.html">Deadzone Test</a>
+        <a href="/xbox-controller-test.html">Xbox Test</a>
+        <a href="/ps5-controller-test.html">PS5 Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Browser Gamepad API • Static Front End</span>
+          <h1>Test buttons, sticks, triggers, and drift in real time.</h1>
+          <p>GamepadTester.tools turns your browser into a live controller lab. Plug in a gamepad, press any button, and watch the Gamepad API stream A/B/X/Y, bumpers, D-pad input, trigger pressure, and analog stick movement with no installs and no backend.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#tester">Launch tester</a>
+            <a class="btn btn-secondary" href="/controller-drift-test.html">Open drift guide</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="muted">Input refresh</span>
+              <strong>rAF loop</strong>
+            </div>
+            <div class="stat-card">
+              <span class="muted">Connection events</span>
+              <strong>Live detect</strong>
+            </div>
+            <div class="stat-card">
+              <span class="muted">Deployment</span>
+              <strong>Cloudflare Pages</strong>
+            </div>
+            <div class="stat-card">
+              <span class="muted">Runtime</span>
+              <strong>100% static</strong>
+            </div>
+          </div>
+          <div class="page-note">
+            <span class="tag">Best results</span>
+            <p>Modern Chromium, Firefox, and Edge builds usually expose the cleanest standard mapping. If nothing appears, reconnect the controller and press a face button once to wake it up.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tester-wrap" id="tester">
+      <div class="shell panel">
+        <div class="panel-header">
+          <div class="section-title">
+            <h2>Gamepad Tester</h2>
+            <p>Live diagnostics for connection status, button states, trigger pressure, stick motion, and deadzone behavior.</p>
+          </div>
+          <div class="status-badge disconnected" data-status>Waiting for a controller</div>
+        </div>
+
+        <div class="unsupported hidden" data-unsupported>
+          This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
+        </div>
+
+        <div class="tester-grid">
+          <div class="stack">
+            <section class="subpanel">
+              <div class="controller-header">
+                <div>
+                  <h3>Connected devices</h3>
+                  <p class="mini-note">Detected controllers: <strong data-connected-count>0</strong></p>
+                </div>
+                <div class="control-row">
+                  <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
+                  <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
+                </div>
+              </div>
+              <div class="controller-list" data-controller-list></div>
+            </section>
+
+            <section class="subpanel">
+              <h3>Controller overview</h3>
+              <div class="device-meta">
+                <div class="meta-card">
+                  <span>Name / ID</span>
+                  <strong data-controller-name>No controller detected</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Selected slot</span>
+                  <strong data-controller-index>--</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Raw device ID</span>
+                  <strong data-controller-id>Waiting for browser access</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Browser mapping</span>
+                  <strong data-mapping>--</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="subpanel">
+              <h3>Button state</h3>
+              <div class="button-grid">
+                <article class="button-card" data-button="a"><strong>A</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="b"><strong>B</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="x"><strong>X</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="y"><strong>Y</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="lb"><strong>LB</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="rb"><strong>RB</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="select"><strong>Select</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="start"><strong>Start</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="up"><strong>D-pad Up</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="down"><strong>D-pad Down</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="left"><strong>D-pad Left</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="right"><strong>D-pad Right</strong><span>Idle • 0.00</span></article>
+              </div>
+            </section>
+          </div>
+
+          <div class="stack">
+            <section class="subpanel">
+              <h3>Analog values</h3>
+              <div class="axis-grid">
+                <article class="axis-card"><strong>Left Stick X</strong><span>Horizontal</span><code data-axis="left-x">0.000</code></article>
+                <article class="axis-card"><strong>Left Stick Y</strong><span>Vertical</span><code data-axis="left-y">0.000</code></article>
+                <article class="axis-card"><strong>LT</strong><span>Trigger value</span><code data-axis="left-trigger">0.000</code></article>
+                <article class="axis-card"><strong>Right Stick X</strong><span>Horizontal</span><code data-axis="right-x">0.000</code></article>
+                <article class="axis-card"><strong>Right Stick Y</strong><span>Vertical</span><code data-axis="right-y">0.000</code></article>
+                <article class="axis-card"><strong>RT</strong><span>Trigger value</span><code data-axis="right-trigger">0.000</code></article>
+              </div>
+            </section>
+
+            <section class="subpanel">
+              <div class="control-row">
+                <div class="range-wrap">
+                  <label for="deadzone-input">
+                    <span>Deadzone threshold</span>
+                    <strong data-deadzone-value>0.120</strong>
+                  </label>
+                  <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
+                </div>
+              </div>
+              <p class="mini-note">Use this threshold as a quick sanity check. If your stick sits outside the deadzone while untouched, drift may be present.</p>
+            </section>
+
+            <section class="subpanel">
+              <h3>Stick drift and deadzone snapshot</h3>
+              <div class="metrics-grid">
+                <article class="metric-card">
+                  <strong>Left stick magnitude</strong>
+                  <span>Distance from center</span>
+                  <code data-metric="left-magnitude">0.000</code>
+                  <div class="state-pill" data-drift-state="left">Centered</div>
+                </article>
+                <article class="metric-card">
+                  <strong>Right stick magnitude</strong>
+                  <span>Distance from center</span>
+                  <code data-metric="right-magnitude">0.000</code>
+                  <div class="state-pill" data-drift-state="right">Centered</div>
+                </article>
+                <article class="metric-card">
+                  <strong>Left stick peak</strong>
+                  <span>Highest idle offset since reset</span>
+                  <code data-metric="left-peak">0.000</code>
+                </article>
+                <article class="metric-card">
+                  <strong>Right stick peak</strong>
+                  <span>Highest idle offset since reset</span>
+                  <code data-metric="right-peak">0.000</code>
+                </article>
+              </div>
+              <div class="metric-card" style="margin-top: 14px;">
+                <strong>Suggested deadzone</strong>
+                <span>Peak idle offset + safety margin</span>
+                <code data-metric="recommended-deadzone">0.060</code>
+              </div>
+            </section>
+
+            <section class="subpanel">
+              <h3>Stick visualization</h3>
+              <div class="stick-grid">
+                <article class="stick-card">
+                  <strong>Left stick</strong>
+                  <div class="stick-zone">
+                    <div class="stick-deadzone" data-stick-deadzone="left"></div>
+                    <div class="stick-point" data-stick-point="left"></div>
+                  </div>
+                  <div class="stick-readout">
+                    <span>X: <strong data-stick-x="left">0.000</strong></span>
+                    <span>Y: <strong data-stick-y="left">0.000</strong></span>
+                  </div>
+                </article>
+                <article class="stick-card">
+                  <strong>Right stick</strong>
+                  <div class="stick-zone">
+                    <div class="stick-deadzone" data-stick-deadzone="right"></div>
+                    <div class="stick-point" data-stick-point="right"></div>
+                  </div>
+                  <div class="stick-readout">
+                    <span>X: <strong data-stick-x="right">0.000</strong></span>
+                    <span>Y: <strong data-stick-y="right">0.000</strong></span>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools">
+      <div class="shell">
+        <div class="section-title">
+          <h2>Focused controller tools</h2>
+          <p>Use the same live tester core with dedicated pages for drift troubleshooting, deadzone tuning, and controller-specific checks.</p>
+        </div>
+        <div class="tools-grid">
+          <a class="tool-card" href="/controller-drift-test.html">
+            <span class="tag">Controller Drift Test</span>
+            <h3>Spot idle movement before it affects your aim.</h3>
+            <p>Watch real-time stick magnitude, peak offset, and recommended deadzone values while the sticks are untouched.</p>
+          </a>
+          <a class="tool-card" href="/deadzone-test.html">
+            <span class="tag">Deadzone Test</span>
+            <h3>Dial in a threshold that feels stable without hiding input.</h3>
+            <p>Compare live stick movement against a user-controlled deadzone ring and see how close you are to center.</p>
+          </a>
+          <a class="tool-card" href="/xbox-controller-test.html">
+            <span class="tag">Xbox Controller Test</span>
+            <h3>Check standard mapping, triggers, bumpers, and stick travel.</h3>
+            <p>Ideal for wired or Bluetooth Xbox pads on desktop browsers that expose the standard Gamepad API layout.</p>
+          </a>
+          <a class="tool-card" href="/ps5-controller-test.html">
+            <span class="tag">PS5 Controller Test</span>
+            <h3>Inspect DualSense buttons, adaptive trigger values, and stick response.</h3>
+            <p>Verify your browser sees the controller correctly and confirm analog input looks clean and centered.</p>
+          </a>
+          <div class="tool-card">
+            <span class="tag">Gamepad API core</span>
+            <h3>Built on the browser primitives you asked for.</h3>
+            <p>The site is powered by <code>navigator.getGamepads()</code>, <code>gamepadconnected</code>, <code>gamepaddisconnected</code>, and a <code>requestAnimationFrame</code> refresh loop.</p>
+          </div>
+          <div class="tool-card">
+            <span class="tag">Static deploy</span>
+            <h3>Fast to ship on GitHub + Cloudflare Pages.</h3>
+            <p>No backend, no database, and no build pipeline. The root directory can be deployed directly as a static site.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide">
+      <div class="shell">
+        <div class="section-title">
+          <h2>How to use the tester</h2>
+          <p>The flow is simple, but these three steps give you the cleanest read on drift, deadzone, and button health.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step">
+            <h3>1. Connect and wake the controller</h3>
+            <p>Plug in with USB or pair with Bluetooth, then press any face button once. Some browsers only expose a pad after the first interaction.</p>
+          </article>
+          <article class="step">
+            <h3>2. Release both sticks</h3>
+            <p>For drift checks, keep your thumbs off the sticks and watch the live magnitude and peak idle offset numbers for a few seconds.</p>
+          </article>
+          <article class="step">
+            <h3>3. Sweep every input</h3>
+            <p>Press A/B/X/Y, LB/RB, Start, Select, D-pad directions, and then roll both sticks through full circles to confirm travel and trigger range.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="shell">
+        <h2>FAQ</h2>
+        <p class="faq-intro">Short answers for the most common controller testing questions.</p>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Do I need to install anything?</h3>
+            <p>No. GamepadTester.tools is a plain static website that reads controller input directly from the browser.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Why is my controller not showing up?</h3>
+            <p>Browsers often require a button press after connection. If it still does not appear, reconnect it and try a current Chrome, Edge, or Firefox build.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What does the suggested deadzone mean?</h3>
+            <p>It is a lightweight estimate based on the highest idle stick offset observed after your last reset, plus a small safety margin.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Can this test Xbox and PS5 controllers?</h3>
+            <p>Yes. Standard-mapped Xbox pads and PS5 DualSense controllers usually work well when connected through a supported desktop browser.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-box">
+      <div>
+        <strong>GamepadTester.tools</strong>
+        <p class="muted">Static controller testing for buttons, sticks, triggers, drift, and deadzone analysis.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Gamepad Tester</a>
+        <a href="/controller-drift-test.html">Controller Drift Test</a>
+        <a href="/deadzone-test.html">Deadzone Test</a>
+        <a href="/xbox-controller-test.html">Xbox Controller Test</a>
+        <a href="/ps5-controller-test.html">PS5 Controller Test</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/gamepad.js" defer></script>
+</body>
+</html>

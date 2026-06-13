@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GamepadTester.tools">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5be7c4"/>
+      <stop offset="55%" stop-color="#7db4ff"/>
+      <stop offset="100%" stop-color="#ff8a5b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#08111f"/>
+  <path d="M18 24c0-4.418 3.582-8 8-8h12c4.418 0 8 3.582 8 8v2h2c4.418 0 8 3.582 8 8 0 2.86-.78 5.666-2.258 8.114l-3.16 5.232a4 4 0 0 1-6.232 1.016l-4.756-4.162H24.406l-4.756 4.162a4 4 0 0 1-6.232-1.016l-3.16-5.232A15.583 15.583 0 0 1 8 34c0-4.418 3.582-8 8-8h2v-2Z" fill="url(#g)"/>
+  <circle cx="24" cy="32" r="4" fill="#08111f"/>
+  <circle cx="40" cy="32" r="4" fill="#08111f"/>
+  <path d="M18 32h8M22 28v8" stroke="#08111f" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="46" cy="28" r="2.5" fill="#08111f"/>
+  <circle cx="50" cy="32" r="2.5" fill="#08111f"/>
+  <circle cx="42" cy="32" r="2.5" fill="#08111f"/>
+  <circle cx="46" cy="36" r="2.5" fill="#08111f"/>
+</svg>

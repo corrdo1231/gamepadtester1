@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PS5 Controller Test | DualSense Browser Check | GamepadTester.tools</title>
+  <meta name="description" content="Test a PS5 DualSense controller in the browser with live face button, trigger, D-pad, stick, drift, and deadzone diagnostics.">
+  <link rel="canonical" href="https://gamepadtester.tools/ps5-controller-test.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PS5 Controller Test | GamepadTester.tools">
+  <meta property="og:description" content="Check PS5 DualSense buttons, triggers, and analog sticks directly in the browser.">
+  <meta property="og:url" content="https://gamepadtester.tools/ps5-controller-test.html">
+  <meta property="og:site_name" content="GamepadTester.tools">
+  <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="ps5">
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">G</span>
+        <span class="brand-label">
+          <strong>GamepadTester.tools</strong>
+          <span>Controller diagnostics in your browser</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Gamepad Tester</a>
+        <a href="/controller-drift-test.html">Drift Test</a>
+        <a href="/deadzone-test.html">Deadzone Test</a>
+        <a href="/xbox-controller-test.html">Xbox Test</a>
+        <a class="active" href="/ps5-controller-test.html">PS5 Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell page-layout">
+        <div class="hero-copy">
+          <span class="eyebrow">PS5 Controller Test</span>
+          <h1>Verify DualSense input, trigger travel, and stick behavior inside the browser.</h1>
+          <p>This page is designed for PS5 DualSense checks. Use it to confirm the browser sees your controller, then test face buttons, D-pad directions, trigger values, and both analog sticks without any local software.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#ps5-tester">Start PS5 test</a>
+            <a class="btn btn-secondary" href="/xbox-controller-test.html">Open Xbox test</a>
+          </div>
+        </div>
+        <aside class="page-side">
+          <div class="page-note">
+            <span class="tag">Connection note</span>
+            <p>DualSense pads can report slightly different device IDs depending on whether you connect over USB or Bluetooth, but the standard mapping usually remains usable.</p>
+          </div>
+          <div class="page-note">
+            <span class="tag">Quick checks</span>
+            <p>Confirm the sticks return to center cleanly and make sure both triggers report a smooth analog sweep when pressed slowly.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tester-wrap" id="ps5-tester">
+      <div class="shell panel">
+        <div class="panel-header">
+          <div class="section-title">
+            <h2>PS5 live tester</h2>
+            <p>Inspect face button activity, D-pad response, trigger values, and live stick movement on a DualSense controller.</p>
+          </div>
+          <div class="status-badge disconnected" data-status>Waiting for a controller</div>
+        </div>
+
+        <div class="unsupported hidden" data-unsupported>
+          This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
+        </div>
+
+        <div class="tester-grid">
+          <div class="stack">
+            <section class="subpanel">
+              <div class="controller-header">
+                <div>
+                  <h3>Connected devices</h3>
+                  <p class="mini-note">Detected controllers: <strong data-connected-count>0</strong></p>
+                </div>
+                <div class="control-row">
+                  <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
+                  <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
+                </div>
+              </div>
+              <div class="controller-list" data-controller-list></div>
+            </section>
+            <section class="subpanel">
+              <h3>Controller overview</h3>
+              <div class="device-meta">
+                <div class="meta-card">
+                  <span>Name / ID</span>
+                  <strong data-controller-name>No controller detected</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Selected slot</span>
+                  <strong data-controller-index>--</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Raw device ID</span>
+                  <strong data-controller-id>Waiting for browser access</strong>
+                </div>
+                <div class="meta-card">
+                  <span>Browser mapping</span>
+                  <strong data-mapping>--</strong>
+                </div>
+              </div>
+            </section>
+            <section class="subpanel">
+              <h3>DualSense button state</h3>
+              <div class="button-grid">
+                <article class="button-card" data-button="a"><strong>Cross</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="b"><strong>Circle</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="x"><strong>Square</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="y"><strong>Triangle</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="lb"><strong>L1</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="rb"><strong>R1</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="select"><strong>Create</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="start"><strong>Options</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="up"><strong>D-pad Up</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="down"><strong>D-pad Down</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="left"><strong>D-pad Left</strong><span>Idle • 0.00</span></article>
+                <article class="button-card" data-button="right"><strong>D-pad Right</strong><span>Idle • 0.00</span></article>
+              </div>
+            </section>
+          </div>
+
+          <div class="stack">
+            <section class="subpanel">
+              <h3>Axis values</h3>
+              <div class="axis-grid">
+                <article class="axis-card"><strong>Left Stick X</strong><span>Horizontal</span><code data-axis="left-x">0.000</code></article>
+                <article class="axis-card"><strong>Left Stick Y</strong><span>Vertical</span><code data-axis="left-y">0.000</code></article>
+                <article class="axis-card"><strong>L2</strong><span>Trigger value</span><code data-axis="left-trigger">0.000</code></article>
+                <article class="axis-card"><strong>Right Stick X</strong><span>Horizontal</span><code data-axis="right-x">0.000</code></article>
+                <article class="axis-card"><strong>Right Stick Y</strong><span>Vertical</span><code data-axis="right-y">0.000</code></article>
+                <article class="axis-card"><strong>R2</strong><span>Trigger value</span><code data-axis="right-trigger">0.000</code></article>
+              </div>
+            </section>
+            <section class="subpanel">
+              <div class="range-wrap">
+                <label for="deadzone-input">
+                  <span>Deadzone threshold</span>
+                  <strong data-deadzone-value>0.120</strong>
+                </label>
+                <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
+              </div>
+              <p class="mini-note">The same deadzone control helps you spot whether the sticks sit cleanly at center after repeated movement.</p>
+            </section>
+            <section class="subpanel">
+              <h3>Drift and response snapshot</h3>
+              <div class="metrics-grid">
+                <article class="metric-card">
+                  <strong>Left stick magnitude</strong>
+                  <span>Current offset</span>
+                  <code data-metric="left-magnitude">0.000</code>
+                  <div class="state-pill" data-drift-state="left">Centered</div>
+                </article>
+                <article class="metric-card">
+                  <strong>Right stick magnitude</strong>
+                  <span>Current offset</span>
+                  <code data-metric="right-magnitude">0.000</code>
+                  <div class="state-pill" data-drift-state="right">Centered</div>
+                </article>
+                <article class="metric-card">
+                  <strong>Left stick peak</strong>
+                  <span>Peak offset sample</span>
+                  <code data-metric="left-peak">0.000</code>
+                </article>
+                <article class="metric-card">
+                  <strong>Right stick peak</strong>
+                  <span>Peak offset sample</span>
+                  <code data-metric="right-peak">0.000</code>
+                </article>
+              </div>
+              <div class="metric-card" style="margin-top: 14px;">
+                <strong>Suggested deadzone</strong>
+                <span>Peak idle offset + safety margin</span>
+                <code data-metric="recommended-deadzone">0.060</code>
+              </div>
+            </section>
+            <section class="subpanel">
+              <h3>Stick visualization</h3>
+              <div class="stick-grid">
+                <article class="stick-card">
+                  <strong>Left stick</strong>
+                  <div class="stick-zone">
+                    <div class="stick-deadzone" data-stick-deadzone="left"></div>
+                    <div class="stick-point" data-stick-point="left"></div>
+                  </div>
+                  <div class="stick-readout">
+                    <span>X: <strong data-stick-x="left">0.000</strong></span>
+                    <span>Y: <strong data-stick-y="left">0.000</strong></span>
+                  </div>
+                </article>
+                <article class="stick-card">
+                  <strong>Right stick</strong>
+                  <div class="stick-zone">
+                    <div class="stick-deadzone" data-stick-deadzone="right"></div>
+                    <div class="stick-point" data-stick-point="right"></div>
+                  </div>
+                  <div class="stick-readout">
+                    <span>X: <strong data-stick-x="right">0.000</strong></span>
+                    <span>Y: <strong data-stick-y="right">0.000</strong></span>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide">
+      <div class="shell">
+        <div class="section-title">
+          <h2>PS5 controller checklist</h2>
+          <p>These quick checks cover the inputs most likely to matter in shooters, racing games, and remote play tools.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step">
+            <h3>Face button response</h3>
+            <p>Press Cross, Circle, Square, and Triangle in quick succession and confirm the active state updates without delay.</p>
+          </article>
+          <article class="step">
+            <h3>Trigger travel</h3>
+            <p>Pull L2 and R2 slowly to see whether their values rise evenly. Sudden jumps can suggest a hardware or mapping issue.</p>
+          </article>
+          <article class="step">
+            <h3>Center return</h3>
+            <p>After rotating both sticks to the outer edge, release them and verify the visualization returns near the center point cleanly.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-box">
+      <div>
+        <strong>GamepadTester.tools</strong>
+        <p class="muted">Browser-based controller testing for PS5 DualSense input, drift checks, and deadzone review.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Gamepad Tester</a>
+        <a href="/controller-drift-test.html">Controller Drift Test</a>
+        <a href="/deadzone-test.html">Deadzone Test</a>
+        <a href="/xbox-controller-test.html">Xbox Controller Test</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/gamepad.js" defer></script>
+</body>
+</html>
