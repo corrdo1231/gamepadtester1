@@ -758,3 +758,628 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 }
+
+.dashboard-toolbar {
+  margin-bottom: 18px;
+}
+
+.visualizer-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.controller-stage-panel,
+.telemetry-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.controller-stage-header,
+.panel-mini-header,
+.telemetry-footer,
+.drift-card-head,
+.trigger-meter-label,
+.telemetry-pair,
+.info-card,
+.mini-metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.controller-stage-header {
+  margin-bottom: 18px;
+}
+
+.visualizer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.controller-stage-panel .tag {
+  background: rgba(125, 180, 255, 0.1);
+  color: var(--brand-3);
+}
+
+.controller-visualizer {
+  --left-stick-x: 0;
+  --left-stick-y: 0;
+  --right-stick-x: 0;
+  --right-stick-y: 0;
+  --lt-pressure: 0;
+  --rt-pressure: 0;
+  position: relative;
+  border-radius: calc(var(--radius-lg) + 4px);
+  padding: 26px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(91, 231, 196, 0.09), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(125, 180, 255, 0.15), transparent 32%),
+    linear-gradient(180deg, rgba(6, 15, 28, 0.92), rgba(10, 18, 35, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.controller-visualizer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.controller-top-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 16px;
+}
+
+.controller-trigger {
+  position: relative;
+  overflow: hidden;
+  min-height: 74px;
+  padding: 14px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.controller-trigger.active {
+  border-color: rgba(91, 231, 196, 0.5);
+  box-shadow: 0 0 30px rgba(91, 231, 196, 0.18);
+  transform: translateY(-1px);
+}
+
+.controller-trigger-label,
+.controller-trigger-value {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.controller-trigger-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.controller-trigger-value {
+  margin-top: 8px;
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.controller-trigger-fill {
+  position: absolute;
+  inset: auto 0 0;
+  height: calc(var(--pressure, 0) * 100%);
+  min-height: 4px;
+  background: linear-gradient(180deg, rgba(91, 231, 196, 0.18), rgba(91, 231, 196, 0.95));
+}
+
+.controller-shell {
+  position: relative;
+  z-index: 1;
+  padding-top: 12px;
+}
+
+.controller-body {
+  position: relative;
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(220px, 0.72fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 24px;
+  padding: 40px 34px 34px;
+  border-radius: 44px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(28, 40, 62, 0.96), rgba(14, 22, 37, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 50px rgba(0, 0, 0, 0.26);
+}
+
+.controller-wing {
+  position: absolute;
+  top: 120px;
+  width: 190px;
+  height: 210px;
+  border-radius: 44% 48% 52% 56%;
+  background: linear-gradient(180deg, rgba(16, 25, 43, 0.95), rgba(8, 14, 25, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  z-index: -1;
+}
+
+.controller-wing-left {
+  left: -66px;
+  transform: rotate(18deg);
+}
+
+.controller-wing-right {
+  right: -66px;
+  transform: rotate(-18deg);
+}
+
+.controller-bumper {
+  position: absolute;
+  top: 0;
+  width: 28%;
+  min-height: 54px;
+  padding: 12px 16px;
+  border-radius: 18px 18px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  text-align: center;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.controller-bumper strong,
+.controller-bumper span {
+  display: block;
+}
+
+.controller-bumper span {
+  margin-top: 5px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.controller-bumper.active {
+  border-color: rgba(91, 231, 196, 0.5);
+  box-shadow: 0 0 28px rgba(91, 231, 196, 0.2);
+  transform: translateY(-1px);
+}
+
+.controller-bumper-left {
+  left: 8%;
+}
+
+.controller-bumper-right {
+  right: 8%;
+}
+
+.controller-cluster {
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+}
+
+.dpad-cluster {
+  position: relative;
+  width: 146px;
+  height: 146px;
+}
+
+.dpad-button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 0;
+  color: var(--text);
+  font-size: 1rem;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.dpad-button.active {
+  background: linear-gradient(180deg, rgba(125, 180, 255, 0.34), rgba(91, 231, 196, 0.22));
+  box-shadow: 0 0 26px rgba(125, 180, 255, 0.24);
+  transform: scale(1.04);
+}
+
+.dpad-up {
+  top: 0;
+  left: 44px;
+}
+
+.dpad-left {
+  left: 0;
+  top: 44px;
+}
+
+.dpad-center {
+  left: 44px;
+  top: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.dpad-right {
+  right: 0;
+  top: 44px;
+}
+
+.dpad-down {
+  bottom: 0;
+  left: 44px;
+}
+
+.face-cluster {
+  position: relative;
+  width: 164px;
+  height: 164px;
+}
+
+.face-button {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  color: #07111c;
+  font-weight: 700;
+  background: var(--face-color, var(--brand));
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+  transition: transform 150ms ease, filter 150ms ease, box-shadow 150ms ease;
+}
+
+.face-button.active {
+  transform: scale(1.08);
+  filter: brightness(1.14);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--face-color, var(--brand)) 48%, transparent);
+}
+
+.face-button-a {
+  --face-color: #5be7c4;
+  right: 18px;
+  top: 54px;
+}
+
+.face-button-b {
+  --face-color: #ff8a5b;
+  top: 54px;
+  right: 76px;
+}
+
+.face-button-x {
+  --face-color: #7db4ff;
+  top: 0;
+  right: 76px;
+}
+
+.face-button-y {
+  --face-color: #ffd26f;
+  right: 76px;
+  bottom: 18px;
+}
+
+.visual-stick {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(5, 11, 20, 0.5));
+  overflow: hidden;
+}
+
+.visual-stick::before,
+.visual-stick::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.visual-stick::before {
+  left: 50%;
+  top: 12%;
+  bottom: 12%;
+  width: 1px;
+}
+
+.visual-stick::after {
+  top: 50%;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+}
+
+.visual-stick-ring {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.visual-stick-cap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(240, 245, 255, 0.92), rgba(117, 150, 205, 0.86));
+  box-shadow:
+    inset 0 -8px 16px rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.26);
+}
+
+.visual-stick-cap-left {
+  transform: translate(calc(var(--left-stick-x) * 34px), calc(var(--left-stick-y) * 34px));
+}
+
+.visual-stick-cap-right {
+  transform: translate(calc(var(--right-stick-x) * 34px), calc(var(--right-stick-y) * 34px));
+}
+
+.controller-center {
+  display: grid;
+  gap: 18px;
+  align-self: stretch;
+}
+
+.controller-center-status,
+.center-button,
+.center-deadzone {
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.controller-center-status strong {
+  display: block;
+  font-size: 1.05rem;
+  margin-top: 4px;
+}
+
+.center-kicker {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.center-button-row {
+  display: grid;
+  gap: 12px;
+}
+
+.center-button {
+  text-align: left;
+  border: 0;
+  color: var(--text);
+}
+
+.center-button.active {
+  box-shadow: 0 0 24px rgba(125, 180, 255, 0.18);
+  border-color: rgba(125, 180, 255, 0.42);
+}
+
+.center-button strong,
+.center-button span {
+  display: block;
+}
+
+.center-button span {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.center-deadzone label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.dashboard-side {
+  display: grid;
+}
+
+.dashboard-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.telemetry-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.telemetry-panel-wide {
+  grid-column: 1 / -1;
+}
+
+.mini-metric {
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mini-metric span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.mini-metric strong {
+  font-size: 1rem;
+}
+
+.stick-zone-compact {
+  width: min(100%, 188px);
+  margin: 0 auto;
+}
+
+.telemetry-pairs,
+.info-grid,
+.drift-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.telemetry-pairs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.telemetry-pair,
+.info-card,
+.drift-card {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.telemetry-pair span,
+.info-card span,
+.drift-values span,
+.drift-card-head span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.telemetry-pair strong,
+.info-card strong,
+.drift-values strong {
+  font-size: 1rem;
+}
+
+.trigger-meters {
+  display: grid;
+  gap: 14px;
+}
+
+.trigger-meter-track {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.trigger-meter-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  border-radius: inherit;
+}
+
+.trigger-meter-fill-left {
+  background: linear-gradient(90deg, #5be7c4, #7df3e2);
+}
+
+.trigger-meter-fill-right {
+  background: linear-gradient(90deg, #7db4ff, #a7d0ff);
+}
+
+.info-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.info-card {
+  display: grid;
+  justify-content: start;
+}
+
+.info-card-wide {
+  grid-column: 1 / -1;
+}
+
+.info-card strong {
+  margin-top: 8px;
+  word-break: break-word;
+}
+
+.drift-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.drift-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.drift-values div {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+@media (max-width: 1180px) {
+  .visualizer-dashboard,
+  .dashboard-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry-panel-wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .controller-body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    min-height: auto;
+    padding: 88px 22px 24px;
+  }
+
+  .controller-wing {
+    display: none;
+  }
+
+  .controller-bumper {
+    width: calc(50% - 20px);
+  }
+
+  .controller-center {
+    order: -1;
+  }
+
+  .drift-grid,
+  .info-grid,
+  .telemetry-pairs,
+  .controller-top-row {
+    grid-template-columns: 1fr;
+  }
+}

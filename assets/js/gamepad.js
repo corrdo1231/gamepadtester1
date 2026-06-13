@@ -31,11 +31,15 @@
   const elements = {
     unsupported: doc.querySelector("[data-unsupported]"),
     status: doc.querySelector("[data-status]"),
+    visualizer: doc.querySelector("[data-visualizer]"),
     connectedCount: doc.querySelector("[data-connected-count]"),
     controllerList: doc.querySelector("[data-controller-list]"),
     controllerName: doc.querySelector("[data-controller-name]"),
     controllerId: doc.querySelector("[data-controller-id]"),
-    controllerIndex: doc.querySelector("[data-controller-index]"),
+    controllerIndex: doc.querySelectorAll("[data-controller-index]"),
+    deviceConnected: doc.querySelectorAll("[data-device-connected]"),
+    deviceButtons: doc.querySelectorAll("[data-device-buttons]"),
+    deviceAxes: doc.querySelectorAll("[data-device-axes]"),
     mapping: doc.querySelector("[data-mapping]"),
     deadzoneInput: doc.querySelector("[data-deadzone-input]"),
     deadzoneValue: doc.querySelector("[data-deadzone-value]"),
@@ -57,22 +61,35 @@
     rightMagnitude: doc.querySelector("[data-metric='right-magnitude']"),
     leftPeak: doc.querySelector("[data-metric='left-peak']"),
     rightPeak: doc.querySelector("[data-metric='right-peak']"),
-    leftDriftState: doc.querySelector("[data-drift-state='left']"),
-    rightDriftState: doc.querySelector("[data-drift-state='right']"),
+    leftDriftState: doc.querySelectorAll("[data-drift-state='left']"),
+    rightDriftState: doc.querySelectorAll("[data-drift-state='right']"),
     recommendedDeadzone: doc.querySelector("[data-metric='recommended-deadzone']"),
+    driftAxis: {
+      leftX: doc.querySelectorAll("[data-drift-axis='left-x']"),
+      leftY: doc.querySelectorAll("[data-drift-axis='left-y']"),
+      rightX: doc.querySelectorAll("[data-drift-axis='right-x']"),
+      rightY: doc.querySelectorAll("[data-drift-axis='right-y']")
+    },
+    triggerMeters: {
+      left: doc.querySelector("[data-trigger-meter='left']"),
+      right: doc.querySelector("[data-trigger-meter='right']")
+    },
     axis: {
-      leftX: doc.querySelector("[data-axis='left-x']"),
-      leftY: doc.querySelector("[data-axis='left-y']"),
-      rightX: doc.querySelector("[data-axis='right-x']"),
-      rightY: doc.querySelector("[data-axis='right-y']"),
-      leftTrigger: doc.querySelector("[data-axis='left-trigger']"),
-      rightTrigger: doc.querySelector("[data-axis='right-trigger']")
+      leftX: doc.querySelectorAll("[data-axis='left-x']"),
+      leftY: doc.querySelectorAll("[data-axis='left-y']"),
+      rightX: doc.querySelectorAll("[data-axis='right-x']"),
+      rightY: doc.querySelectorAll("[data-axis='right-y']"),
+      leftTrigger: doc.querySelectorAll("[data-axis='left-trigger']"),
+      rightTrigger: doc.querySelectorAll("[data-axis='right-trigger']")
     },
     buttons: new Map()
   };
 
   doc.querySelectorAll("[data-button]").forEach((node) => {
-    elements.buttons.set(node.getAttribute("data-button"), node);
+    const key = node.getAttribute("data-button");
+    const list = elements.buttons.get(key) || [];
+    list.push(node);
+    elements.buttons.set(key, list);
   });
 
   function formatAxis(value) {
@@ -81,6 +98,12 @@
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
+  }
+
+  function setText(nodes, value) {
+    (Array.isArray(nodes) ? nodes : Array.from(nodes || [])).forEach((node) => {
+      node.textContent = value;
+    });
   }
 
   function getGamepads() {
@@ -152,6 +175,8 @@
       elements.connectedCount.textContent = String(count);
     }
 
+    setText(elements.deviceConnected, activePad ? "Connected" : "Disconnected");
+
     if (!activePad) {
       if (elements.controllerName) {
         elements.controllerName.textContent = "No controller detected";
@@ -159,12 +184,12 @@
       if (elements.controllerId) {
         elements.controllerId.textContent = "Waiting for browser access";
       }
-      if (elements.controllerIndex) {
-        elements.controllerIndex.textContent = "--";
-      }
+      setText(elements.controllerIndex, "--");
       if (elements.mapping) {
         elements.mapping.textContent = "--";
       }
+      setText(elements.deviceButtons, "0");
+      setText(elements.deviceAxes, "0");
       return;
     }
 
@@ -174,36 +199,38 @@
     if (elements.controllerId) {
       elements.controllerId.textContent = activePad.id || "Unknown";
     }
-    if (elements.controllerIndex) {
-      elements.controllerIndex.textContent = `#${activePad.index}`;
-    }
+    setText(elements.controllerIndex, `#${activePad.index}`);
     if (elements.mapping) {
       elements.mapping.textContent = activePad.mapping || "raw";
     }
+    setText(elements.deviceButtons, String(activePad.buttons.length));
+    setText(elements.deviceAxes, String(activePad.axes.length));
   }
 
   function updateButtonCard(key, button) {
-    const node = elements.buttons.get(key);
-    if (!node) {
+    const nodes = elements.buttons.get(key);
+    if (!nodes || !nodes.length) {
       return;
     }
 
     const value = button ? button.value : 0;
     const pressed = button ? button.pressed : false;
 
-    node.classList.toggle("active", pressed || value > 0.2);
-    node.style.setProperty("--pressure", clamp(value, 0, 1));
+    nodes.forEach((node) => {
+      node.classList.toggle("active", pressed || value > 0.2);
+      node.style.setProperty("--pressure", clamp(value, 0, 1));
 
-    const valueNode = node.querySelector("span");
-    if (valueNode) {
-      valueNode.textContent = pressed ? `Pressed • ${value.toFixed(2)}` : `Idle • ${value.toFixed(2)}`;
-    }
+      const valueNode = node.classList.contains("button-card") ? node.querySelector("span") : null;
+      if (valueNode) {
+        valueNode.textContent = pressed ? `Pressed - ${value.toFixed(2)}` : `Idle - ${value.toFixed(2)}`;
+      }
+    });
   }
 
-  function updateAxisNode(node, value) {
-    if (node) {
+  function updateAxisNode(nodes, value) {
+    (nodes || []).forEach((node) => {
       node.textContent = formatAxis(value);
-    }
+    });
   }
 
   function driftState(magnitude) {
@@ -216,17 +243,15 @@
     return { label: "Centered", className: "" };
   }
 
-  function updateStatePill(node, magnitude) {
-    if (!node) {
-      return;
-    }
-
+  function updateStatePill(nodes, magnitude) {
     const next = driftState(magnitude);
-    node.textContent = next.label;
-    node.className = "state-pill";
-    if (next.className) {
-      node.classList.add(next.className);
-    }
+    (nodes || []).forEach((node) => {
+      node.textContent = next.label;
+      node.className = "state-pill";
+      if (next.className) {
+        node.classList.add(next.className);
+      }
+    });
   }
 
   function updateStick(zone, x, y) {
@@ -244,10 +269,40 @@
     }
   }
 
+  function updateAxisSummary(leftX, leftY, rightX, rightY, leftTrigger, rightTrigger) {
+    updateAxisNode(elements.axis.leftX, leftX);
+    updateAxisNode(elements.axis.leftY, leftY);
+    updateAxisNode(elements.axis.rightX, rightX);
+    updateAxisNode(elements.axis.rightY, rightY);
+    updateAxisNode(elements.axis.leftTrigger, leftTrigger);
+    updateAxisNode(elements.axis.rightTrigger, rightTrigger);
+
+    updateAxisNode(elements.driftAxis.leftX, leftX);
+    updateAxisNode(elements.driftAxis.leftY, leftY);
+    updateAxisNode(elements.driftAxis.rightX, rightX);
+    updateAxisNode(elements.driftAxis.rightY, rightY);
+
+    if (elements.triggerMeters.left) {
+      elements.triggerMeters.left.style.transform = `scaleX(${clamp(leftTrigger, 0, 1)})`;
+    }
+    if (elements.triggerMeters.right) {
+      elements.triggerMeters.right.style.transform = `scaleX(${clamp(rightTrigger, 0, 1)})`;
+    }
+
+    if (elements.visualizer) {
+      elements.visualizer.style.setProperty("--left-stick-x", String(clamp(leftX, -1, 1)));
+      elements.visualizer.style.setProperty("--left-stick-y", String(clamp(leftY, -1, 1)));
+      elements.visualizer.style.setProperty("--right-stick-x", String(clamp(rightX, -1, 1)));
+      elements.visualizer.style.setProperty("--right-stick-y", String(clamp(rightY, -1, 1)));
+      elements.visualizer.style.setProperty("--lt-pressure", String(clamp(leftTrigger, 0, 1)));
+      elements.visualizer.style.setProperty("--rt-pressure", String(clamp(rightTrigger, 0, 1)));
+    }
+  }
+
   function zeroUi() {
     buttonMap.forEach((item) => updateButtonCard(item.key, { pressed: false, value: 0 }));
 
-    Object.keys(elements.axis).forEach((key) => updateAxisNode(elements.axis[key], 0));
+    updateAxisSummary(0, 0, 0, 0, 0, 0);
     updateStick(elements.leftStick, 0, 0);
     updateStick(elements.rightStick, 0, 0);
 
@@ -256,6 +311,12 @@
     }
     if (elements.rightMagnitude) {
       elements.rightMagnitude.textContent = "0.000";
+    }
+    if (elements.leftPeak) {
+      elements.leftPeak.textContent = "0.000";
+    }
+    if (elements.rightPeak) {
+      elements.rightPeak.textContent = "0.000";
     }
     updateStatePill(elements.leftDriftState, 0);
     updateStatePill(elements.rightDriftState, 0);
@@ -282,13 +343,7 @@
     const leftTrigger = activePad.buttons[6] ? activePad.buttons[6].value : 0;
     const rightTrigger = activePad.buttons[7] ? activePad.buttons[7].value : 0;
 
-    updateAxisNode(elements.axis.leftX, leftX);
-    updateAxisNode(elements.axis.leftY, leftY);
-    updateAxisNode(elements.axis.rightX, rightX);
-    updateAxisNode(elements.axis.rightY, rightY);
-    updateAxisNode(elements.axis.leftTrigger, leftTrigger);
-    updateAxisNode(elements.axis.rightTrigger, rightTrigger);
-
+    updateAxisSummary(leftX, leftY, rightX, rightY, leftTrigger, rightTrigger);
     updateStick(elements.leftStick, leftX, leftY);
     updateStick(elements.rightStick, rightX, rightY);
 
@@ -355,17 +410,20 @@
 
     if (elements.refreshButton) {
       elements.refreshButton.addEventListener("click", function () {
-        renderPad(choosePad(getGamepads()), getGamepads());
+        const pads = getGamepads();
+        renderPad(choosePad(pads), pads);
       });
     }
 
     window.addEventListener("gamepadconnected", function (event) {
       state.selectedIndex = event.gamepad.index;
-      renderPad(choosePad(getGamepads()), getGamepads());
+      const pads = getGamepads();
+      renderPad(choosePad(pads), pads);
     });
 
     window.addEventListener("gamepaddisconnected", function () {
-      renderPad(choosePad(getGamepads()), getGamepads());
+      const pads = getGamepads();
+      renderPad(choosePad(pads), pads);
     });
 
     zeroUi();
