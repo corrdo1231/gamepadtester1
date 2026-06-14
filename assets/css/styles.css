@@ -1445,16 +1445,28 @@ input[type="range"] {
   stroke-width: 2;
 }
 
+.controller-svg .controller-shell-bottom {
+  fill: url(#shellBottomGradient);
+  opacity: 0.92;
+}
+
 .controller-svg .controller-handle-line {
   fill: none;
-  stroke: rgba(151, 187, 232, 0.12);
+  stroke: rgba(151, 187, 232, 0.16);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.controller-svg .controller-midline {
+  fill: none;
+  stroke: rgba(163, 196, 236, 0.12);
   stroke-width: 2;
   stroke-linecap: round;
 }
 
 .controller-svg .trigger-track {
-  fill: rgba(133, 160, 194, 0.18);
-  stroke: rgba(203, 226, 255, 0.1);
+  fill: rgba(133, 160, 194, 0.15);
+  stroke: rgba(203, 226, 255, 0.12);
   stroke-width: 2;
 }
 
@@ -1465,7 +1477,6 @@ input[type="range"] {
 
 .controller-svg .trigger-label,
 .controller-svg .bumper-label,
-.controller-svg .meta-button-label,
 .controller-svg .face-letter {
   fill: rgba(239, 247, 255, 0.92);
   font-size: 13px;
@@ -1476,25 +1487,25 @@ input[type="range"] {
 
 .controller-svg .trigger-label,
 .controller-svg .bumper-label {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .controller-svg .bumper-shape {
   fill: rgba(115, 145, 183, 0.18);
-  stroke: rgba(213, 232, 255, 0.1);
+  stroke: rgba(213, 232, 255, 0.14);
   stroke-width: 2;
   transition: fill 160ms ease, stroke 160ms ease, filter 160ms ease;
 }
 
 .controller-svg .stick-well-ring {
-  fill: rgba(10, 15, 25, 0.44);
-  stroke: rgba(156, 193, 239, 0.14);
+  fill: rgba(10, 15, 25, 0.32);
+  stroke: rgba(156, 193, 239, 0.22);
   stroke-width: 2.5;
 }
 
 .controller-svg .stick-well-inner {
-  fill: rgba(139, 179, 226, 0.12);
-  stroke: rgba(220, 235, 255, 0.08);
+  fill: rgba(139, 179, 226, 0.14);
+  stroke: rgba(220, 235, 255, 0.12);
   stroke-width: 2;
 }
 
@@ -1520,14 +1531,30 @@ input[type="range"] {
   transition: fill 140ms ease, filter 140ms ease, transform 140ms ease;
 }
 
-.controller-svg .center-mini-button {
-  fill: rgba(124, 154, 192, 0.18);
-  stroke: rgba(221, 236, 255, 0.08);
+.controller-svg .dpad-ring {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(218, 234, 255, 0.14);
   stroke-width: 2;
 }
 
-.controller-svg .center-icon-line {
-  fill: rgba(241, 248, 255, 0.64);
+.controller-svg .dpad-core {
+  fill: rgba(111, 139, 177, 0.16);
+  stroke: rgba(222, 236, 255, 0.1);
+  stroke-width: 2;
+}
+
+.controller-svg .center-home-ring {
+  fill: rgba(124, 154, 192, 0.14);
+  stroke: rgba(221, 236, 255, 0.1);
+  stroke-width: 2;
+}
+
+.controller-svg .center-home-glyph {
+  fill: none;
+  stroke: rgba(241, 248, 255, 0.68);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .controller-svg .meta-button-dot {
@@ -1537,8 +1564,17 @@ input[type="range"] {
   transition: fill 140ms ease, filter 140ms ease;
 }
 
-.controller-svg .meta-button-label {
-  font-size: 9px;
+.controller-svg .meta-button-icon-box {
+  fill: none;
+  stroke: rgba(241, 248, 255, 0.68);
+  stroke-width: 2;
+}
+
+.controller-svg .meta-button-icon-line {
+  fill: none;
+  stroke: rgba(241, 248, 255, 0.68);
+  stroke-width: 2;
+  stroke-linecap: round;
 }
 
 .controller-svg .face-core {
@@ -1567,7 +1603,13 @@ input[type="range"] {
 
 .controller-svg .face-letter {
   fill: rgba(12, 20, 31, 0.9);
-  font-size: 15px;
+  font-size: 14px;
+}
+
+.controller-svg .face-cluster-ring {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(220, 235, 255, 0.14);
+  stroke-width: 2;
 }
 
 .controller-svg .trigger-group.active .trigger-track {

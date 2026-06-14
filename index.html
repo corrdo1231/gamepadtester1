@@ -160,15 +160,19 @@
             </div>
 
             <div class="controller-svg-shell" data-visualizer>
-              <svg class="controller-svg" viewBox="0 0 500 383" aria-label="Game controller visualizer">
+              <svg class="controller-svg" viewBox="0 0 520 390" aria-label="Game controller visualizer">
                 <defs>
                   <linearGradient id="shellGradient" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#31466f"></stop>
-                    <stop offset="100%" stop-color="#111b2d"></stop>
+                    <stop offset="0%" stop-color="#30476f"></stop>
+                    <stop offset="100%" stop-color="#15243a"></stop>
                   </linearGradient>
                   <linearGradient id="shellCoreGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#202f4a"></stop>
-                    <stop offset="100%" stop-color="#101828"></stop>
+                    <stop offset="0%" stop-color="#263753"></stop>
+                    <stop offset="100%" stop-color="#151e32"></stop>
+                  </linearGradient>
+                  <linearGradient id="shellBottomGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#1c2740"></stop>
+                    <stop offset="100%" stop-color="#11192b"></stop>
                   </linearGradient>
                   <linearGradient id="triggerFillGradient" x1="0" y1="1" x2="0" y2="0">
                     <stop offset="0%" stop-color="#2ce6b8"></stop>
@@ -183,90 +187,96 @@
                 <g id="Controller" filter="url(#controllerGlow)">
                   <g class="controller-svg-triggers">
                     <g class="trigger-group" data-button="lt">
-                      <rect class="trigger-track" x="122" y="18" width="34" height="64" rx="15"></rect>
-                      <rect class="trigger-fill" data-trigger-meter="left" data-base-y="18" data-max-height="64" x="122" y="82" width="34" height="0" rx="15"></rect>
-                      <text class="trigger-label" x="139" y="103">LT</text>
+                      <rect class="trigger-track" x="134" y="18" width="30" height="66" rx="15"></rect>
+                      <rect class="trigger-fill" data-trigger-meter="left" data-base-y="18" data-max-height="66" x="134" y="84" width="30" height="0" rx="15"></rect>
+                      <text class="trigger-label" x="149" y="96">LT</text>
                     </g>
                     <g class="trigger-group" data-button="rt">
-                      <rect class="trigger-track" x="344" y="18" width="34" height="64" rx="15"></rect>
-                      <rect class="trigger-fill" data-trigger-meter="right" data-base-y="18" data-max-height="64" x="344" y="82" width="34" height="0" rx="15"></rect>
-                      <text class="trigger-label" x="361" y="103">RT</text>
+                      <rect class="trigger-track" x="356" y="18" width="30" height="66" rx="15"></rect>
+                      <rect class="trigger-fill" data-trigger-meter="right" data-base-y="18" data-max-height="66" x="356" y="84" width="30" height="0" rx="15"></rect>
+                      <text class="trigger-label" x="371" y="96">RT</text>
                     </g>
                     <g class="bumper-group" data-button="lb">
-                      <rect class="bumper-shape" x="116" y="90" width="53" height="22" rx="9"></rect>
-                      <text class="bumper-label" x="142.5" y="105">LB</text>
+                      <rect class="bumper-shape" x="124" y="94" width="56" height="20" rx="9"></rect>
+                      <text class="bumper-label" x="152" y="108">LB</text>
                     </g>
                     <g class="bumper-group" data-button="rb">
-                      <rect class="bumper-shape" x="331" y="90" width="53" height="22" rx="9"></rect>
-                      <text class="bumper-label" x="357.5" y="105">RB</text>
+                      <rect class="bumper-shape" x="340" y="94" width="56" height="20" rx="9"></rect>
+                      <text class="bumper-label" x="368" y="108">RB</text>
                     </g>
                   </g>
 
-                  <path class="controller-shell-outline" d="M124 124H376C410 124 437 141 451 174L474 264C487 314 458 357 411 357H89C42 357 13 314 26 264L49 174C63 141 90 124 124 124Z"></path>
-                  <path class="controller-shell-core" d="M126 142H374C400 142 421 153 431 175L452 257C462 297 438 334 399 334H101C62 334 38 297 48 257L69 175C79 153 100 142 126 142Z"></path>
-                  <path class="controller-handle-line" d="M70 176L188 296"></path>
-                  <path class="controller-handle-line" d="M430 176L312 296"></path>
+                  <path class="controller-shell-outline" d="M112 118C140 104 182 100 220 103H300C338 100 380 104 408 118C435 132 452 153 462 183L486 280C494 313 485 343 462 355C440 367 417 359 399 338L344 274C331 259 316 252 298 252H222C204 252 189 259 176 274L121 338C103 359 80 367 58 355C35 343 26 313 34 280L58 183C68 153 85 132 112 118Z"></path>
+                  <path class="controller-shell-core" d="M120 131C146 120 185 117 220 120H300C335 117 374 120 400 131C421 141 435 158 443 181L464 276C470 301 464 323 449 332C434 341 418 335 404 317L347 242C334 225 319 217 300 217H220C201 217 186 225 173 242L116 317C102 335 86 341 71 332C56 323 50 301 56 276L77 181C85 158 99 141 120 131Z"></path>
+                  <path class="controller-shell-bottom" d="M77 184C85 161 98 146 119 137C145 127 184 123 220 126H300C336 123 375 127 401 137C422 146 435 161 443 184L460 270C464 290 461 306 452 319C432 319 413 311 399 295L344 233C332 220 317 214 300 214H220C203 214 188 220 176 233L121 295C107 311 88 319 68 319C59 306 56 290 60 270Z"></path>
+                  <path class="controller-handle-line" d="M58 206L135 306"></path>
+                  <path class="controller-handle-line" d="M462 206L385 306"></path>
+                  <path class="controller-midline" d="M173 242H347"></path>
 
                   <g class="stick-well stick-well-left">
-                    <circle class="stick-well-ring" cx="129" cy="199" r="42"></circle>
-                    <circle class="stick-well-inner" cx="129" cy="199" r="30"></circle>
-                    <circle class="stick-deadzone-ring" data-stick-deadzone="left" cx="129" cy="199" r="10"></circle>
-                    <circle class="stick-point-core" data-stick-point="left" cx="129" cy="199" r="16"></circle>
+                    <circle class="stick-well-ring" cx="136" cy="182" r="43"></circle>
+                    <circle class="stick-well-inner" cx="136" cy="182" r="31"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="left" cx="136" cy="182" r="10"></circle>
+                    <circle class="stick-point-core" data-stick-point="left" cx="136" cy="182" r="16"></circle>
                   </g>
 
                   <g class="dpad-group">
+                    <circle class="dpad-ring" cx="192" cy="252" r="54"></circle>
                     <g class="dpad-button-group" data-button="up">
-                      <rect class="dpad-key" x="182" y="227" width="26" height="46" rx="10"></rect>
+                      <rect class="dpad-key" x="176" y="212" width="32" height="50" rx="12"></rect>
                     </g>
                     <g class="dpad-button-group" data-button="left">
-                      <rect class="dpad-key" x="160" y="249" width="46" height="26" rx="10"></rect>
+                      <rect class="dpad-key" x="152" y="236" width="48" height="32" rx="12"></rect>
                     </g>
                     <g class="dpad-button-group" data-button="right">
-                      <rect class="dpad-key" x="184" y="249" width="46" height="26" rx="10"></rect>
+                      <rect class="dpad-key" x="184" y="236" width="48" height="32" rx="12"></rect>
                     </g>
                     <g class="dpad-button-group" data-button="down">
-                      <rect class="dpad-key" x="182" y="251" width="26" height="46" rx="10"></rect>
+                      <rect class="dpad-key" x="176" y="242" width="32" height="50" rx="12"></rect>
                     </g>
+                    <rect class="dpad-core" x="176" y="236" width="32" height="32" rx="10"></rect>
                   </g>
 
                   <g class="center-icon-group">
-                    <circle class="center-mini-button" cx="241" cy="168" r="14"></circle>
-                    <circle class="center-mini-button" cx="259" cy="168" r="14"></circle>
-                    <circle class="center-mini-button" cx="250" cy="150" r="19"></circle>
-                    <rect class="center-icon-line" x="245" y="145" width="10" height="10" rx="2"></rect>
+                    <circle class="center-home-ring" cx="260" cy="150" r="16"></circle>
+                    <path class="center-home-glyph" d="M253 152L260 146L267 152V159H253Z"></path>
+                    <path class="center-home-glyph" d="M255 151V149L260 144L265 149V151"></path>
                   </g>
 
                   <g class="meta-button-group" data-button="select">
-                    <circle class="meta-button-dot" cx="207" cy="201" r="10"></circle>
-                    <text class="meta-button-label" x="207" y="206">S</text>
+                    <circle class="meta-button-dot" cx="228" cy="186" r="11"></circle>
+                    <rect class="meta-button-icon-box" x="223" y="181" width="10" height="10" rx="2"></rect>
                   </g>
                   <g class="meta-button-group" data-button="start">
-                    <circle class="meta-button-dot" cx="293" cy="201" r="10"></circle>
-                    <text class="meta-button-label" x="293" y="206">M</text>
+                    <circle class="meta-button-dot" cx="292" cy="186" r="11"></circle>
+                    <path class="meta-button-icon-line" d="M286 181H298"></path>
+                    <path class="meta-button-icon-line" d="M286 186H298"></path>
+                    <path class="meta-button-icon-line" d="M286 191H298"></path>
                   </g>
 
                   <g class="stick-well stick-well-right">
-                    <circle class="stick-well-ring" cx="316" cy="269" r="38"></circle>
-                    <circle class="stick-well-inner" cx="316" cy="269" r="28"></circle>
-                    <circle class="stick-deadzone-ring" data-stick-deadzone="right" cx="316" cy="269" r="10"></circle>
-                    <circle class="stick-point-core" data-stick-point="right" cx="316" cy="269" r="15"></circle>
+                    <circle class="stick-well-ring" cx="332" cy="252" r="40"></circle>
+                    <circle class="stick-well-inner" cx="332" cy="252" r="28"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="right" cx="332" cy="252" r="10"></circle>
+                    <circle class="stick-point-core" data-stick-point="right" cx="332" cy="252" r="15"></circle>
                   </g>
 
+                  <circle class="face-cluster-ring" cx="392" cy="182" r="43"></circle>
                   <g class="face-group face-y" data-button="y">
-                    <circle class="face-core face-core-y" cx="385" cy="169" r="18"></circle>
-                    <text class="face-letter" x="385" y="175">Y</text>
+                    <circle class="face-core face-core-y" cx="392" cy="158" r="16"></circle>
+                    <text class="face-letter" x="392" y="164">Y</text>
                   </g>
                   <g class="face-group face-x" data-button="x">
-                    <circle class="face-core face-core-x" cx="360" cy="196" r="18"></circle>
-                    <text class="face-letter" x="360" y="202">X</text>
+                    <circle class="face-core face-core-x" cx="370" cy="182" r="16"></circle>
+                    <text class="face-letter" x="370" y="188">X</text>
                   </g>
                   <g class="face-group face-b" data-button="b">
-                    <circle class="face-core face-core-b" cx="410" cy="196" r="18"></circle>
-                    <text class="face-letter" x="410" y="202">B</text>
+                    <circle class="face-core face-core-b" cx="414" cy="182" r="16"></circle>
+                    <text class="face-letter" x="414" y="188">B</text>
                   </g>
                   <g class="face-group face-a" data-button="a">
-                    <circle class="face-core face-core-a" cx="385" cy="223" r="18"></circle>
-                    <text class="face-letter" x="385" y="229">A</text>
+                    <circle class="face-core face-core-a" cx="392" cy="206" r="16"></circle>
+                    <text class="face-letter" x="392" y="212">A</text>
                   </g>
                 </g>
               </svg>
