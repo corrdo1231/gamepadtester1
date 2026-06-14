@@ -1599,31 +1599,32 @@ input[type="range"] {
 }
 
 .controller-svg .face-core {
-  stroke: rgba(255, 255, 255, 0.22);
+  fill: rgba(234, 239, 245, 0.98);
+  stroke: rgba(171, 183, 198, 0.72);
   stroke-width: 2;
-  transition: transform 140ms ease, filter 140ms ease, opacity 140ms ease;
+  transition: fill 140ms ease, transform 140ms ease, filter 140ms ease, opacity 140ms ease;
   transform-box: fill-box;
   transform-origin: center;
 }
 
 .controller-svg .face-core-y {
-  fill: #f5cd65;
+  --face-active-color: #f5cd65;
 }
 
 .controller-svg .face-core-x {
-  fill: #62a8ff;
+  --face-active-color: #62a8ff;
 }
 
 .controller-svg .face-core-b {
-  fill: #ff915a;
+  --face-active-color: #ff915a;
 }
 
 .controller-svg .face-core-a {
-  fill: #56e0b8;
+  --face-active-color: #56e0b8;
 }
 
 .controller-svg .face-letter {
-  fill: rgba(12, 20, 31, 0.9);
+  fill: rgba(39, 49, 64, 0.92);
   font-size: 14px;
 }
 
@@ -1664,6 +1665,7 @@ input[type="range"] {
 }
 
 .controller-svg .face-group.active .face-core {
+  fill: var(--face-active-color, rgba(116, 176, 255, 0.42));
   transform: scale(1.08);
   filter: saturate(1.16) brightness(1.02) drop-shadow(0 0 18px rgba(62, 134, 255, 0.2));
 }
