@@ -267,8 +267,11 @@
     const safeY = clamp(y, -1, 1);
 
     if (isSvgNode(zone.point) && isSvgNode(zone.deadzone)) {
-      zone.deadzone.setAttribute("r", String(8 + state.deadzone * 34));
-      zone.point.setAttribute("transform", `translate(${safeX * 26} ${safeY * 26})`);
+      const deadzoneBase = Number(zone.deadzone.getAttribute("data-deadzone-base")) || 8;
+      const deadzoneScale = Number(zone.deadzone.getAttribute("data-deadzone-scale")) || 34;
+      const stickRange = Number(zone.point.getAttribute("data-stick-range")) || 26;
+      zone.deadzone.setAttribute("r", String(deadzoneBase + state.deadzone * deadzoneScale));
+      zone.point.setAttribute("transform", `translate(${safeX * stickRange} ${safeY * stickRange})`);
     } else {
       zone.deadzone.style.setProperty("--deadzone-size", `${state.deadzone * 50}%`);
       zone.point.style.transform = `translate(${safeX * 78}px, ${safeY * 78}px)`;

@@ -1420,12 +1420,12 @@ input[type="range"] {
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 10px 0 2px;
+  padding: 6px 0 0;
 }
 
 .controller-svg {
   display: block;
-  width: min(100%, 760px);
+  width: min(100%, 900px);
   height: auto;
 }
 
@@ -1543,6 +1543,13 @@ input[type="range"] {
   stroke-width: 2;
 }
 
+.controller-svg .dpad-etch-line {
+  fill: none;
+  stroke: rgba(226, 238, 255, 0.12);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
 .controller-svg .center-home-ring {
   fill: rgba(124, 154, 192, 0.14);
   stroke: rgba(221, 236, 255, 0.1);
@@ -1558,6 +1565,13 @@ input[type="range"] {
 }
 
 .controller-svg .meta-button-dot {
+  fill: rgba(103, 128, 161, 0.22);
+  stroke: rgba(227, 238, 255, 0.08);
+  stroke-width: 1.5;
+  transition: fill 140ms ease, filter 140ms ease;
+}
+
+.controller-svg .meta-button-pill {
   fill: rgba(103, 128, 161, 0.22);
   stroke: rgba(227, 238, 255, 0.08);
   stroke-width: 1.5;
@@ -1630,6 +1644,11 @@ input[type="range"] {
 }
 
 .controller-svg .meta-button-group.active .meta-button-dot {
+  fill: rgba(240, 246, 255, 0.34);
+  filter: drop-shadow(0 0 10px rgba(215, 233, 255, 0.18));
+}
+
+.controller-svg .meta-button-group.active .meta-button-pill {
   fill: rgba(240, 246, 255, 0.34);
   filter: drop-shadow(0 0 10px rgba(215, 233, 255, 0.18));
 }
