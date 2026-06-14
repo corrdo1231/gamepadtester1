@@ -100,6 +100,10 @@
     return Math.min(max, Math.max(min, value));
   }
 
+  function isSvgNode(node) {
+    return typeof SVGElement !== "undefined" && node instanceof SVGElement;
+  }
+
   function setText(nodes, value) {
     (Array.isArray(nodes) ? nodes : Array.from(nodes || [])).forEach((node) => {
       node.textContent = value;
@@ -259,8 +263,17 @@
       return;
     }
 
-    zone.deadzone.style.setProperty("--deadzone-size", `${state.deadzone * 50}%`);
-    zone.point.style.transform = `translate(${clamp(x, -1, 1) * 78}px, ${clamp(y, -1, 1) * 78}px)`;
+    const safeX = clamp(x, -1, 1);
+    const safeY = clamp(y, -1, 1);
+
+    if (isSvgNode(zone.point) && isSvgNode(zone.deadzone)) {
+      zone.deadzone.setAttribute("r", String(8 + state.deadzone * 34));
+      zone.point.setAttribute("transform", `translate(${safeX * 26} ${safeY * 26})`);
+    } else {
+      zone.deadzone.style.setProperty("--deadzone-size", `${state.deadzone * 50}%`);
+      zone.point.style.transform = `translate(${safeX * 78}px, ${safeY * 78}px)`;
+    }
+
     if (zone.x) {
       zone.x.textContent = formatAxis(x);
     }
@@ -282,12 +295,26 @@
     updateAxisNode(elements.driftAxis.rightX, rightX);
     updateAxisNode(elements.driftAxis.rightY, rightY);
 
-    if (elements.triggerMeters.left) {
-      elements.triggerMeters.left.style.transform = `scaleX(${clamp(leftTrigger, 0, 1)})`;
-    }
-    if (elements.triggerMeters.right) {
-      elements.triggerMeters.right.style.transform = `scaleX(${clamp(rightTrigger, 0, 1)})`;
-    }
+    [
+      { node: elements.triggerMeters.left, value: leftTrigger },
+      { node: elements.triggerMeters.right, value: rightTrigger }
+    ].forEach(({ node, value }) => {
+      if (!node) {
+        return;
+      }
+
+      const clamped = clamp(value, 0, 1);
+
+      if (isSvgNode(node)) {
+        const baseY = Number(node.getAttribute("data-base-y")) || 0;
+        const maxHeight = Number(node.getAttribute("data-max-height")) || 0;
+        const nextHeight = maxHeight * clamped;
+        node.setAttribute("height", String(nextHeight));
+        node.setAttribute("y", String(baseY + (maxHeight - nextHeight)));
+      } else {
+        node.style.transform = `scaleX(${clamped})`;
+      }
+    });
 
     if (elements.visualizer) {
       elements.visualizer.style.setProperty("--left-stick-x", String(clamp(leftX, -1, 1)));
@@ -400,6 +427,10 @@
       });
       elements.deadzoneValue.textContent = formatAxis(state.deadzone);
     }
+
+    doc.querySelectorAll(".meta-button-group .meta-button-label").forEach((node, index) => {
+      node.textContent = index === 0 ? "S" : "M";
+    });
 
     if (elements.resetDriftButton) {
       elements.resetDriftButton.addEventListener("click", function () {

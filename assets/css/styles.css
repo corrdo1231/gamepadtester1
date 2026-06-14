@@ -1394,3 +1394,301 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 }
+
+.controller-single {
+  display: grid;
+  gap: 20px;
+}
+
+.controller-single-stage {
+  display: grid;
+  gap: 18px;
+  padding: 26px;
+  background:
+    radial-gradient(circle at top, rgba(79, 123, 194, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.02));
+}
+
+.controller-single-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.controller-svg-shell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 2px;
+}
+
+.controller-svg {
+  display: block;
+  width: min(100%, 500px);
+  height: auto;
+}
+
+.controller-svg text {
+  user-select: none;
+}
+
+.controller-svg .controller-shell-outline {
+  fill: url(#shellGradient);
+  stroke: rgba(173, 209, 255, 0.14);
+  stroke-width: 3;
+}
+
+.controller-svg .controller-shell-core {
+  fill: url(#shellCoreGradient);
+  stroke: rgba(208, 232, 255, 0.07);
+  stroke-width: 2;
+}
+
+.controller-svg .controller-handle-line {
+  fill: none;
+  stroke: rgba(151, 187, 232, 0.12);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.controller-svg .trigger-track {
+  fill: rgba(133, 160, 194, 0.18);
+  stroke: rgba(203, 226, 255, 0.1);
+  stroke-width: 2;
+}
+
+.controller-svg .trigger-fill {
+  fill: url(#triggerFillGradient);
+  opacity: 0.98;
+}
+
+.controller-svg .trigger-label,
+.controller-svg .bumper-label,
+.controller-svg .meta-button-label,
+.controller-svg .face-letter {
+  fill: rgba(239, 247, 255, 0.92);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-anchor: middle;
+}
+
+.controller-svg .trigger-label,
+.controller-svg .bumper-label {
+  font-size: 12px;
+}
+
+.controller-svg .bumper-shape {
+  fill: rgba(115, 145, 183, 0.18);
+  stroke: rgba(213, 232, 255, 0.1);
+  stroke-width: 2;
+  transition: fill 160ms ease, stroke 160ms ease, filter 160ms ease;
+}
+
+.controller-svg .stick-well-ring {
+  fill: rgba(10, 15, 25, 0.44);
+  stroke: rgba(156, 193, 239, 0.14);
+  stroke-width: 2.5;
+}
+
+.controller-svg .stick-well-inner {
+  fill: rgba(139, 179, 226, 0.12);
+  stroke: rgba(220, 235, 255, 0.08);
+  stroke-width: 2;
+}
+
+.controller-svg .stick-deadzone-ring {
+  fill: rgba(44, 230, 184, 0.08);
+  stroke: rgba(78, 240, 204, 0.42);
+  stroke-width: 1.5;
+  transition: r 160ms ease;
+}
+
+.controller-svg .stick-point-core {
+  fill: #9fc8ff;
+  stroke: rgba(245, 250, 255, 0.76);
+  stroke-width: 2;
+  filter: drop-shadow(0 10px 18px rgba(26, 151, 255, 0.22));
+  transition: transform 70ms linear;
+}
+
+.controller-svg .dpad-key {
+  fill: rgba(138, 168, 209, 0.16);
+  stroke: rgba(209, 229, 255, 0.1);
+  stroke-width: 2;
+  transition: fill 140ms ease, filter 140ms ease, transform 140ms ease;
+}
+
+.controller-svg .center-mini-button {
+  fill: rgba(124, 154, 192, 0.18);
+  stroke: rgba(221, 236, 255, 0.08);
+  stroke-width: 2;
+}
+
+.controller-svg .center-icon-line {
+  fill: rgba(241, 248, 255, 0.64);
+}
+
+.controller-svg .meta-button-dot {
+  fill: rgba(103, 128, 161, 0.22);
+  stroke: rgba(227, 238, 255, 0.08);
+  stroke-width: 1.5;
+  transition: fill 140ms ease, filter 140ms ease;
+}
+
+.controller-svg .meta-button-label {
+  font-size: 9px;
+}
+
+.controller-svg .face-core {
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 2;
+  transition: transform 140ms ease, filter 140ms ease, opacity 140ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.controller-svg .face-core-y {
+  fill: #f5cd65;
+}
+
+.controller-svg .face-core-x {
+  fill: #62a8ff;
+}
+
+.controller-svg .face-core-b {
+  fill: #ff915a;
+}
+
+.controller-svg .face-core-a {
+  fill: #56e0b8;
+}
+
+.controller-svg .face-letter {
+  fill: rgba(12, 20, 31, 0.9);
+  font-size: 15px;
+}
+
+.controller-svg .trigger-group.active .trigger-track {
+  fill: rgba(42, 230, 184, 0.18);
+  stroke: rgba(118, 255, 224, 0.42);
+  filter: drop-shadow(0 0 12px rgba(42, 230, 184, 0.24));
+}
+
+.controller-svg .bumper-group.active .bumper-shape {
+  fill: rgba(116, 181, 255, 0.24);
+  stroke: rgba(175, 214, 255, 0.44);
+  filter: drop-shadow(0 0 12px rgba(116, 181, 255, 0.24));
+}
+
+.controller-svg .dpad-button-group.active .dpad-key {
+  fill: rgba(89, 143, 255, 0.3);
+  filter: drop-shadow(0 0 12px rgba(89, 143, 255, 0.24));
+}
+
+.controller-svg .meta-button-group.active .meta-button-dot {
+  fill: rgba(240, 246, 255, 0.34);
+  filter: drop-shadow(0 0 10px rgba(215, 233, 255, 0.18));
+}
+
+.controller-svg .face-group.active .face-core {
+  transform: scale(1.08);
+  filter: saturate(1.12) brightness(1.08) drop-shadow(0 0 16px rgba(255, 255, 255, 0.18));
+}
+
+.controller-flat-telemetry {
+  display: grid;
+  gap: 18px;
+  padding: 22px 24px 24px;
+}
+
+.flat-info-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.flat-info-item,
+.flat-telemetry-block {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.flat-info-item span,
+.muted-values {
+  color: var(--muted);
+}
+
+.flat-info-item strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.98rem;
+  word-break: break-word;
+}
+
+.flat-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.flat-telemetry-block {
+  display: grid;
+  gap: 14px;
+}
+
+.flat-telemetry-block h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.flat-values {
+  display: grid;
+  gap: 10px;
+}
+
+.flat-values span {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.muted-values strong {
+  color: var(--text);
+}
+
+.flat-deadzone-row {
+  display: grid;
+  gap: 10px;
+}
+
+.flat-deadzone-row label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+@media (max-width: 980px) {
+  .flat-info-row,
+  .flat-telemetry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .controller-single-stage,
+  .controller-flat-telemetry {
+    padding: 20px;
+  }
+
+  .controller-single-head,
+  .flat-info-row,
+  .flat-telemetry-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

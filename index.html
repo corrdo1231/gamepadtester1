@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=controller-visualizer-fix-2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=controller-svg-layout-v3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -146,275 +146,206 @@
           <div class="controller-list" data-controller-list></div>
         </section>
 
-        <div class="visualizer-dashboard">
-          <section class="subpanel controller-stage-panel">
-            <div class="controller-stage-header">
+        <div class="controller-single">
+          <section class="subpanel controller-single-stage">
+            <div class="controller-single-head">
               <div>
-                <h3>Xbox Style Visualizer</h3>
-                <p class="mini-note">Buttons glow on press, triggers fill by pressure, and both sticks move in real time.</p>
+                <h3>Inline SVG Controller</h3>
+                <p class="mini-note">An original single-SVG controller view inspired by modern hardware testers, driven by the same browser Gamepad API state.</p>
               </div>
               <div class="visualizer-badges">
-                <span class="tag">Pure static</span>
-                <span class="tag">Real-time Gamepad API</span>
+                <span class="tag">Inline SVG</span>
+                <span class="tag">Layout v3</span>
               </div>
             </div>
 
-            <div class="controller-visualizer" data-visualizer>
-              <div class="controller-top-row">
-                <div class="controller-trigger controller-trigger-left" data-button="lt">
-                  <span class="controller-trigger-label">LT</span>
-                  <span class="controller-trigger-value" data-axis="left-trigger">0.000</span>
-                  <i class="controller-trigger-fill"></i>
-                </div>
-                <div class="controller-trigger controller-trigger-right" data-button="rt">
-                  <span class="controller-trigger-label">RT</span>
-                  <span class="controller-trigger-value" data-axis="right-trigger">0.000</span>
-                  <i class="controller-trigger-fill"></i>
-                </div>
-              </div>
+            <div class="controller-svg-shell" data-visualizer>
+              <svg class="controller-svg" viewBox="0 0 500 383" aria-label="Game controller visualizer">
+                <defs>
+                  <linearGradient id="shellGradient" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#31466f"></stop>
+                    <stop offset="100%" stop-color="#111b2d"></stop>
+                  </linearGradient>
+                  <linearGradient id="shellCoreGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#202f4a"></stop>
+                    <stop offset="100%" stop-color="#101828"></stop>
+                  </linearGradient>
+                  <linearGradient id="triggerFillGradient" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stop-color="#2ce6b8"></stop>
+                    <stop offset="100%" stop-color="#98fff0"></stop>
+                  </linearGradient>
+                  <filter id="controllerGlow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity="0.32"></feDropShadow>
+                    <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.18"></feDropShadow>
+                  </filter>
+                </defs>
 
-              <div class="controller-shell">
-                <div class="controller-bumper controller-bumper-left" data-button="lb">
-                  <strong>LB</strong>
-                  <span>Left bumper</span>
-                </div>
-                <div class="controller-bumper controller-bumper-right" data-button="rb">
-                  <strong>RB</strong>
-                  <span>Right bumper</span>
-                </div>
+                <g id="Controller" filter="url(#controllerGlow)">
+                  <g class="controller-svg-triggers">
+                    <g class="trigger-group" data-button="lt">
+                      <rect class="trigger-track" x="122" y="18" width="34" height="64" rx="15"></rect>
+                      <rect class="trigger-fill" data-trigger-meter="left" data-base-y="18" data-max-height="64" x="122" y="82" width="34" height="0" rx="15"></rect>
+                      <text class="trigger-label" x="139" y="103">LT</text>
+                    </g>
+                    <g class="trigger-group" data-button="rt">
+                      <rect class="trigger-track" x="344" y="18" width="34" height="64" rx="15"></rect>
+                      <rect class="trigger-fill" data-trigger-meter="right" data-base-y="18" data-max-height="64" x="344" y="82" width="34" height="0" rx="15"></rect>
+                      <text class="trigger-label" x="361" y="103">RT</text>
+                    </g>
+                    <g class="bumper-group" data-button="lb">
+                      <rect class="bumper-shape" x="116" y="90" width="53" height="22" rx="9"></rect>
+                      <text class="bumper-label" x="142.5" y="105">LB</text>
+                    </g>
+                    <g class="bumper-group" data-button="rb">
+                      <rect class="bumper-shape" x="331" y="90" width="53" height="22" rx="9"></rect>
+                      <text class="bumper-label" x="357.5" y="105">RB</text>
+                    </g>
+                  </g>
 
-                <div class="controller-body">
-                  <div class="controller-wing controller-wing-left"></div>
-                  <div class="controller-wing controller-wing-right"></div>
+                  <path class="controller-shell-outline" d="M124 124H376C410 124 437 141 451 174L474 264C487 314 458 357 411 357H89C42 357 13 314 26 264L49 174C63 141 90 124 124 124Z"></path>
+                  <path class="controller-shell-core" d="M126 142H374C400 142 421 153 431 175L452 257C462 297 438 334 399 334H101C62 334 38 297 48 257L69 175C79 153 100 142 126 142Z"></path>
+                  <path class="controller-handle-line" d="M70 176L188 296"></path>
+                  <path class="controller-handle-line" d="M430 176L312 296"></path>
 
-                  <div class="controller-cluster controller-cluster-left">
-                    <div class="dpad-cluster" aria-label="D-pad visualizer">
-                      <div class="dpad-button dpad-up" data-button="up" aria-hidden="true">&uarr;</div>
-                      <div class="dpad-button dpad-left" data-button="left" aria-hidden="true">&larr;</div>
-                      <div class="dpad-button dpad-center" aria-hidden="true"></div>
-                      <div class="dpad-button dpad-right" data-button="right" aria-hidden="true">&rarr;</div>
-                      <div class="dpad-button dpad-down" data-button="down" aria-hidden="true">&darr;</div>
-                    </div>
-                    <div class="visual-stick visual-stick-left">
-                      <div class="visual-stick-ring"></div>
-                      <div class="visual-stick-cap visual-stick-cap-left"></div>
-                    </div>
-                    <div class="stick-readout stick-readout-compact">
-                      <span>X: <strong data-stick-x="left">0.000</strong></span>
-                      <span>Y: <strong data-stick-y="left">0.000</strong></span>
-                    </div>
-                  </div>
+                  <g class="stick-well stick-well-left">
+                    <circle class="stick-well-ring" cx="129" cy="199" r="42"></circle>
+                    <circle class="stick-well-inner" cx="129" cy="199" r="30"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="left" cx="129" cy="199" r="10"></circle>
+                    <circle class="stick-point-core" data-stick-point="left" cx="129" cy="199" r="16"></circle>
+                  </g>
 
-                  <div class="controller-center">
-                    <div class="controller-center-status">
-                      <span class="center-kicker">Live session</span>
-                      <strong data-device-connected>Disconnected</strong>
-                      <span class="mini-note">Slot <span data-controller-index>--</span></span>
-                    </div>
-                    <div class="center-button-row">
-                      <div class="center-button" data-button="select">
-                        <strong>Select</strong>
-                        <span>Back / Share</span>
-                      </div>
-                      <div class="center-button" data-button="start">
-                        <strong>Start</strong>
-                        <span>Menu / Options</span>
-                      </div>
-                    </div>
-                    <div class="center-deadzone">
-                      <label for="deadzone-input">
-                        <span>Deadzone threshold</span>
-                        <strong data-deadzone-value>0.120</strong>
-                      </label>
-                      <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-                    </div>
-                  </div>
+                  <g class="dpad-group">
+                    <g class="dpad-button-group" data-button="up">
+                      <rect class="dpad-key" x="182" y="227" width="26" height="46" rx="10"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="left">
+                      <rect class="dpad-key" x="160" y="249" width="46" height="26" rx="10"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="right">
+                      <rect class="dpad-key" x="184" y="249" width="46" height="26" rx="10"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="down">
+                      <rect class="dpad-key" x="182" y="251" width="26" height="46" rx="10"></rect>
+                    </g>
+                  </g>
 
-                  <div class="controller-cluster controller-cluster-right">
-                    <div class="face-cluster" aria-label="Face button visualizer">
-                      <div class="face-button face-button-y" data-button="y" aria-hidden="true">Y</div>
-                      <div class="face-button face-button-x" data-button="x" aria-hidden="true">X</div>
-                      <div class="face-button face-button-b" data-button="b" aria-hidden="true">B</div>
-                      <div class="face-button face-button-a" data-button="a" aria-hidden="true">A</div>
-                    </div>
-                    <div class="visual-stick visual-stick-right">
-                      <div class="visual-stick-ring"></div>
-                      <div class="visual-stick-cap visual-stick-cap-right"></div>
-                    </div>
-                    <div class="stick-readout stick-readout-compact">
-                      <span>X: <strong data-stick-x="right">0.000</strong></span>
-                      <span>Y: <strong data-stick-y="right">0.000</strong></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <g class="center-icon-group">
+                    <circle class="center-mini-button" cx="241" cy="168" r="14"></circle>
+                    <circle class="center-mini-button" cx="259" cy="168" r="14"></circle>
+                    <circle class="center-mini-button" cx="250" cy="150" r="19"></circle>
+                    <rect class="center-icon-line" x="245" y="145" width="10" height="10" rx="2"></rect>
+                  </g>
+
+                  <g class="meta-button-group" data-button="select">
+                    <circle class="meta-button-dot" cx="207" cy="201" r="10"></circle>
+                    <text class="meta-button-label" x="207" y="206">S</text>
+                  </g>
+                  <g class="meta-button-group" data-button="start">
+                    <circle class="meta-button-dot" cx="293" cy="201" r="10"></circle>
+                    <text class="meta-button-label" x="293" y="206">M</text>
+                  </g>
+
+                  <g class="stick-well stick-well-right">
+                    <circle class="stick-well-ring" cx="316" cy="269" r="38"></circle>
+                    <circle class="stick-well-inner" cx="316" cy="269" r="28"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="right" cx="316" cy="269" r="10"></circle>
+                    <circle class="stick-point-core" data-stick-point="right" cx="316" cy="269" r="15"></circle>
+                  </g>
+
+                  <g class="face-group face-y" data-button="y">
+                    <circle class="face-core face-core-y" cx="385" cy="169" r="18"></circle>
+                    <text class="face-letter" x="385" y="175">Y</text>
+                  </g>
+                  <g class="face-group face-x" data-button="x">
+                    <circle class="face-core face-core-x" cx="360" cy="196" r="18"></circle>
+                    <text class="face-letter" x="360" y="202">X</text>
+                  </g>
+                  <g class="face-group face-b" data-button="b">
+                    <circle class="face-core face-core-b" cx="410" cy="196" r="18"></circle>
+                    <text class="face-letter" x="410" y="202">B</text>
+                  </g>
+                  <g class="face-group face-a" data-button="a">
+                    <circle class="face-core face-core-a" cx="385" cy="223" r="18"></circle>
+                    <text class="face-letter" x="385" y="229">A</text>
+                  </g>
+                </g>
+              </svg>
             </div>
           </section>
 
-          <div class="dashboard-side">
-            <div class="dashboard-panels">
-              <section class="subpanel telemetry-panel">
-                <div class="panel-mini-header">
-                  <div>
-                    <h3>Left Stick</h3>
-                    <p class="mini-note">Movement, magnitude, and idle drift sample.</p>
-                  </div>
-                  <div class="mini-metric">
-                    <span>Peak</span>
-                    <strong data-metric="left-peak">0.000</strong>
-                  </div>
-                </div>
-                <div class="stick-zone stick-zone-compact">
-                  <div class="stick-deadzone" data-stick-deadzone="left"></div>
-                  <div class="stick-point" data-stick-point="left"></div>
-                </div>
-                <div class="telemetry-pairs">
-                  <div class="telemetry-pair"><span>X Axis</span><strong data-axis="left-x">0.000</strong></div>
-                  <div class="telemetry-pair"><span>Y Axis</span><strong data-axis="left-y">0.000</strong></div>
-                  <div class="telemetry-pair"><span>X Drift</span><strong data-drift-axis="left-x">0.000</strong></div>
-                  <div class="telemetry-pair"><span>Y Drift</span><strong data-drift-axis="left-y">0.000</strong></div>
-                </div>
-                <div class="telemetry-footer">
-                  <div class="mini-metric">
-                    <span>Magnitude</span>
-                    <strong data-metric="left-magnitude">0.000</strong>
-                  </div>
-                  <div class="state-pill" data-drift-state="left">Centered</div>
-                </div>
-              </section>
-
-              <section class="subpanel telemetry-panel">
-                <div class="panel-mini-header">
-                  <div>
-                    <h3>Right Stick</h3>
-                    <p class="mini-note">Camera stick travel and center stability.</p>
-                  </div>
-                  <div class="mini-metric">
-                    <span>Peak</span>
-                    <strong data-metric="right-peak">0.000</strong>
-                  </div>
-                </div>
-                <div class="stick-zone stick-zone-compact">
-                  <div class="stick-deadzone" data-stick-deadzone="right"></div>
-                  <div class="stick-point" data-stick-point="right"></div>
-                </div>
-                <div class="telemetry-pairs">
-                  <div class="telemetry-pair"><span>X Axis</span><strong data-axis="right-x">0.000</strong></div>
-                  <div class="telemetry-pair"><span>Y Axis</span><strong data-axis="right-y">0.000</strong></div>
-                  <div class="telemetry-pair"><span>X Drift</span><strong data-drift-axis="right-x">0.000</strong></div>
-                  <div class="telemetry-pair"><span>Y Drift</span><strong data-drift-axis="right-y">0.000</strong></div>
-                </div>
-                <div class="telemetry-footer">
-                  <div class="mini-metric">
-                    <span>Magnitude</span>
-                    <strong data-metric="right-magnitude">0.000</strong>
-                  </div>
-                  <div class="state-pill" data-drift-state="right">Centered</div>
-                </div>
-              </section>
-
-              <section class="subpanel telemetry-panel telemetry-panel-wide">
-                <div class="panel-mini-header">
-                  <div>
-                    <h3>Trigger Pressure</h3>
-                    <p class="mini-note">Analog trigger response from rest to full press.</p>
-                  </div>
-                  <div class="mini-metric">
-                    <span>Suggested deadzone</span>
-                    <strong data-metric="recommended-deadzone">0.060</strong>
-                  </div>
-                </div>
-                <div class="trigger-meters">
-                  <div class="trigger-meter">
-                    <div class="trigger-meter-label">
-                      <span>LT</span>
-                      <strong data-axis="left-trigger">0.000</strong>
-                    </div>
-                    <div class="trigger-meter-track">
-                      <div class="trigger-meter-fill trigger-meter-fill-left" data-trigger-meter="left"></div>
-                    </div>
-                  </div>
-                  <div class="trigger-meter">
-                    <div class="trigger-meter-label">
-                      <span>RT</span>
-                      <strong data-axis="right-trigger">0.000</strong>
-                    </div>
-                    <div class="trigger-meter-track">
-                      <div class="trigger-meter-fill trigger-meter-fill-right" data-trigger-meter="right"></div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <section class="subpanel telemetry-panel telemetry-panel-wide">
-                <div class="panel-mini-header">
-                  <div>
-                    <h3>Device Information</h3>
-                    <p class="mini-note">Live metadata from the currently selected browser gamepad object.</p>
-                  </div>
-                </div>
-                <div class="info-grid">
-                  <div class="info-card">
-                    <span>Controller Name</span>
-                    <strong data-controller-name>No controller detected</strong>
-                  </div>
-                  <div class="info-card">
-                    <span>Mapping</span>
-                    <strong data-mapping>--</strong>
-                  </div>
-                  <div class="info-card">
-                    <span>Connected</span>
-                    <strong data-device-connected>Disconnected</strong>
-                  </div>
-                  <div class="info-card">
-                    <span>Buttons Count</span>
-                    <strong data-device-buttons>0</strong>
-                  </div>
-                  <div class="info-card">
-                    <span>Axes Count</span>
-                    <strong data-device-axes>0</strong>
-                  </div>
-                  <div class="info-card info-card-wide">
-                    <span>Raw Device ID</span>
-                    <strong data-controller-id>Waiting for browser access</strong>
-                  </div>
-                </div>
-              </section>
-
-              <section class="subpanel telemetry-panel telemetry-panel-wide">
-                <div class="panel-mini-header">
-                  <div>
-                    <h3>Stick Drift Detector</h3>
-                    <p class="mini-note">Leave both sticks untouched and watch the idle axis values plus drift status.</p>
-                  </div>
-                </div>
-                <div class="drift-grid">
-                  <article class="drift-card">
-                    <div class="drift-card-head">
-                      <strong>Left Stick</strong>
-                      <span>Primary movement</span>
-                    </div>
-                    <div class="drift-values">
-                      <div><span>X Drift</span><strong data-drift-axis="left-x">0.000</strong></div>
-                      <div><span>Y Drift</span><strong data-drift-axis="left-y">0.000</strong></div>
-                    </div>
-                    <div class="state-pill" data-drift-state="left">Centered</div>
-                  </article>
-                  <article class="drift-card">
-                    <div class="drift-card-head">
-                      <strong>Right Stick</strong>
-                      <span>Camera movement</span>
-                    </div>
-                    <div class="drift-values">
-                      <div><span>X Drift</span><strong data-drift-axis="right-x">0.000</strong></div>
-                      <div><span>Y Drift</span><strong data-drift-axis="right-y">0.000</strong></div>
-                    </div>
-                    <div class="state-pill" data-drift-state="right">Centered</div>
-                  </article>
-                </div>
-              </section>
+          <section class="subpanel controller-flat-telemetry">
+            <div class="flat-info-row">
+              <div class="flat-info-item">
+                <span>Controller Name</span>
+                <strong data-controller-name>No controller detected</strong>
+              </div>
+              <div class="flat-info-item">
+                <span>Mapping</span>
+                <strong data-mapping>--</strong>
+              </div>
+              <div class="flat-info-item">
+                <span>Connected</span>
+                <strong data-device-connected>Disconnected</strong>
+              </div>
+              <div class="flat-info-item">
+                <span>Buttons</span>
+                <strong data-device-buttons>0</strong>
+              </div>
+              <div class="flat-info-item">
+                <span>Axes</span>
+                <strong data-device-axes>0</strong>
+              </div>
             </div>
-          </div>
+
+            <div class="flat-telemetry-grid">
+              <div class="flat-telemetry-block">
+                <h3>Left Stick</h3>
+                <div class="flat-values">
+                  <span>X <strong data-axis="left-x">0.000</strong></span>
+                  <span>Y <strong data-axis="left-y">0.000</strong></span>
+                  <span>Magnitude <strong data-metric="left-magnitude">0.000</strong></span>
+                  <span>Peak <strong data-metric="left-peak">0.000</strong></span>
+                </div>
+                <div class="flat-values muted-values">
+                  <span>X Drift <strong data-drift-axis="left-x">0.000</strong></span>
+                  <span>Y Drift <strong data-drift-axis="left-y">0.000</strong></span>
+                </div>
+                <div class="state-pill" data-drift-state="left">Centered</div>
+              </div>
+
+              <div class="flat-telemetry-block">
+                <h3>Right Stick</h3>
+                <div class="flat-values">
+                  <span>X <strong data-axis="right-x">0.000</strong></span>
+                  <span>Y <strong data-axis="right-y">0.000</strong></span>
+                  <span>Magnitude <strong data-metric="right-magnitude">0.000</strong></span>
+                  <span>Peak <strong data-metric="right-peak">0.000</strong></span>
+                </div>
+                <div class="flat-values muted-values">
+                  <span>X Drift <strong data-drift-axis="right-x">0.000</strong></span>
+                  <span>Y Drift <strong data-drift-axis="right-y">0.000</strong></span>
+                </div>
+                <div class="state-pill" data-drift-state="right">Centered</div>
+              </div>
+
+              <div class="flat-telemetry-block">
+                <h3>Triggers</h3>
+                <div class="flat-values">
+                  <span>LT <strong data-axis="left-trigger">0.000</strong></span>
+                  <span>RT <strong data-axis="right-trigger">0.000</strong></span>
+                  <span>Suggested Deadzone <strong data-metric="recommended-deadzone">0.060</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flat-deadzone-row">
+              <label for="deadzone-input">
+                <span>Deadzone threshold</span>
+                <strong data-deadzone-value>0.120</strong>
+              </label>
+              <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
+            </div>
+          </section>
         </div>
       </div>
     </section>
@@ -525,6 +456,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/gamepad.js?v=controller-visualizer-fix-2" defer></script>
+  <script src="assets/js/gamepad.js?v=controller-svg-layout-v3" defer></script>
 </body>
 </html>
