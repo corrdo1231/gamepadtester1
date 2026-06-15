@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=controller-svg-layout-v6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=controller-svg-layout-v7">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -119,47 +119,45 @@
     </section>
 
     <section class="tester-wrap" id="tester">
-      <div class="shell panel">
+      <div class="shell panel tester-panel">
         <div class="panel-header">
           <div class="section-title">
-            <h2>Controller Visualizer</h2>
-            <p>An Xbox-style live controller view with hardware-grade telemetry for sticks, triggers, and drift behavior.</p>
+            <h2>Controller Dashboard</h2>
+            <p>A lighter control room layout with a large live pad view on the left and focused diagnostics on the right.</p>
           </div>
-          <div class="status-badge disconnected" data-status>Waiting for a controller</div>
+          <div class="control-row">
+            <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
+            <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
+          </div>
         </div>
 
         <div class="unsupported hidden" data-unsupported>
           This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
         </div>
 
-        <section class="subpanel dashboard-toolbar">
-          <div class="controller-header">
-            <div>
-              <h3>Connected devices</h3>
-              <p class="mini-note">Detected controllers: <strong data-connected-count>0</strong></p>
-            </div>
-            <div class="control-row">
-              <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
-              <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
-            </div>
-          </div>
-          <div class="controller-list" data-controller-list></div>
-        </section>
-
-        <div class="controller-single">
-          <section class="subpanel controller-single-stage">
-            <div class="controller-single-head">
-              <div>
-                <h3>Inline SVG Controller</h3>
-                <p class="mini-note">An original single-SVG controller view inspired by modern hardware testers, driven by the same browser Gamepad API state.</p>
+        <div class="tester-dashboard-layout" data-visualizer>
+          <section class="dashboard-card dashboard-card-main">
+            <div class="dashboard-card-head dashboard-card-head-main">
+              <div class="dashboard-heading">
+                <span class="dashboard-token dashboard-token-blue">V</span>
+                <div>
+                  <h3>Controller Visualizer</h3>
+                  <p class="mini-note">The main view reflects live stick, button, and trigger activity.</p>
+                </div>
               </div>
-              <div class="visualizer-badges">
-                <span class="tag">Inline SVG</span>
-                <span class="tag">Layout v4</span>
+              <div class="dashboard-main-topbar">
+                <div class="controller-list controller-list-pills" data-controller-list></div>
+                <div class="status-badge disconnected" data-status>Waiting for controller</div>
               </div>
             </div>
 
-            <div class="controller-svg-shell" data-visualizer>
+            <div class="dashboard-main-subline">
+              <span class="dashboard-main-kicker">Current Device</span>
+              <strong data-controller-name>No controller detected</strong>
+              <span class="dashboard-main-meta">Mapping <strong data-mapping>--</strong></span>
+            </div>
+
+            <div class="controller-svg-shell">
               <svg class="controller-svg" viewBox="0 0 1000 900" aria-label="Game controller visualizer">
                 <defs>
                   <linearGradient id="shellGradient" x1="500" y1="210" x2="500" y2="840" gradientUnits="userSpaceOnUse">
@@ -283,81 +281,167 @@
                 </g>
               </svg>
             </div>
+
+            <div class="controller-legend-row">
+              <span class="controller-legend-item">
+                <span class="controller-legend-dot controller-legend-dot-active"></span>
+                Button active
+              </span>
+              <span class="controller-legend-item">
+                <span class="controller-legend-dot"></span>
+                Idle state
+              </span>
+              <span class="controller-legend-item controller-legend-stat">
+                Connected <strong data-device-connected>Disconnected</strong>
+              </span>
+              <span class="controller-legend-item controller-legend-stat">
+                Buttons <strong data-device-buttons>0</strong>
+              </span>
+              <span class="controller-legend-item controller-legend-stat">
+                Axes <strong data-device-axes>0</strong>
+              </span>
+            </div>
           </section>
 
-          <section class="subpanel controller-flat-telemetry">
-            <div class="flat-info-row">
-              <div class="flat-info-item">
-                <span>Controller Name</span>
-                <strong data-controller-name>No controller detected</strong>
+          <div class="dashboard-side-grid">
+            <section class="dashboard-card dashboard-metric-card">
+              <div class="dashboard-card-head">
+                <div class="dashboard-heading">
+                  <span class="dashboard-token dashboard-token-green">S</span>
+                  <div>
+                    <h3>Stick Test</h3>
+                    <p class="mini-note">Linearity and range</p>
+                  </div>
+                </div>
               </div>
-              <div class="flat-info-item">
+
+              <div class="stick-mini-grid">
+                <div class="stick-mini-card">
+                  <div class="mini-scope mini-scope-left">
+                    <span class="mini-scope-ring"></span>
+                    <span class="mini-scope-point mini-scope-point-left"></span>
+                  </div>
+                  <strong>Left Stick</strong>
+                  <p>X <strong data-axis="left-x">0.000</strong> Y <strong data-axis="left-y">0.000</strong></p>
+                  <p>幅度 <strong data-metric="left-magnitude">0.000</strong> 峰值 <strong data-metric="left-peak">0.000</strong></p>
+                  <div class="state-pill" data-drift-state="left">Centered</div>
+                </div>
+
+                <div class="stick-mini-card">
+                  <div class="mini-scope mini-scope-right">
+                    <span class="mini-scope-ring"></span>
+                    <span class="mini-scope-point mini-scope-point-right"></span>
+                  </div>
+                  <strong>Right Stick</strong>
+                  <p>X <strong data-axis="right-x">0.000</strong> Y <strong data-axis="right-y">0.000</strong></p>
+                  <p>幅度 <strong data-metric="right-magnitude">0.000</strong> 峰值 <strong data-metric="right-peak">0.000</strong></p>
+                  <div class="state-pill" data-drift-state="right">Centered</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="dashboard-card dashboard-metric-card">
+              <div class="dashboard-card-head">
+                <div class="dashboard-heading">
+                  <span class="dashboard-token dashboard-token-purple">T</span>
+                  <div>
+                    <h3>Triggers</h3>
+                    <p class="mini-note">Analog pressure (0-1)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="trigger-tower-grid">
+                <div class="trigger-tower">
+                  <div class="trigger-tower-shell">
+                    <div class="trigger-tower-fill trigger-tower-fill-left"></div>
+                    <strong data-axis="left-trigger">0.000</strong>
+                  </div>
+                  <span>LT / L2</span>
+                </div>
+                <div class="trigger-tower">
+                  <div class="trigger-tower-shell">
+                    <div class="trigger-tower-fill trigger-tower-fill-right"></div>
+                    <strong data-axis="right-trigger">0.000</strong>
+                  </div>
+                  <span>RT / R2</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="dashboard-card dashboard-metric-card">
+              <div class="dashboard-card-head">
+                <div class="dashboard-heading">
+                  <span class="dashboard-token dashboard-token-amber">I</span>
+                  <div>
+                    <h3>Device Status</h3>
+                    <p class="mini-note">Connection, mapping, and input scale</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-chip-grid">
+                <div class="info-chip">
+                  <span>Controllers</span>
+                  <strong data-connected-count>0</strong>
+                </div>
+                <div class="info-chip">
+                  <span>Connection</span>
+                  <strong data-device-connected>未连接</strong>
+                </div>
+                <div class="info-chip">
+                  <span>Button Count</span>
+                  <strong data-device-buttons>0</strong>
+                </div>
+                <div class="info-chip">
+                  <span>Axis Count</span>
+                  <strong data-device-axes>0</strong>
+                </div>
+              </div>
+
+              <div class="device-summary-block">
                 <span>Mapping</span>
                 <strong data-mapping>--</strong>
               </div>
-              <div class="flat-info-item">
-                <span>Connected</span>
-                <strong data-device-connected>Disconnected</strong>
-              </div>
-              <div class="flat-info-item">
-                <span>Buttons</span>
-                <strong data-device-buttons>0</strong>
-              </div>
-              <div class="flat-info-item">
-                <span>Axes</span>
-                <strong data-device-axes>0</strong>
-              </div>
-            </div>
 
-            <div class="flat-telemetry-grid">
-              <div class="flat-telemetry-block">
-                <h3>Left Stick</h3>
-                <div class="flat-values">
-                  <span>X <strong data-axis="left-x">0.000</strong></span>
-                  <span>Y <strong data-axis="left-y">0.000</strong></span>
-                  <span>Magnitude <strong data-metric="left-magnitude">0.000</strong></span>
-                  <span>Peak <strong data-metric="left-peak">0.000</strong></span>
+              <div class="device-summary-block">
+                <span>Suggested Deadzone</span>
+                <strong data-metric="recommended-deadzone">0.060</strong>
+              </div>
+            </section>
+
+            <section class="dashboard-card dashboard-metric-card dashboard-drift-card">
+              <div class="dashboard-card-head">
+                <div class="dashboard-heading">
+                  <span class="dashboard-token dashboard-token-rose">D</span>
+                  <div>
+                    <h3>Drift Check</h3>
+                    <p class="mini-note">Static deadzone monitoring</p>
+                  </div>
                 </div>
-                <div class="flat-values muted-values">
-                  <span>X Drift <strong data-drift-axis="left-x">0.000</strong></span>
-                  <span>Y Drift <strong data-drift-axis="left-y">0.000</strong></span>
-                </div>
-                <div class="state-pill" data-drift-state="left">Centered</div>
               </div>
 
-              <div class="flat-telemetry-block">
-                <h3>Right Stick</h3>
-                <div class="flat-values">
-                  <span>X <strong data-axis="right-x">0.000</strong></span>
-                  <span>Y <strong data-axis="right-y">0.000</strong></span>
-                  <span>Magnitude <strong data-metric="right-magnitude">0.000</strong></span>
-                  <span>Peak <strong data-metric="right-peak">0.000</strong></span>
-                </div>
-                <div class="flat-values muted-values">
-                  <span>X Drift <strong data-drift-axis="right-x">0.000</strong></span>
-                  <span>Y Drift <strong data-drift-axis="right-y">0.000</strong></span>
-                </div>
-                <div class="state-pill" data-drift-state="right">Centered</div>
+              <div class="drift-radar">
+                <span class="drift-radar-deadzone"></span>
+                <span class="mini-scope-point drift-radar-point"></span>
               </div>
 
-              <div class="flat-telemetry-block">
-                <h3>Triggers</h3>
-                <div class="flat-values">
-                  <span>LT <strong data-axis="left-trigger">0.000</strong></span>
-                  <span>RT <strong data-axis="right-trigger">0.000</strong></span>
-                  <span>Suggested Deadzone <strong data-metric="recommended-deadzone">0.060</strong></span>
-                </div>
+              <div class="drift-readout-row">
+                <span>X: <strong data-drift-axis="right-x">0.000</strong></span>
+                <span>Y: <strong data-drift-axis="right-y">0.000</strong></span>
               </div>
-            </div>
 
-            <div class="flat-deadzone-row">
-              <label for="deadzone-input">
-                <span>Deadzone threshold</span>
-                <strong data-deadzone-value>0.120</strong>
-              </label>
-              <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-            </div>
-          </section>
+              <div class="state-pill" data-drift-state="right">Centered</div>
+
+              <div class="deadzone-panel">
+                <label for="deadzone-input">
+                  <span>Deadzone</span>
+                  <strong data-deadzone-value>0.120</strong>
+                </label>
+                <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </section>
@@ -468,6 +552,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/gamepad.js?v=controller-svg-layout-v5" defer></script>
+  <script src="assets/js/gamepad.js?v=controller-svg-layout-v7" defer></script>
 </body>
 </html>

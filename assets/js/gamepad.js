@@ -40,7 +40,7 @@
     deviceConnected: doc.querySelectorAll("[data-device-connected]"),
     deviceButtons: doc.querySelectorAll("[data-device-buttons]"),
     deviceAxes: doc.querySelectorAll("[data-device-axes]"),
-    mapping: doc.querySelector("[data-mapping]"),
+    mapping: doc.querySelectorAll("[data-mapping]"),
     deadzoneInput: doc.querySelector("[data-deadzone-input]"),
     deadzoneValue: doc.querySelector("[data-deadzone-value]"),
     refreshButton: doc.querySelector("[data-refresh]"),
@@ -139,7 +139,7 @@
       return;
     }
 
-    elements.status.textContent = connected ? "Controller connected" : "Waiting for a controller";
+    elements.status.textContent = connected ? "Controller connected" : "Waiting for controller";
     elements.status.classList.toggle("connected", connected);
     elements.status.classList.toggle("disconnected", !connected);
   }
@@ -154,7 +154,7 @@
     if (!gamepads.length) {
       const empty = doc.createElement("span");
       empty.className = "muted";
-      empty.textContent = "Connect a controller and press any button to begin.";
+      empty.textContent = "Connect a controller";
       elements.controllerList.appendChild(empty);
       return;
     }
@@ -163,7 +163,7 @@
       const chip = doc.createElement("button");
       chip.type = "button";
       chip.className = "controller-chip";
-      chip.textContent = `Pad ${pad.index + 1}`;
+      chip.textContent = `P${pad.index + 1}`;
       if (pad.index === state.selectedIndex) {
         chip.classList.add("active");
       }
@@ -189,9 +189,7 @@
         elements.controllerId.textContent = "Waiting for browser access";
       }
       setText(elements.controllerIndex, "--");
-      if (elements.mapping) {
-        elements.mapping.textContent = "--";
-      }
+      setText(elements.mapping, "--");
       setText(elements.deviceButtons, "0");
       setText(elements.deviceAxes, "0");
       return;
@@ -204,9 +202,7 @@
       elements.controllerId.textContent = activePad.id || "Unknown";
     }
     setText(elements.controllerIndex, `#${activePad.index}`);
-    if (elements.mapping) {
-      elements.mapping.textContent = activePad.mapping || "raw";
-    }
+    setText(elements.mapping, activePad.mapping || "raw");
     setText(elements.deviceButtons, String(activePad.buttons.length));
     setText(elements.deviceAxes, String(activePad.axes.length));
   }
@@ -427,8 +423,15 @@
         state.deadzone = clamp(next, 0.02, 0.35);
         state.driftThreshold = state.deadzone;
         elements.deadzoneValue.textContent = formatAxis(state.deadzone);
+        if (elements.visualizer) {
+          elements.visualizer.style.setProperty("--deadzone-threshold", String(state.deadzone));
+        }
       });
       elements.deadzoneValue.textContent = formatAxis(state.deadzone);
+    }
+
+    if (elements.visualizer) {
+      elements.visualizer.style.setProperty("--deadzone-threshold", String(state.deadzone));
     }
 
     doc.querySelectorAll(".meta-button-group .meta-button-label").forEach((node, index) => {
