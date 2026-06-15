@@ -1145,7 +1145,7 @@ input[type="range"] {
 }
 
 .stick-compact-grid {
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-template-columns: 1fr 1fr;
   align-items: start;
 }
 
@@ -1158,16 +1158,19 @@ input[type="range"] {
 }
 
 .stick-compact-card {
-  padding: 12px 12px 14px;
+  padding: 0;
   display: grid;
   grid-template-rows: auto auto 1fr;
   justify-items: center;
   align-content: start;
-  gap: 8px;
+  gap: 6px;
   text-align: center;
   min-width: 120px;
   min-height: 0;
   overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .stick-compact-card strong {
@@ -1177,12 +1180,12 @@ input[type="range"] {
 
 .stick-read-grid {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   min-width: 0;
   margin-top: 0;
   color: #768196;
-  font-size: 0.88rem;
+  font-size: 13px;
 }
 
 .stick-read-grid span {
@@ -1195,6 +1198,16 @@ input[type="range"] {
 .stick-compact-card .mini-scope {
   width: 88px;
   margin-bottom: 0;
+}
+
+.dashboard-stick-card {
+  container-type: inline-size;
+}
+
+@container (max-width: 360px) {
+  .stick-read-grid span:last-child {
+    display: none;
+  }
 }
 
 .trigger-compact-grid {
