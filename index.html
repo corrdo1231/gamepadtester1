@@ -122,12 +122,12 @@
       <div class="shell panel tester-panel">
         <div class="panel-header">
           <div class="section-title">
-            <h2>Controller Dashboard</h2>
-            <p>A lighter control room layout with a large live pad view on the left and focused diagnostics on the right.</p>
+            <h2>Controller Visualizer</h2>
+            <p>Start with the live controller view, then glance at four focused test cards for sticks, triggers, vibration, and drift.</p>
           </div>
           <div class="control-row">
-            <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
-            <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
+            <button class="btn btn-secondary" type="button" data-refresh>Refresh</button>
+            <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift</button>
           </div>
         </div>
 
@@ -149,11 +149,6 @@
                 <div class="controller-list controller-list-pills" data-controller-list></div>
                 <div class="status-badge disconnected" data-status>Waiting for controller</div>
               </div>
-            </div>
-
-            <div class="dashboard-main-subline">
-              <span class="dashboard-main-kicker">Current Device</span>
-              <strong data-controller-name>No controller detected</strong>
             </div>
 
             <div class="controller-svg-shell">
@@ -295,7 +290,7 @@
 
           <div class="consumer-side-shell">
             <div class="consumer-side-grid">
-              <section class="dashboard-card dashboard-metric-card consumer-card">
+              <section class="dashboard-card dashboard-metric-card consumer-card dashboard-stick-card">
                 <div class="dashboard-card-head">
                   <div class="dashboard-heading">
                     <span class="dashboard-token dashboard-token-green">S</span>
@@ -335,7 +330,7 @@
                 </div>
               </section>
 
-              <section class="dashboard-card dashboard-metric-card consumer-card">
+              <section class="dashboard-card dashboard-metric-card consumer-card dashboard-trigger-card">
                 <div class="dashboard-card-head">
                   <div class="dashboard-heading">
                     <span class="dashboard-token dashboard-token-purple">T</span>
@@ -365,7 +360,7 @@
                 </div>
               </section>
 
-              <section class="dashboard-card dashboard-metric-card consumer-card">
+              <section class="dashboard-card dashboard-metric-card consumer-card dashboard-vibration-card">
                 <div class="dashboard-card-head">
                   <div class="dashboard-heading">
                     <span class="dashboard-token dashboard-token-amber">V</span>
@@ -423,8 +418,20 @@
             </div>
 
             <details class="advanced-panel">
-              <summary>Advanced Panel</summary>
+              <summary>Advanced Debug</summary>
               <div class="advanced-grid">
+                <div class="advanced-item advanced-item-wide">
+                  <span>Current Device</span>
+                  <strong data-controller-name>No controller detected</strong>
+                </div>
+                <div class="advanced-item advanced-item-wide">
+                  <span>Browser Device ID</span>
+                  <strong data-controller-id>Waiting for browser access</strong>
+                </div>
+                <div class="advanced-item">
+                  <span>Controller Slot</span>
+                  <strong data-controller-index>--</strong>
+                </div>
                 <div class="advanced-item">
                   <span>Connection</span>
                   <strong data-device-connected>Disconnected</strong>
@@ -444,6 +451,10 @@
                 <div class="advanced-item advanced-item-wide">
                   <span>Mapping</span>
                   <strong data-mapping>--</strong>
+                </div>
+                <div class="advanced-item advanced-item-wide">
+                  <span>Suggested Deadzone</span>
+                  <strong data-metric="recommended-deadzone">0.060</strong>
                 </div>
               </div>
             </details>
