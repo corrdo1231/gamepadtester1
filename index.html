@@ -291,20 +291,11 @@
                 <span class="controller-legend-dot"></span>
                 Idle state
               </span>
-              <span class="controller-legend-item controller-legend-stat">
-                Connected <strong data-device-connected>Disconnected</strong>
-              </span>
-              <span class="controller-legend-item controller-legend-stat">
-                Buttons <strong data-device-buttons>0</strong>
-              </span>
-              <span class="controller-legend-item controller-legend-stat">
-                Axes <strong data-device-axes>0</strong>
-              </span>
             </div>
           </section>
 
           <div class="dashboard-side-grid">
-            <section class="dashboard-card dashboard-metric-card">
+            <section class="dashboard-card dashboard-metric-card dashboard-card-wide">
               <div class="dashboard-card-head">
                 <div class="dashboard-heading">
                   <span class="dashboard-token dashboard-token-green">S</span>
@@ -324,6 +315,7 @@
                   <strong>Left Stick</strong>
                   <p>X <strong data-axis="left-x">0.000</strong> Y <strong data-axis="left-y">0.000</strong></p>
                   <p>幅度 <strong data-metric="left-magnitude">0.000</strong> 峰值 <strong data-metric="left-peak">0.000</strong></p>
+                  <p class="stick-mini-metrics">Magnitude <strong data-metric="left-magnitude">0.000</strong> Peak <strong data-metric="left-peak">0.000</strong></p>
                   <div class="state-pill" data-drift-state="left">Centered</div>
                 </div>
 
@@ -335,12 +327,13 @@
                   <strong>Right Stick</strong>
                   <p>X <strong data-axis="right-x">0.000</strong> Y <strong data-axis="right-y">0.000</strong></p>
                   <p>幅度 <strong data-metric="right-magnitude">0.000</strong> 峰值 <strong data-metric="right-peak">0.000</strong></p>
+                  <p class="stick-mini-metrics">Magnitude <strong data-metric="right-magnitude">0.000</strong> Peak <strong data-metric="right-peak">0.000</strong></p>
                   <div class="state-pill" data-drift-state="right">Centered</div>
                 </div>
               </div>
             </section>
 
-            <section class="dashboard-card dashboard-metric-card">
+            <section class="dashboard-card dashboard-metric-card dashboard-card-wide">
               <div class="dashboard-card-head">
                 <div class="dashboard-heading">
                   <span class="dashboard-token dashboard-token-purple">T</span>

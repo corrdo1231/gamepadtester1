@@ -709,6 +709,10 @@ input[type="range"] {
 }
 
 @media (max-width: 980px) {
+  .dashboard-card-wide {
+    grid-column: auto;
+  }
+
   .tester-dashboard-layout,
   .dashboard-side-grid,
   .stick-mini-grid,
@@ -885,6 +889,10 @@ input[type="range"] {
   padding: 28px;
 }
 
+.dashboard-card-wide {
+  grid-column: 1 / -1;
+}
+
 .dashboard-side-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1026,17 +1034,19 @@ input[type="range"] {
 }
 
 .controller-legend-row {
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   margin-top: 18px;
   color: #8a92a3;
   font-weight: 500;
+  overflow-x: auto;
 }
 
 .controller-legend-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .controller-legend-dot {
@@ -1087,6 +1097,14 @@ input[type="range"] {
   margin: 8px 0 0;
   color: #778195;
   line-height: 1.5;
+}
+
+.stick-mini-card p:nth-of-type(2):not(.stick-mini-metrics) {
+  display: none;
+}
+
+.stick-mini-metrics {
+  font-weight: 500;
 }
 
 .stick-mini-card strong {
