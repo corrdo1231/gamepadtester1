@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=controller-svg-layout-v7">
+  <link rel="stylesheet" href="assets/css/styles.css?v=controller-svg-layout-v8">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -154,7 +154,6 @@
             <div class="dashboard-main-subline">
               <span class="dashboard-main-kicker">Current Device</span>
               <strong data-controller-name>No controller detected</strong>
-              <span class="dashboard-main-meta">Mapping <strong data-mapping>--</strong></span>
             </div>
 
             <div class="controller-svg-shell">
@@ -294,7 +293,163 @@
             </div>
           </section>
 
-          <div class="dashboard-side-grid">
+          <div class="consumer-side-shell">
+            <div class="consumer-side-grid">
+              <section class="dashboard-card dashboard-metric-card consumer-card">
+                <div class="dashboard-card-head">
+                  <div class="dashboard-heading">
+                    <span class="dashboard-token dashboard-token-green">S</span>
+                    <div>
+                      <h3>Stick Test</h3>
+                      <p class="mini-note">Left and right response</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stick-compact-grid">
+                  <article class="stick-compact-card">
+                    <div class="mini-scope mini-scope-left">
+                      <span class="mini-scope-ring"></span>
+                      <span class="mini-scope-point mini-scope-point-left"></span>
+                    </div>
+                    <strong>Left Stick</strong>
+                    <div class="stick-read-grid">
+                      <span>X <strong data-axis="left-x">0.000</strong></span>
+                      <span>Y <strong data-axis="left-y">0.000</strong></span>
+                      <span>Magnitude <strong data-metric="left-magnitude">0.000</strong></span>
+                    </div>
+                  </article>
+
+                  <article class="stick-compact-card">
+                    <div class="mini-scope mini-scope-right">
+                      <span class="mini-scope-ring"></span>
+                      <span class="mini-scope-point mini-scope-point-right"></span>
+                    </div>
+                    <strong>Right Stick</strong>
+                    <div class="stick-read-grid">
+                      <span>X <strong data-axis="right-x">0.000</strong></span>
+                      <span>Y <strong data-axis="right-y">0.000</strong></span>
+                      <span>Magnitude <strong data-metric="right-magnitude">0.000</strong></span>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section class="dashboard-card dashboard-metric-card consumer-card">
+                <div class="dashboard-card-head">
+                  <div class="dashboard-heading">
+                    <span class="dashboard-token dashboard-token-purple">T</span>
+                    <div>
+                      <h3>Trigger Test</h3>
+                      <p class="mini-note">LT and RT pressure bars</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="trigger-compact-grid">
+                  <article class="trigger-compact-card">
+                    <span class="trigger-compact-label">LT</span>
+                    <div class="trigger-bar">
+                      <div class="trigger-bar-fill trigger-bar-fill-left"></div>
+                      <strong data-axis="left-trigger">0.000</strong>
+                    </div>
+                  </article>
+
+                  <article class="trigger-compact-card">
+                    <span class="trigger-compact-label">RT</span>
+                    <div class="trigger-bar">
+                      <div class="trigger-bar-fill trigger-bar-fill-right"></div>
+                      <strong data-axis="right-trigger">0.000</strong>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section class="dashboard-card dashboard-metric-card consumer-card">
+                <div class="dashboard-card-head">
+                  <div class="dashboard-heading">
+                    <span class="dashboard-token dashboard-token-amber">V</span>
+                    <div>
+                      <h3>Vibration Test</h3>
+                      <p class="mini-note">Dual Motor</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="vibration-orb">
+                  <span class="vibration-orb-core"></span>
+                </div>
+
+                <div class="vibration-chip-grid">
+                  <span class="vibration-chip vibration-chip-light">Light</span>
+                  <span class="vibration-chip vibration-chip-medium">Medium</span>
+                  <span class="vibration-chip vibration-chip-heavy">Heavy</span>
+                  <span class="vibration-chip vibration-chip-pulse">Pulse</span>
+                </div>
+              </section>
+
+              <section class="dashboard-card dashboard-metric-card consumer-card consumer-drift-card">
+                <div class="dashboard-card-head">
+                  <div class="dashboard-heading">
+                    <span class="dashboard-token dashboard-token-rose">D</span>
+                    <div>
+                      <h3>Drift Check</h3>
+                      <p class="mini-note">Deadzone and live status</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="drift-radar">
+                  <span class="drift-radar-deadzone"></span>
+                  <span class="mini-scope-point drift-radar-point"></span>
+                </div>
+
+                <div class="drift-readout-row">
+                  <span>X <strong data-drift-axis="right-x">0.000</strong></span>
+                  <span>Y <strong data-drift-axis="right-y">0.000</strong></span>
+                </div>
+
+                <div class="state-pill" data-drift-state="right">Centered</div>
+
+                <div class="deadzone-panel">
+                  <label for="deadzone-input-consumer">
+                    <span>Deadzone</span>
+                    <strong data-deadzone-value>0.120</strong>
+                  </label>
+                  <input id="deadzone-input-consumer" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
+                  <p class="deadzone-helper">Suggested <strong data-metric="recommended-deadzone">0.060</strong></p>
+                </div>
+              </section>
+            </div>
+
+            <details class="advanced-panel">
+              <summary>Advanced Panel</summary>
+              <div class="advanced-grid">
+                <div class="advanced-item">
+                  <span>Connection</span>
+                  <strong data-device-connected>Disconnected</strong>
+                </div>
+                <div class="advanced-item">
+                  <span>Controller Count</span>
+                  <strong data-connected-count>0</strong>
+                </div>
+                <div class="advanced-item">
+                  <span>Button Count</span>
+                  <strong data-device-buttons>0</strong>
+                </div>
+                <div class="advanced-item">
+                  <span>Axis Count</span>
+                  <strong data-device-axes>0</strong>
+                </div>
+                <div class="advanced-item advanced-item-wide">
+                  <span>Mapping</span>
+                  <strong data-mapping>--</strong>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="dashboard-side-grid dashboard-side-grid-legacy">
             <section class="dashboard-card dashboard-metric-card dashboard-card-wide">
               <div class="dashboard-card-head">
                 <div class="dashboard-heading">
