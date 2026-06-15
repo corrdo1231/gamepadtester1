@@ -1186,17 +1186,33 @@ input[type="range"] {
   margin-top: 0;
   color: #768196;
   font-size: 12px;
+  justify-items: start;
 }
 
 .stick-read-grid span {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.stick-read-grid .metric-label {
+  display: inline-block;
+  width: 36px;
+  min-width: 36px;
+  font-style: normal;
+  text-align: left;
   white-space: nowrap;
 }
 
-.stick-read-grid strong {
+.stick-read-grid strong,
+.stick-read-grid .metric-value {
+  display: inline-block;
+  width: 52px;
+  min-width: 52px;
+  text-align: right;
   white-space: nowrap;
 }
 
