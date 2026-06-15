@@ -276,7 +276,7 @@ input {
 }
 
 .tester-wrap {
-  padding: 14px 0 40px;
+  padding: 8px 0 20px;
 }
 
 .panel {
@@ -289,7 +289,7 @@ input {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .section-title h2,
@@ -865,6 +865,7 @@ input[type="range"] {
 .tester-panel .status-badge {
   background: rgba(242, 245, 250, 0.96);
   border: 1px solid rgba(220, 226, 235, 0.95);
+  white-space: nowrap;
 }
 
 .tester-panel .status-badge.connected {
@@ -886,20 +887,20 @@ input[type="range"] {
   --rt-pressure: 0;
   --deadzone-threshold: 0.12;
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(340px, 1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 2.12fr) minmax(280px, 1fr);
+  gap: 20px;
   align-items: start;
 }
 
 .consumer-side-shell {
   display: grid;
-  gap: 18px;
+  gap: 12px;
 }
 
 .consumer-side-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .dashboard-side-grid-legacy {
@@ -916,14 +917,27 @@ input[type="range"] {
 }
 
 .dashboard-card-main {
-  padding: 28px;
+  padding: 20px 22px 18px;
 }
 
 .consumer-card {
-  min-height: 288px;
-  padding: 22px;
+  min-height: 252px;
+  padding: 18px;
   display: grid;
   align-content: start;
+}
+
+.dashboard-stick-card,
+.dashboard-trigger-card {
+  min-height: 264px;
+}
+
+.dashboard-vibration-card {
+  min-height: 182px;
+}
+
+.consumer-drift-card {
+  min-height: 328px;
 }
 
 .dashboard-card-wide {
@@ -955,7 +969,7 @@ input[type="range"] {
 }
 
 .dashboard-card-head {
-  margin-bottom: 22px;
+  margin-bottom: 16px;
 }
 
 .dashboard-card-head-main {
@@ -1004,33 +1018,35 @@ input[type="range"] {
 
 .dashboard-heading h3 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.08rem;
 }
 
 .dashboard-main-topbar {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .controller-list-pills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 6px;
-  border-radius: 18px;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 14px;
   border: 1px solid rgba(221, 227, 235, 0.96);
   background: rgba(247, 249, 252, 0.98);
 }
 
 .controller-list-pills .muted {
-  padding: 8px 12px;
-  font-size: 0.86rem;
+  padding: 7px 10px;
+  font-size: 0.82rem;
 }
 
 .tester-panel .controller-chip {
-  min-width: 52px;
-  padding: 9px 14px;
-  border-radius: 14px;
+  min-width: 44px;
+  padding: 7px 11px;
+  border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
   color: #9199aa;
@@ -1046,7 +1062,7 @@ input[type="range"] {
 }
 
 .dashboard-main-subline {
-  margin: 14px 0 18px;
+  margin: 8px 0 10px;
   justify-content: flex-start;
   flex-wrap: wrap;
   color: #8a92a3;
@@ -1067,13 +1083,17 @@ input[type="range"] {
 }
 
 .dashboard-card-main .controller-svg-shell {
-  padding: 12px 14px 2px;
+  padding: 4px 6px 0;
+}
+
+.dashboard-card-main .controller-svg {
+  width: min(100%, 990px);
 }
 
 .controller-legend-row {
   flex-wrap: nowrap;
   justify-content: flex-start;
-  margin-top: 18px;
+  margin-top: 10px;
   color: #8a92a3;
   font-weight: 500;
   overflow-x: auto;
@@ -1104,7 +1124,7 @@ input[type="range"] {
 .advanced-grid,
 .vibration-chip-grid {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .stick-compact-grid,
@@ -1122,7 +1142,7 @@ input[type="range"] {
 }
 
 .stick-compact-card {
-  padding: 14px 12px 16px;
+  padding: 12px 12px 14px;
   text-align: center;
 }
 
@@ -1133,10 +1153,10 @@ input[type="range"] {
 
 .stick-read-grid {
   display: grid;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 6px;
+  margin-top: 8px;
   color: #768196;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 .stick-read-grid span {
@@ -1147,8 +1167,8 @@ input[type="range"] {
 }
 
 .stick-compact-card .mini-scope {
-  width: 96px;
-  margin-bottom: 10px;
+  width: 88px;
+  margin-bottom: 8px;
 }
 
 .trigger-compact-grid {
@@ -1156,10 +1176,10 @@ input[type="range"] {
 }
 
 .trigger-compact-card {
-  padding: 16px 12px;
+  padding: 12px 10px 14px;
   display: grid;
   justify-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .trigger-compact-label {
@@ -1171,7 +1191,7 @@ input[type="range"] {
 .trigger-bar {
   position: relative;
   width: min(100%, 68px);
-  height: 168px;
+  height: 150px;
   border-radius: 22px;
   border: 1px solid rgba(219, 225, 233, 0.96);
   background: linear-gradient(180deg, rgba(250, 251, 253, 0.98), rgba(238, 242, 247, 0.98));
@@ -1205,9 +1225,9 @@ input[type="range"] {
 
 .vibration-orb {
   position: relative;
-  width: 110px;
-  height: 110px;
-  margin: 6px auto 18px;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 12px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.98), rgba(241, 244, 248, 0.98));
   border: 1px solid rgba(231, 235, 241, 0.98);
@@ -1218,24 +1238,24 @@ input[type="range"] {
 .vibration-orb::after {
   content: "";
   position: absolute;
-  top: 24px;
-  bottom: 24px;
+  top: 20px;
+  bottom: 20px;
   width: 6px;
   border-radius: 999px;
   background: rgba(225, 230, 238, 0.98);
 }
 
 .vibration-orb::before {
-  left: -28px;
+  left: -22px;
 }
 
 .vibration-orb::after {
-  right: -28px;
+  right: -22px;
 }
 
 .vibration-orb-core {
   position: absolute;
-  inset: 24px;
+  inset: 20px;
   border-radius: 50%;
   border: 2px solid rgba(188, 196, 209, 0.92);
 }
@@ -1259,12 +1279,13 @@ input[type="range"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  border-radius: 18px;
+  min-height: 40px;
+  border-radius: 16px;
   border: 1px solid rgba(229, 233, 239, 0.96);
   background: rgba(250, 251, 253, 0.98);
   color: #364256;
   font-weight: 700;
+  font-size: 0.88rem;
 }
 
 .vibration-chip-light {
@@ -1284,7 +1305,7 @@ input[type="range"] {
 }
 
 .consumer-drift-card .drift-radar {
-  width: 150px;
+  width: 170px;
 }
 
 .consumer-drift-card .state-pill {
@@ -1295,7 +1316,7 @@ input[type="range"] {
   border-radius: 24px;
   border: 1px solid rgba(229, 233, 239, 0.96);
   background: rgba(250, 251, 253, 0.98);
-  padding: 14px 16px;
+  padding: 10px 14px;
 }
 
 .advanced-panel summary {
