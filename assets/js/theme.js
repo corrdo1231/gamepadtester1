@@ -69,6 +69,10 @@
     var effectiveTheme = resolveTheme(preference);
     root.setAttribute("data-theme", effectiveTheme);
     root.setAttribute("data-theme-source", preference);
+    if (document.body) {
+      document.body.setAttribute("data-theme", effectiveTheme);
+      document.body.setAttribute("data-theme-source", preference);
+    }
     updateControls(preference, effectiveTheme);
   }
 
