@@ -45,6 +45,15 @@
     deadzoneValue: doc.querySelector("[data-deadzone-value]"),
     refreshButton: doc.querySelector("[data-refresh]"),
     resetDriftButton: doc.querySelector("[data-reset-drift]"),
+    triggerReadout: {
+      left: doc.querySelector("[data-trigger-readout='left']"),
+      right: doc.querySelector("[data-trigger-readout='right']")
+    },
+    rawAxes: doc.querySelector("[data-raw-axes]"),
+    rawButtons: doc.querySelector("[data-raw-buttons]"),
+    rawStatus: doc.querySelector("[data-raw-status]"),
+    vibrationButtons: doc.querySelectorAll("[data-vibration]"),
+    vibrationStatus: doc.querySelector("[data-vibration-status]"),
     leftStick: {
       point: doc.querySelector("[data-stick-point='left']"),
       deadzone: doc.querySelector("[data-stick-deadzone='left']"),
@@ -139,7 +148,7 @@
       return;
     }
 
-    elements.status.textContent = connected ? "Controller connected" : "Waiting for controller";
+    elements.status.textContent = connected ? "Controller connected" : "Press any button to connect";
     elements.status.classList.toggle("connected", connected);
     elements.status.classList.toggle("disconnected", !connected);
   }
@@ -154,7 +163,7 @@
     if (!gamepads.length) {
       const empty = doc.createElement("span");
       empty.className = "muted";
-      empty.textContent = "Connect a controller";
+      empty.textContent = "Press any button to connect";
       elements.controllerList.appendChild(empty);
       return;
     }
@@ -323,6 +332,101 @@
       elements.visualizer.style.setProperty("--lt-pressure", String(clamp(leftTrigger, 0, 1)));
       elements.visualizer.style.setProperty("--rt-pressure", String(clamp(rightTrigger, 0, 1)));
     }
+
+    if (elements.triggerReadout.left) {
+      elements.triggerReadout.left.textContent = leftTrigger.toFixed(2);
+    }
+    if (elements.triggerReadout.right) {
+      elements.triggerReadout.right.textContent = rightTrigger.toFixed(2);
+    }
+  }
+
+  function updateRawData(activePad) {
+    if (elements.rawAxes) {
+      elements.rawAxes.textContent = activePad
+        ? `[${activePad.axes.map((value) => formatAxis(value || 0)).join(", ")}]`
+        : "[0.000, 0.000, 0.000, 0.000]";
+    }
+
+    if (elements.rawButtons) {
+      elements.rawButtons.textContent = activePad
+        ? `[${activePad.buttons.map((button) => (button ? button.value : 0).toFixed(2)).join(", ")}]`
+        : "[0.00, 0.00, 0.00, 0.00]";
+    }
+
+    if (elements.rawStatus) {
+      elements.rawStatus.textContent = activePad
+        ? "Live browser values update instantly."
+        : "Press any button to connect.";
+    }
+  }
+
+  function updateVibrationState(activePad) {
+    const supportsVibration = Boolean(
+      activePad && (
+        (activePad.vibrationActuator && typeof activePad.vibrationActuator.playEffect === "function") ||
+        (activePad.vibrationActuator && typeof activePad.vibrationActuator.pulse === "function") ||
+        (Array.isArray(activePad.hapticActuators) && activePad.hapticActuators[0] && typeof activePad.hapticActuators[0].pulse === "function")
+      )
+    );
+
+    elements.vibrationButtons.forEach((button) => {
+      button.disabled = !supportsVibration;
+    });
+
+    if (elements.vibrationStatus) {
+      if (!activePad) {
+        elements.vibrationStatus.textContent = "Requires a connected controller with rumble support.";
+      } else if (!supportsVibration) {
+        elements.vibrationStatus.textContent = "This controller or browser does not expose vibration.";
+      } else {
+        elements.vibrationStatus.textContent = "Choose a rumble test.";
+      }
+    }
+  }
+
+  async function runVibration(mode) {
+    const presets = {
+      light: { duration: 140, strongMagnitude: 0.2, weakMagnitude: 0.18, label: "Light rumble sent." },
+      medium: { duration: 220, strongMagnitude: 0.45, weakMagnitude: 0.35, label: "Medium rumble sent." },
+      heavy: { duration: 340, strongMagnitude: 0.9, weakMagnitude: 0.75, label: "Heavy rumble sent." },
+      pulse: { duration: 520, strongMagnitude: 0.65, weakMagnitude: 0.25, label: "Pulse rumble sent." }
+    };
+    const preset = presets[mode];
+    const pad = choosePad(getGamepads());
+
+    if (!preset || !pad) {
+      if (elements.vibrationStatus) {
+        elements.vibrationStatus.textContent = "Connect a controller first.";
+      }
+      return;
+    }
+
+    try {
+      if (pad.vibrationActuator && typeof pad.vibrationActuator.playEffect === "function") {
+        await pad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: preset.duration,
+          weakMagnitude: preset.weakMagnitude,
+          strongMagnitude: preset.strongMagnitude
+        });
+      } else if (pad.vibrationActuator && typeof pad.vibrationActuator.pulse === "function") {
+        await pad.vibrationActuator.pulse(Math.max(preset.strongMagnitude, preset.weakMagnitude), preset.duration);
+      } else if (Array.isArray(pad.hapticActuators) && pad.hapticActuators[0] && typeof pad.hapticActuators[0].pulse === "function") {
+        await pad.hapticActuators[0].pulse(Math.max(preset.strongMagnitude, preset.weakMagnitude), preset.duration);
+      } else if (elements.vibrationStatus) {
+        elements.vibrationStatus.textContent = "This controller or browser does not expose vibration.";
+        return;
+      }
+
+      if (elements.vibrationStatus) {
+        elements.vibrationStatus.textContent = preset.label;
+      }
+    } catch (error) {
+      if (elements.vibrationStatus) {
+        elements.vibrationStatus.textContent = "Vibration could not be triggered in this browser.";
+      }
+    }
   }
 
   function zeroUi() {
@@ -346,6 +450,8 @@
     }
     updateStatePill(elements.leftDriftState, 0);
     updateStatePill(elements.rightDriftState, 0);
+    updateRawData(null);
+    updateVibrationState(null);
   }
 
   function renderPad(activePad, gamepads) {
@@ -398,6 +504,9 @@
     if (elements.recommendedDeadzone) {
       elements.recommendedDeadzone.textContent = formatAxis(recommended);
     }
+
+    updateRawData(activePad);
+    updateVibrationState(activePad);
   }
 
   function tick() {
@@ -451,6 +560,12 @@
         renderPad(choosePad(pads), pads);
       });
     }
+
+    elements.vibrationButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        runVibration(button.getAttribute("data-vibration"));
+      });
+    });
 
     window.addEventListener("gamepadconnected", function (event) {
       state.selectedIndex = event.gamepad.index;

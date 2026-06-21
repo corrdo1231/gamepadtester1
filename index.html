@@ -138,12 +138,8 @@
       <div class="shell panel tester-panel">
         <div class="panel-header">
           <div class="section-title">
-            <h2>Controller Visualizer</h2>
-            <p>Start with the live controller view, then glance at four focused test cards for sticks, triggers, vibration, and drift.</p>
-          </div>
-          <div class="control-row">
-            <button class="btn btn-secondary" type="button" data-refresh>Refresh</button>
-            <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift</button>
+            <h2>Gamepad Tester</h2>
+            <p>Press any button to connect and test instantly.</p>
           </div>
         </div>
 
@@ -163,7 +159,7 @@
               </div>
               <div class="dashboard-main-topbar">
                 <div class="controller-list controller-list-pills" data-controller-list></div>
-                <div class="status-badge disconnected" data-status>Waiting for controller</div>
+                <div class="status-badge disconnected" data-status>Press any button to connect</div>
               </div>
             </div>
 
@@ -327,7 +323,6 @@
                     <div class="stick-read-grid">
                       <span><em class="metric-label">X</em><strong class="metric-value" data-axis="left-x">0.000</strong></span>
                       <span><em class="metric-label">Y</em><strong class="metric-value" data-axis="left-y">0.000</strong></span>
-                      <span><em class="metric-label">Mag</em><strong class="metric-value" data-metric="left-magnitude">0.000</strong></span>
                     </div>
                   </article>
 
@@ -340,10 +335,11 @@
                     <div class="stick-read-grid">
                       <span><em class="metric-label">X</em><strong class="metric-value" data-axis="right-x">0.000</strong></span>
                       <span><em class="metric-label">Y</em><strong class="metric-value" data-axis="right-y">0.000</strong></span>
-                      <span><em class="metric-label">Mag</em><strong class="metric-value" data-metric="right-magnitude">0.000</strong></span>
                     </div>
                   </article>
                 </div>
+
+                <p class="card-footnote">Live X/Y values from -1.00 to 1.00.</p>
               </section>
 
               <section class="dashboard-card dashboard-metric-card consumer-card dashboard-trigger-card">
@@ -352,27 +348,51 @@
                     <span class="dashboard-token dashboard-token-purple">T</span>
                     <div>
                       <h3>Trigger Test</h3>
-                      <p class="mini-note">LT and RT pressure bars</p>
+                      <p class="mini-note">Quick analog pressure readout</p>
                     </div>
                   </div>
                 </div>
 
                 <div class="trigger-compact-grid">
                   <article class="trigger-compact-card">
-                    <span class="trigger-compact-label">LT</span>
+                    <span class="trigger-compact-label">LT / L2</span>
                     <div class="trigger-bar">
                       <div class="trigger-bar-fill trigger-bar-fill-left"></div>
-                      <strong data-axis="left-trigger">0.000</strong>
+                      <strong data-trigger-readout="left">0.00</strong>
                     </div>
                   </article>
 
                   <article class="trigger-compact-card">
-                    <span class="trigger-compact-label">RT</span>
+                    <span class="trigger-compact-label">RT / R2</span>
                     <div class="trigger-bar">
                       <div class="trigger-bar-fill trigger-bar-fill-right"></div>
-                      <strong data-axis="right-trigger">0.000</strong>
+                      <strong data-trigger-readout="right">0.00</strong>
                     </div>
                   </article>
+                </div>
+              </section>
+
+              <section class="dashboard-card dashboard-metric-card consumer-card dashboard-raw-card">
+                <div class="dashboard-card-head">
+                  <div class="dashboard-heading">
+                    <span class="dashboard-token dashboard-token-slate">R</span>
+                    <div>
+                      <h3>Raw Data</h3>
+                      <p class="mini-note">Compact live axes and button output</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="raw-data-stack">
+                  <div class="raw-data-row">
+                    <span>Axes</span>
+                    <code data-raw-axes>[0.000, 0.000, 0.000, 0.000]</code>
+                  </div>
+                  <div class="raw-data-row">
+                    <span>Buttons</span>
+                    <code data-raw-buttons>[0.00, 0.00, 0.00, 0.00]</code>
+                  </div>
+                  <p class="raw-data-note" data-raw-status>Press any button to connect.</p>
                 </div>
               </section>
 
@@ -382,7 +402,7 @@
                     <span class="dashboard-token dashboard-token-amber">V</span>
                     <div>
                       <h3>Vibration Test</h3>
-                      <p class="mini-note">Dual Motor</p>
+                      <p class="mini-note">Simple controller rumble test</p>
                     </div>
                   </div>
                 </div>
@@ -390,46 +410,13 @@
                 <div class="vibration-orb">
                   <span class="vibration-orb-core"></span>
                 </div>
-
                 <div class="vibration-chip-grid">
-                  <span class="vibration-chip vibration-chip-light">Light</span>
-                  <span class="vibration-chip vibration-chip-medium">Medium</span>
-                  <span class="vibration-chip vibration-chip-heavy">Heavy</span>
-                  <span class="vibration-chip vibration-chip-pulse">Pulse</span>
+                  <button class="vibration-chip vibration-chip-light" type="button" data-vibration="light">Light</button>
+                  <button class="vibration-chip vibration-chip-medium" type="button" data-vibration="medium">Medium</button>
+                  <button class="vibration-chip vibration-chip-heavy" type="button" data-vibration="heavy">Heavy</button>
+                  <button class="vibration-chip vibration-chip-pulse" type="button" data-vibration="pulse">Pulse</button>
                 </div>
-              </section>
-
-              <section class="dashboard-card dashboard-metric-card consumer-card consumer-drift-card">
-                <div class="dashboard-card-head">
-                  <div class="dashboard-heading">
-                    <span class="dashboard-token dashboard-token-rose">D</span>
-                    <div>
-                      <h3>Drift Check</h3>
-                      <p class="mini-note">Deadzone and live status</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="drift-radar">
-                  <span class="drift-radar-deadzone"></span>
-                  <span class="mini-scope-point drift-radar-point"></span>
-                </div>
-
-                <div class="drift-readout-row">
-                  <span>X <strong data-drift-axis="right-x">0.000</strong></span>
-                  <span>Y <strong data-drift-axis="right-y">0.000</strong></span>
-                </div>
-
-                <div class="state-pill" data-drift-state="right">Centered</div>
-
-                <div class="deadzone-panel">
-                  <label for="deadzone-input-consumer">
-                    <span>Deadzone</span>
-                    <strong data-deadzone-value>0.120</strong>
-                  </label>
-                  <input id="deadzone-input-consumer" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-                  <p class="deadzone-helper">Suggested <strong data-metric="recommended-deadzone">0.060</strong></p>
-                </div>
+                <p class="card-footnote" data-vibration-status>Requires a connected controller with rumble support.</p>
               </section>
             </div>
 

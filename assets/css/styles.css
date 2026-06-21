@@ -280,6 +280,33 @@ input {
   padding: 8px 0 20px;
 }
 
+body[data-page="home"] main {
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-page="home"] .tester-wrap {
+  order: 1;
+  padding: 26px 0 18px;
+}
+
+body[data-page="home"] .hero {
+  order: 2;
+  padding: 18px 0 28px;
+}
+
+body[data-page="home"] .tools {
+  order: 3;
+}
+
+body[data-page="home"] .guide {
+  order: 4;
+}
+
+body[data-page="home"] .faq {
+  order: 5;
+}
+
 .panel {
   padding: 26px;
 }
@@ -779,6 +806,10 @@ input[type="range"] {
     grid-template-columns: 1fr 1fr;
   }
 
+  .raw-data-row code {
+    font-size: 0.72rem;
+  }
+
   .dashboard-card-main,
   .dashboard-metric-card {
     padding: 20px;
@@ -898,7 +929,7 @@ input[type="range"] {
   --rt-pressure: 0;
   --deadzone-threshold: 0.12;
   display: grid;
-  grid-template-columns: minmax(0, 1.78fr) minmax(500px, 1fr);
+  grid-template-columns: minmax(0, 1.72fr) minmax(420px, 0.98fr);
   gap: 20px;
   align-items: start;
 }
@@ -912,6 +943,7 @@ input[type="range"] {
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
   gap: 14px;
+  grid-auto-rows: 1fr;
 }
 
 .dashboard-side-grid-legacy {
@@ -932,23 +964,19 @@ input[type="range"] {
 }
 
 .consumer-card {
-  min-height: 252px;
+  min-height: 250px;
   padding: 18px;
   display: grid;
+  grid-template-rows: auto 1fr auto;
   align-content: start;
+  height: 100%;
 }
 
 .dashboard-stick-card,
-.dashboard-trigger-card {
-  min-height: 264px;
-}
-
+.dashboard-trigger-card,
+.dashboard-raw-card,
 .dashboard-vibration-card {
-  min-height: 182px;
-}
-
-.consumer-drift-card {
-  min-height: 328px;
+  min-height: 250px;
 }
 
 .dashboard-card-wide {
@@ -1022,6 +1050,11 @@ input[type="range"] {
   background: rgba(255, 245, 224, 0.98);
 }
 
+.dashboard-token-slate {
+  color: #53637c;
+  background: rgba(239, 243, 248, 0.98);
+}
+
 .dashboard-token-rose {
   color: #ff5b71;
   background: rgba(255, 235, 239, 0.98);
@@ -1052,6 +1085,11 @@ input[type="range"] {
 .controller-list-pills .muted {
   padding: 7px 10px;
   font-size: 0.82rem;
+}
+
+.tester-panel .section-title p {
+  max-width: none;
+  font-size: 0.98rem;
 }
 
 .tester-panel .controller-chip {
@@ -1098,7 +1136,7 @@ input[type="range"] {
 }
 
 .dashboard-card-main .controller-svg {
-  width: min(100%, 1040px);
+  width: min(100%, 1080px);
 }
 
 .controller-legend-row {
@@ -1181,7 +1219,7 @@ input[type="range"] {
 .stick-read-grid {
   display: grid;
   gap: 4px;
-  width: 100%;
+  width: fit-content;
   min-width: 0;
   margin-top: 0;
   color: #768196;
@@ -1221,16 +1259,6 @@ input[type="range"] {
   margin-bottom: 0;
 }
 
-.dashboard-stick-card {
-  container-type: inline-size;
-}
-
-@container (max-width: 360px) {
-  .stick-read-grid span:last-child {
-    display: none;
-  }
-}
-
 .trigger-compact-grid {
   align-items: end;
 }
@@ -1245,7 +1273,9 @@ input[type="range"] {
 .trigger-compact-label {
   color: #667389;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-align: center;
 }
 
 .trigger-bar {
@@ -1281,6 +1311,8 @@ input[type="range"] {
   inset: auto 0 12px;
   text-align: center;
   z-index: 1;
+  font-size: 1rem;
+  color: #253047;
 }
 
 .vibration-orb {
@@ -1346,6 +1378,19 @@ input[type="range"] {
   color: #364256;
   font-weight: 700;
   font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.vibration-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(170, 178, 192, 0.98);
+}
+
+.vibration-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
 }
 
 .vibration-chip-light {
@@ -1364,12 +1409,47 @@ input[type="range"] {
   box-shadow: inset 0 -4px 0 rgba(255, 96, 129, 0.78);
 }
 
-.consumer-drift-card .drift-radar {
-  width: 170px;
+.raw-data-stack {
+  display: grid;
+  gap: 12px;
+  align-content: start;
 }
 
-.consumer-drift-card .state-pill {
-  justify-content: center;
+.raw-data-row {
+  display: grid;
+  gap: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(229, 233, 239, 0.96);
+  background: rgba(250, 251, 253, 0.98);
+  padding: 12px 14px;
+}
+
+.raw-data-row span {
+  color: #6f7c91;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.raw-data-row code {
+  white-space: normal;
+  word-break: break-word;
+  color: #313d52;
+  font-size: 0.77rem;
+  line-height: 1.55;
+}
+
+.raw-data-note,
+.card-footnote {
+  margin: 12px 0 0;
+  color: #7a879a;
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.card-footnote {
+  align-self: end;
 }
 
 .advanced-panel {
