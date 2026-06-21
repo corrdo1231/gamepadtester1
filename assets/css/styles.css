@@ -3015,3 +3015,261 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 }
+
+body[data-page="vibration"] .tester-wrap {
+  padding: 42px 0 22px;
+}
+
+body[data-page="vibration"] .guide,
+body[data-page="vibration"] .faq {
+  padding: 12px 0 28px;
+}
+
+.vibration-tool-panel {
+  padding: 28px;
+}
+
+.vibration-panel-header {
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.vibration-panel-header h1 {
+  margin: 16px 0 10px;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.vibration-tool-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(340px, 0.82fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.vibration-visualizer-card,
+.vibration-controls-card {
+  min-height: 100%;
+}
+
+.vibration-visualizer-card {
+  padding: 22px;
+}
+
+.vibration-controls-card {
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.vibration-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.vibration-meta-item {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+}
+
+.vibration-meta-item-wide {
+  grid-column: 1 / -1;
+}
+
+.vibration-meta-item span,
+.vibration-inline-note,
+.vibration-block-heading p {
+  color: var(--muted);
+}
+
+.vibration-meta-item span {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 8px;
+}
+
+.vibration-meta-item strong {
+  display: block;
+  font-size: 0.98rem;
+  word-break: break-word;
+}
+
+.vibration-slider-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.vibration-slider-group {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+}
+
+.vibration-slider-group label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vibration-slider-group label span {
+  font-weight: 600;
+}
+
+.vibration-slider-group label strong {
+  font-size: 0.95rem;
+}
+
+.vibration-slider-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--brand-3);
+}
+
+.vibration-inline-note {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed var(--soft-border);
+  background: var(--soft-surface-faint);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.vibration-inline-note code {
+  color: var(--code-color);
+}
+
+.vibration-preset-block {
+  display: grid;
+  gap: 12px;
+}
+
+.vibration-block-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.vibration-block-heading p {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.vibration-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.vibration-preset-button,
+.vibration-start-button {
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.vibration-preset-button {
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border-color: var(--soft-border);
+  background: var(--soft-surface-faint);
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.vibration-preset-button:hover:not(:disabled),
+.vibration-start-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.vibration-preset-button:disabled,
+.vibration-start-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.vibration-preset-button-wide {
+  grid-column: 1 / -1;
+}
+
+.vibration-start-button {
+  min-height: 58px;
+  padding: 0 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-3) 100%);
+  color: #06111e;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 18px 36px rgba(91, 231, 196, 0.22);
+}
+
+.vibration-status-panel {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.vibration-status-panel.is-success {
+  border-color: rgba(66, 210, 157, 0.38);
+  background: rgba(66, 210, 157, 0.1);
+}
+
+.vibration-status-panel.is-warn {
+  border-color: rgba(255, 180, 87, 0.36);
+  background: rgba(255, 180, 87, 0.1);
+}
+
+.vibration-status-panel.is-error {
+  border-color: rgba(255, 107, 125, 0.34);
+  background: rgba(255, 107, 125, 0.1);
+}
+
+.vibration-status-panel.is-busy {
+  border-color: rgba(125, 180, 255, 0.36);
+  background: rgba(125, 180, 255, 0.1);
+}
+
+@media (max-width: 1180px) {
+  .vibration-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .vibration-tool-panel {
+    padding: 20px;
+  }
+
+  .vibration-panel-header {
+    align-items: flex-start;
+  }
+
+  .vibration-panel-header h1 {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+  }
+
+  .vibration-visualizer-card,
+  .vibration-controls-card {
+    padding: 18px;
+  }
+
+  .vibration-meta-grid,
+  .vibration-preset-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vibration-preset-button-wide {
+    grid-column: auto;
+  }
+}
