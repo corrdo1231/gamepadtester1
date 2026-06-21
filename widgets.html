@@ -19,13 +19,13 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About | GamepadTester.tools</title>
-  <meta name="description" content="Learn what GamepadTester.tools does, how it works in the browser, and what the site is designed to help users test.">
-  <link rel="canonical" href="https://gamepadtester.tools/about.html">
+  <title>Widgets | GamepadTester.tools</title>
+  <meta name="description" content="Widgets is the placeholder page for future embeddable GamepadTester.tools controller test modules and compact UI components.">
+  <link rel="canonical" href="https://gamepadtester.tools/widgets.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="About | GamepadTester.tools">
-  <meta property="og:description" content="A quick overview of the GamepadTester.tools browser-based controller testing site.">
-  <meta property="og:url" content="https://gamepadtester.tools/about.html">
+  <meta property="og:title" content="Widgets | GamepadTester.tools">
+  <meta property="og:description" content="Preview the upcoming widget library area for GamepadTester.tools.">
+  <meta property="og:url" content="https://gamepadtester.tools/widgets.html">
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body data-page="widgets">
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand" href="/">
@@ -52,7 +52,7 @@
         <a href="/polling-rate-test.html"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
         <a href="/vibration-test.html"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
         <a href="/tools.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
-        <a href="/widgets.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
+        <a class="active" href="/widgets.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
       </nav>
     </div>
   </header>
@@ -61,18 +61,18 @@
     <section class="hero">
       <div class="shell page-layout">
         <div class="hero-copy">
-          <span class="eyebrow">About GamepadTester.tools</span>
-          <h1>A lightweight browser tool for checking controller input.</h1>
-          <p>GamepadTester.tools is a static website that helps users inspect button presses, trigger pressure, analog stick movement, deadzone behavior, and drift signals using the browser Gamepad API.</p>
+          <span class="eyebrow">Widgets</span>
+          <h1>Reserve space for smaller, embeddable controller test modules.</h1>
+          <p>This page is a placeholder for future widget-style tools. The idea is to package smaller controller checks that can be embedded into landing pages, guides, or partner experiences without exposing the full dashboard.</p>
         </div>
         <aside class="page-side">
           <div class="page-note">
-            <span class="tag">How it works</span>
-            <p>The site reads controller state directly from supported browsers. There is no account system, downloadable client, or server-side controller processing.</p>
+            <span class="tag">Potential use</span>
+            <p>Compact widgets could surface a quick stick test, trigger bars, or simple connection prompts in a lighter layout than the full homepage.</p>
           </div>
           <div class="page-note">
-            <span class="tag">Who it helps</span>
-            <p>It is useful for players troubleshooting drift, checking trigger range, validating mappings, or confirming a controller works before deeper hardware repair.</p>
+            <span class="tag">Current path</span>
+            <p>Until the widget library is built, use the homepage tester for full input diagnostics or the Tools page for focused routes.</p>
           </div>
         </aside>
       </div>
@@ -81,25 +81,21 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>What the site focuses on</h2>
-          <p>GamepadTester.tools is designed to stay simple, fast, and understandable for everyday controller checks.</p>
+          <h2>Possible widget directions</h2>
+          <p>The library should stay practical and lightweight.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>Browser-first testing</h3>
-            <p>The site relies on standard browser APIs so users can test controllers without installing native software.</p>
+            <h3>Quick connect badge</h3>
+            <p>A small widget that simply shows whether the browser currently sees a connected controller.</p>
           </article>
           <article class="faq-item">
-            <h3>Live visual feedback</h3>
-            <p>Buttons, sticks, triggers, and drift indicators update in real time to make hardware issues easier to spot.</p>
+            <h3>Mini stick scope</h3>
+            <p>A compact live stick readout for articles or support pages that discuss drift and deadzone issues.</p>
           </article>
           <article class="faq-item">
-            <h3>Focused utility pages</h3>
-            <p>Dedicated pages for drift, deadzone, Xbox, and PS5 checks make it easier to run a specific test without extra clutter.</p>
-          </article>
-          <article class="faq-item">
-            <h3>No promises of hardware repair</h3>
-            <p>The site is a diagnostic aid only. It does not repair devices or guarantee compatibility with every browser-controller combination.</p>
+            <h3>Trigger meter pair</h3>
+            <p>A lightweight trigger-only view for pages that focus on analog pressure behavior.</p>
           </article>
         </div>
       </div>

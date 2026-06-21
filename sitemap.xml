@@ -10,6 +10,18 @@
     <loc>https://gamepadtester.tools/deadzone-test.html</loc>
   </url>
   <url>
+    <loc>https://gamepadtester.tools/polling-rate-test.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/vibration-test.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/tools.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/widgets.html</loc>
+  </url>
+  <url>
     <loc>https://gamepadtester.tools/xbox-controller-test.html</loc>
   </url>
   <url>

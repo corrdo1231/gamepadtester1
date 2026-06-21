@@ -19,13 +19,13 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About | GamepadTester.tools</title>
-  <meta name="description" content="Learn what GamepadTester.tools does, how it works in the browser, and what the site is designed to help users test.">
-  <link rel="canonical" href="https://gamepadtester.tools/about.html">
+  <title>Polling Rate Test | GamepadTester.tools</title>
+  <meta name="description" content="Polling Rate Test is the upcoming GamepadTester.tools page for browser-based controller timing and response interval checks.">
+  <link rel="canonical" href="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="About | GamepadTester.tools">
-  <meta property="og:description" content="A quick overview of the GamepadTester.tools browser-based controller testing site.">
-  <meta property="og:url" content="https://gamepadtester.tools/about.html">
+  <meta property="og:title" content="Polling Rate Test | GamepadTester.tools">
+  <meta property="og:description" content="Preview the upcoming polling rate and response timing tool from GamepadTester.tools.">
+  <meta property="og:url" content="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body data-page="polling-rate">
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand" href="/">
@@ -49,7 +49,7 @@
         <a href="/index.html">Home</a>
         <a href="/controller-drift-test.html"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
         <a href="/deadzone-test.html"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
-        <a href="/polling-rate-test.html"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
+        <a class="active" href="/polling-rate-test.html"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
         <a href="/vibration-test.html"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
         <a href="/tools.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
         <a href="/widgets.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
@@ -61,18 +61,22 @@
     <section class="hero">
       <div class="shell page-layout">
         <div class="hero-copy">
-          <span class="eyebrow">About GamepadTester.tools</span>
-          <h1>A lightweight browser tool for checking controller input.</h1>
-          <p>GamepadTester.tools is a static website that helps users inspect button presses, trigger pressure, analog stick movement, deadzone behavior, and drift signals using the browser Gamepad API.</p>
+          <span class="eyebrow">Polling Rate Test</span>
+          <h1>Measure timing behavior with a cleaner browser tool flow.</h1>
+          <p>This page is reserved for a focused polling rate experience. The goal is a simple controller timing check that feels fast, readable, and useful without turning into a developer dashboard.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/index.html">Open homepage tester</a>
+            <a class="btn btn-secondary" href="/tools.html">Browse tool hub</a>
+          </div>
         </div>
         <aside class="page-side">
           <div class="page-note">
-            <span class="tag">How it works</span>
-            <p>The site reads controller state directly from supported browsers. There is no account system, downloadable client, or server-side controller processing.</p>
+            <span class="tag">Coming next</span>
+            <p>We plan to show live sample timing, browser stability hints, and a compact interpretation layer so players can understand whether their controller input feels normal.</p>
           </div>
           <div class="page-note">
-            <span class="tag">Who it helps</span>
-            <p>It is useful for players troubleshooting drift, checking trigger range, validating mappings, or confirming a controller works before deeper hardware repair.</p>
+            <span class="tag">For now</span>
+            <p>Use the homepage tester, drift test, or deadzone calibration page while this dedicated polling tool is being prepared.</p>
           </div>
         </aside>
       </div>
@@ -81,25 +85,21 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>What the site focuses on</h2>
-          <p>GamepadTester.tools is designed to stay simple, fast, and understandable for everyday controller checks.</p>
+          <h2>What this page will focus on</h2>
+          <p>The final version is intended to stay concise and user-facing.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>Browser-first testing</h3>
-            <p>The site relies on standard browser APIs so users can test controllers without installing native software.</p>
+            <h3>Input interval trends</h3>
+            <p>Show whether incoming controller updates appear steady or inconsistent during a short browser session.</p>
           </article>
           <article class="faq-item">
-            <h3>Live visual feedback</h3>
-            <p>Buttons, sticks, triggers, and drift indicators update in real time to make hardware issues easier to spot.</p>
+            <h3>Readable summary</h3>
+            <p>Translate raw timing data into a plain-English result instead of forcing users to interpret dense diagnostics.</p>
           </article>
           <article class="faq-item">
-            <h3>Focused utility pages</h3>
-            <p>Dedicated pages for drift, deadzone, Xbox, and PS5 checks make it easier to run a specific test without extra clutter.</p>
-          </article>
-          <article class="faq-item">
-            <h3>No promises of hardware repair</h3>
-            <p>The site is a diagnostic aid only. It does not repair devices or guarantee compatibility with every browser-controller combination.</p>
+            <h3>Quick comparison flow</h3>
+            <p>Support fast checks across wired and wireless modes without adding setup friction.</p>
           </article>
         </div>
       </div>

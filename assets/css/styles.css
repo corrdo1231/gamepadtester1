@@ -82,11 +82,11 @@ input {
 }
 
 .topbar-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  min-height: 76px;
+  min-height: 86px;
 }
 
 .brand {
@@ -95,6 +95,7 @@ input {
   gap: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
+  justify-self: start;
 }
 
 .brand-mark {
@@ -125,23 +126,81 @@ input {
 }
 
 .nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    rgba(6, 13, 25, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 40px rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav a {
-  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
   border-radius: 999px;
   color: var(--muted);
-  transition: 160ms ease;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
-.nav a:hover,
-.nav a.active {
+.nav a:hover {
   color: var(--text);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.nav a.active {
+  color: #132033;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 246, 255, 0.94));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex: 0 0 8px;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06);
+}
+
+.nav-dot-orange {
+  background: #ff9a47;
+}
+
+.nav-dot-green {
+  background: #48d78a;
+}
+
+.nav-dot-blue {
+  background: #59b9ff;
+}
+
+.nav-dot-purple {
+  background: #a67cff;
+}
+
+.nav-dot-gray {
+  background: #90a0b8;
 }
 
 .hero {
@@ -830,9 +889,16 @@ input[type="range"] {
   }
 
   .topbar-inner {
+    grid-template-columns: 1fr;
     padding: 12px 0;
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: start;
+    min-height: auto;
+  }
+
+  .nav {
+    width: 100%;
+    justify-self: stretch;
+    justify-content: flex-start;
   }
 
   .hero {
@@ -855,6 +921,17 @@ input[type="range"] {
 
   .axis-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-label span {
+    display: none;
+  }
+
+  .nav a {
+    padding: 10px 14px;
+    font-size: 0.88rem;
   }
 }
 
