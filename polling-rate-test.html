@@ -19,12 +19,12 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Polling Rate Test | GamepadTester.tools</title>
-  <meta name="description" content="Polling Rate Test is the upcoming GamepadTester.tools page for browser-based controller timing and response interval checks.">
+  <title>Controller Polling Rate Test | GamepadTester.tools</title>
+  <meta name="description" content="Measure browser-observed controller input update timing with a live Gamepad API polling rate test.">
   <link rel="canonical" href="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Polling Rate Test | GamepadTester.tools">
-  <meta property="og:description" content="Preview the upcoming polling rate and response timing tool from GamepadTester.tools.">
+  <meta property="og:title" content="Controller Polling Rate Test | GamepadTester.tools">
+  <meta property="og:description" content="Run a browser-based polling rate check for controller input timing, update intervals, and stability.">
   <meta property="og:url" content="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=theme-toggle-v2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=polling-tool-v1">
 </head>
 <body data-page="polling-rate">
   <header class="topbar">
@@ -65,48 +65,289 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="shell page-layout">
-        <div class="hero-copy">
-          <span class="eyebrow">Polling Rate Test</span>
-          <h1>Measure timing behavior with a cleaner browser tool flow.</h1>
-          <p>This page is reserved for a focused polling rate experience. The goal is a simple controller timing check that feels fast, readable, and useful without turning into a developer dashboard.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/index.html">Open homepage tester</a>
-            <a class="btn btn-secondary" href="/tools.html">Browse tool hub</a>
+    <section class="tester-wrap polling-page" id="polling-tool">
+      <div class="shell panel tester-panel polling-tool-panel">
+        <div class="panel-header polling-panel-header">
+          <div class="section-title">
+            <span class="eyebrow">Browser Timing Check</span>
+            <h1>Controller Polling Rate Test</h1>
+            <p>Move a stick or press buttons to measure browser gamepad update timing.</p>
           </div>
+          <div class="status-badge disconnected" data-status>Press any button to connect</div>
         </div>
-        <aside class="page-side">
-          <div class="page-note">
-            <span class="tag">Coming next</span>
-            <p>We plan to show live sample timing, browser stability hints, and a compact interpretation layer so players can understand whether their controller input feels normal.</p>
-          </div>
-          <div class="page-note">
-            <span class="tag">For now</span>
-            <p>Use the homepage tester, drift test, or deadzone calibration page while this dedicated polling tool is being prepared.</p>
-          </div>
-        </aside>
+
+        <div class="unsupported hidden" data-unsupported>
+          This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
+        </div>
+
+        <div class="polling-tool-grid" data-visualizer>
+          <section class="dashboard-card dashboard-card-main polling-visualizer-card">
+            <div class="dashboard-card-head dashboard-card-head-main">
+              <div class="dashboard-heading">
+                <span class="dashboard-token dashboard-token-blue">P</span>
+                <div>
+                  <h2>Live Input Activity</h2>
+                  <p class="mini-note">Browser-observed input update rate. Move either stick continuously or press buttons during the test.</p>
+                </div>
+              </div>
+              <div class="dashboard-main-topbar">
+                <div class="controller-list controller-list-pills" data-controller-list></div>
+              </div>
+            </div>
+
+            <div class="controller-svg-shell">
+              <svg class="controller-svg" viewBox="0 0 1000 900" aria-label="Game controller visualizer">
+                <defs>
+                  <linearGradient id="shellGradient" x1="500" y1="210" x2="500" y2="840" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#fbfcfe"></stop>
+                    <stop offset="48%" stop-color="#edf1f6"></stop>
+                    <stop offset="100%" stop-color="#d9e1ea"></stop>
+                  </linearGradient>
+                  <linearGradient id="shellCoreGradient" x1="500" y1="245" x2="500" y2="780" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ffffff"></stop>
+                    <stop offset="52%" stop-color="#f5f7fa"></stop>
+                    <stop offset="100%" stop-color="#e7ecf2"></stop>
+                  </linearGradient>
+                  <linearGradient id="triggerFillGradient" x1="0" y1="72" x2="0" y2="182" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#72d8ff"></stop>
+                    <stop offset="100%" stop-color="#3e84ff"></stop>
+                  </linearGradient>
+                  <filter id="controllerGlow" x="-20%" y="-20%" width="140%" height="150%">
+                    <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000000" flood-opacity="0.24"></feDropShadow>
+                    <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.14"></feDropShadow>
+                  </filter>
+                </defs>
+
+                <g id="Controller" filter="url(#controllerGlow)">
+                  <g class="controller-svg-triggers">
+                    <g class="trigger-group" data-button="lt">
+                      <path class="trigger-track" d="M 315,130 C 315,70 365,70 365,130 Z"></path>
+                      <rect class="trigger-fill" data-trigger-meter="left" data-base-y="72" data-max-height="58" x="322" y="130" width="36" height="0" rx="16"></rect>
+                    </g>
+                    <g class="bumper-group" data-button="lb">
+                      <rect class="bumper-shape" x="300" y="150" width="80" height="40" rx="12"></rect>
+                      <text class="bumper-label" x="340" y="172">LB</text>
+                    </g>
+                    <g class="trigger-group" data-button="rt">
+                      <path class="trigger-track" d="M 635,130 C 635,70 685,70 685,130 Z"></path>
+                      <rect class="trigger-fill" data-trigger-meter="right" data-base-y="72" data-max-height="58" x="642" y="130" width="36" height="0" rx="16"></rect>
+                    </g>
+                    <g class="bumper-group" data-button="rb">
+                      <rect class="bumper-shape" x="620" y="150" width="80" height="40" rx="12"></rect>
+                      <text class="bumper-label" x="660" y="172">RB</text>
+                    </g>
+                    <text class="trigger-label" x="340" y="102">LT</text>
+                    <text class="trigger-label" x="660" y="102">RT</text>
+                  </g>
+
+                  <g class="controller-body-group">
+                    <path class="controller-shell-outline" d="M 340,210 C 340,210 660,210 660,210 C 760,210 880,280 920,410 C 970,570 950,770 870,840 C 810,890 730,810 660,700 C 580,675 420,675 340,700 C 270,810 190,890 130,840 C 50,770 30,570 80,410 C 120,280 240,210 340,210 Z"></path>
+                    <path class="controller-shell-core" d="M 350,245 L 650,245 C 730,245 829,300 861,409 C 901,540 887,714 825,771 C 779,813 719,752 665,663 C 594,642 406,642 335,663 C 281,752 221,813 175,771 C 113,714 99,540 139,409 C 171,300 270,245 350,245 Z"></path>
+                    <path class="controller-handle-line" d="M 98,475 C 160,530 260,650 345,695"></path>
+                    <path class="controller-handle-line" d="M 902,475 C 840,530 740,650 655,695"></path>
+                    <path class="controller-midline" d="M 500,210 L 500,225"></path>
+                    <path class="controller-midline" d="M 500,663 L 500,678"></path>
+                  </g>
+
+                  <g class="center-icon-group">
+                    <circle class="center-home-ring" cx="500" cy="290" r="32"></circle>
+                    <path class="center-home-glyph" d="M 488,296 L 488,286 L 500,276 L 512,286 L 512,296 Z"></path>
+                    <path class="center-home-glyph" d="M 494,296 L 494,290 L 506,290 L 506,296"></path>
+                  </g>
+
+                  <g class="meta-button-group" data-button="select">
+                    <rect class="meta-button-pill" x="408" y="365" width="34" height="26" rx="6"></rect>
+                    <rect class="meta-button-icon-box" x="415" y="372" width="20" height="12" rx="2"></rect>
+                  </g>
+                  <g class="meta-button-group" data-button="start">
+                    <rect class="meta-button-pill" x="558" y="365" width="34" height="26" rx="6"></rect>
+                    <path class="meta-button-icon-line" d="M566 373H584"></path>
+                    <path class="meta-button-icon-line" d="M566 378H584"></path>
+                    <path class="meta-button-icon-line" d="M566 383H584"></path>
+                  </g>
+
+                  <g class="stick-well stick-well-left">
+                    <circle class="stick-well-ring" cx="280" cy="385" r="85"></circle>
+                    <circle class="stick-well-inner" cx="280" cy="385" r="72"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="left" data-deadzone-base="14" data-deadzone-scale="72" cx="280" cy="385" r="22"></circle>
+                    <circle class="stick-point-core" data-stick-point="left" data-stick-range="42" cx="280" cy="385" r="54"></circle>
+                  </g>
+
+                  <g class="dpad-group">
+                    <circle class="dpad-ring" cx="390" cy="550" r="80"></circle>
+                    <g class="dpad-button-group" data-button="up">
+                      <rect class="dpad-key" x="370" y="488" width="40" height="62" rx="8"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="left">
+                      <rect class="dpad-key" x="328" y="530" width="62" height="40" rx="8"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="right">
+                      <rect class="dpad-key" x="390" y="530" width="62" height="40" rx="8"></rect>
+                    </g>
+                    <g class="dpad-button-group" data-button="down">
+                      <rect class="dpad-key" x="370" y="550" width="40" height="62" rx="8"></rect>
+                    </g>
+                    <rect class="dpad-core" x="370" y="530" width="40" height="40" rx="8"></rect>
+                    <path class="dpad-etch-line" d="M 390,510 L 390,590"></path>
+                    <path class="dpad-etch-line" d="M 350,550 L 430,550"></path>
+                  </g>
+
+                  <g class="stick-well stick-well-right">
+                    <circle class="stick-well-ring" cx="630" cy="550" r="85"></circle>
+                    <circle class="stick-well-inner" cx="630" cy="550" r="72"></circle>
+                    <circle class="stick-deadzone-ring" data-stick-deadzone="right" data-deadzone-base="14" data-deadzone-scale="72" cx="630" cy="550" r="22"></circle>
+                    <circle class="stick-point-core" data-stick-point="right" data-stick-range="42" cx="630" cy="550" r="54"></circle>
+                  </g>
+
+                  <circle class="face-cluster-ring" cx="720" cy="385" r="85"></circle>
+                  <g class="face-group face-y" data-button="y">
+                    <circle class="face-core face-core-y" cx="720" cy="330" r="24"></circle>
+                    <text class="face-letter" x="720" y="338">Y</text>
+                  </g>
+                  <g class="face-group face-x" data-button="x">
+                    <circle class="face-core face-core-x" cx="665" cy="385" r="24"></circle>
+                    <text class="face-letter" x="665" y="393">X</text>
+                  </g>
+                  <g class="face-group face-b" data-button="b">
+                    <circle class="face-core face-core-b" cx="775" cy="385" r="24"></circle>
+                    <text class="face-letter" x="775" y="393">B</text>
+                  </g>
+                  <g class="face-group face-a" data-button="a">
+                    <circle class="face-core face-core-a" cx="720" cy="440" r="24"></circle>
+                    <text class="face-letter" x="720" y="448">A</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <div class="polling-metrics-grid">
+              <article class="polling-metric-card polling-metric-card-feature">
+                <span>Browser-observed input update rate</span>
+                <strong data-polling-rate>0 Hz</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Average interval</span>
+                <strong data-polling-avg>--</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Min interval</span>
+                <strong data-polling-min>--</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Max interval</span>
+                <strong data-polling-max>--</strong>
+              </article>
+              <article class="polling-metric-card polling-metric-card-wide">
+                <span>Samples collected</span>
+                <strong data-polling-samples>0</strong>
+              </article>
+            </div>
+          </section>
+
+          <aside class="dashboard-card dashboard-metric-card polling-controls-card">
+            <div class="dashboard-card-head">
+              <div class="dashboard-heading">
+                <span class="dashboard-token dashboard-token-green">R</span>
+                <div>
+                  <h2>Test Controls</h2>
+                  <p class="mini-note">Start a timed session, keep input moving, and review the interval spread.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="polling-meta-grid">
+              <div class="polling-meta-item polling-meta-item-wide">
+                <span>Current controller</span>
+                <strong data-controller-name>No controller detected</strong>
+              </div>
+              <div class="polling-meta-item">
+                <span>Slot</span>
+                <strong data-controller-slot>--</strong>
+              </div>
+              <div class="polling-meta-item">
+                <span>Session</span>
+                <strong data-polling-session-state>Idle</strong>
+              </div>
+            </div>
+
+            <div class="polling-duration-block">
+              <div class="polling-block-heading">
+                <h3>Test duration</h3>
+                <p>Select how long to collect input change samples.</p>
+              </div>
+              <div class="polling-duration-grid">
+                <button class="polling-duration-button active" type="button" data-polling-duration="5">5s</button>
+                <button class="polling-duration-button" type="button" data-polling-duration="10">10s</button>
+                <button class="polling-duration-button" type="button" data-polling-duration="30">30s</button>
+              </div>
+            </div>
+
+            <div class="polling-action-grid">
+              <button class="polling-action-button polling-action-button-primary" type="button" data-polling-start disabled>Start Test</button>
+              <button class="polling-action-button" type="button" data-polling-reset>Reset</button>
+            </div>
+
+            <div class="polling-result-panel">
+              <div class="polling-result-head">
+                <span>Result summary</span>
+                <strong data-polling-result>No input detected</strong>
+              </div>
+              <p class="polling-result-note" data-polling-note>Connect a controller, start the test, then move either stick continuously or press buttons during the session.</p>
+              <div class="polling-progress-row">
+                <span>Time left</span>
+                <strong data-polling-time-left>--</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>What this page will focus on</h2>
-          <p>The final version is intended to stay concise and user-facing.</p>
+          <h2>What is controller polling rate?</h2>
+          <p>Polling rate describes how frequently new input states are observed over time. On this page, the result is based on browser-visible input updates, not a direct hardware bus reading.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step">
+            <h3>Why browser polling rate may differ</h3>
+            <p>Browsers sit above the operating system, driver, wireless stack, and controller firmware. That means the timing reported here is useful for comparison, but not a guaranteed hardware-level polling rate measurement.</p>
+          </article>
+          <article class="step">
+            <h3>How to interpret the result</h3>
+            <p>Smaller intervals and steadier spacing usually feel more consistent. A wide spread between minimum and maximum intervals can point to browser scheduling limits, Bluetooth variability, or inconsistent input movement during the test.</p>
+          </article>
+          <article class="step">
+            <h3>Best way to test</h3>
+            <p>Use a wired connection when possible, start the test, then move a stick in smooth circles or press buttons rhythmically until the timer ends.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="shell">
+        <div class="section-title">
+          <h2>Polling rate FAQ</h2>
+          <p>Quick answers for understanding what this browser timing tool can and cannot tell you.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>Input interval trends</h3>
-            <p>Show whether incoming controller updates appear steady or inconsistent during a short browser session.</p>
+            <h3>Is this the true hardware polling rate?</h3>
+            <p>No. This page reports a browser-observed input update rate, which is shaped by the browser event loop and Gamepad API visibility.</p>
           </article>
           <article class="faq-item">
-            <h3>Readable summary</h3>
-            <p>Translate raw timing data into a plain-English result instead of forcing users to interpret dense diagnostics.</p>
+            <h3>Why does the page say no input detected?</h3>
+            <p>That usually means the controller connected but did not produce enough changing input during the test window. Start again and keep a stick moving or press buttons repeatedly.</p>
           </article>
           <article class="faq-item">
-            <h3>Quick comparison flow</h3>
-            <p>Support fast checks across wired and wireless modes without adding setup friction.</p>
+            <h3>Why do Bluetooth and USB look different?</h3>
+            <p>Wireless transport, operating system buffering, and browser timing can all change how often new input states reach the page.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What counts as an excellent result?</h3>
+            <p>In this tool, excellent means frequent and fairly even browser-observed updates during active input. It is a stability hint, not a certification of the controller itself.</p>
           </article>
         </div>
       </div>
@@ -117,7 +358,7 @@
     <div class="shell footer-box">
       <div>
         <strong>GamepadTester.tools</strong>
-        <p class="muted">Browser-based controller testing for buttons, sticks, triggers, drift, and deadzone checks.</p>
+        <p class="muted">Browser-based controller testing for buttons, sticks, triggers, drift, deadzone, polling, and vibration checks.</p>
       </div>
       <div class="footer-links">
         <a href="/">Gamepad Tester</a>
@@ -132,5 +373,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="assets/js/polling-page.js?v=build-v1"></script>
 </body>
 </html>

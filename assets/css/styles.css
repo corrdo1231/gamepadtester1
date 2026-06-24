@@ -3775,3 +3775,223 @@ body[data-page="deadzone"] .faq {
     grid-template-columns: 1fr;
   }
 }
+
+body[data-page="polling-rate"] .tester-wrap {
+  padding: 30px 0 18px;
+}
+
+body[data-page="polling-rate"] .guide,
+body[data-page="polling-rate"] .faq {
+  padding: 14px 0 28px;
+}
+
+.polling-tool-panel {
+  padding: 24px;
+}
+
+.polling-panel-header h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.polling-panel-header p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.polling-tool-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.86fr) minmax(320px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.polling-visualizer-card,
+.polling-controls-card {
+  min-height: 100%;
+}
+
+.polling-visualizer-card {
+  padding: 20px 22px 18px;
+}
+
+.polling-controls-card {
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.polling-metrics-grid,
+.polling-meta-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.polling-metrics-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.polling-metric-card,
+.polling-meta-item,
+.polling-result-panel {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+}
+
+.polling-metric-card span,
+.polling-meta-item span,
+.polling-result-panel span,
+.polling-block-heading p,
+.polling-result-note {
+  color: var(--muted);
+}
+
+.polling-metric-card span,
+.polling-meta-item span,
+.polling-result-panel span {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.polling-metric-card strong,
+.polling-meta-item strong,
+.polling-result-head strong,
+.polling-progress-row strong {
+  display: block;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.polling-metric-card-feature {
+  grid-column: 1 / -1;
+}
+
+.polling-metric-card-feature strong {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.polling-metric-card-wide,
+.polling-meta-item-wide {
+  grid-column: 1 / -1;
+}
+
+.polling-duration-block,
+.polling-result-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.polling-block-heading h3,
+.polling-result-head {
+  margin: 0;
+}
+
+.polling-block-heading h3 {
+  font-size: 1rem;
+}
+
+.polling-block-heading p {
+  margin: 6px 0 0;
+  line-height: 1.6;
+}
+
+.polling-duration-grid,
+.polling-action-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.polling-duration-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.polling-duration-button,
+.polling-action-button {
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.polling-duration-button.active {
+  background: linear-gradient(180deg, rgba(125, 180, 255, 0.18), rgba(125, 180, 255, 0.08));
+  border-color: rgba(125, 180, 255, 0.48);
+  color: var(--text-strong);
+}
+
+.polling-action-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.polling-action-button-primary {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-3) 100%);
+  color: #06111e;
+  border-color: transparent;
+  box-shadow: 0 18px 36px rgba(91, 231, 196, 0.22);
+}
+
+.polling-duration-button:hover:not(:disabled),
+.polling-action-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.polling-duration-button:disabled,
+.polling-action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.polling-result-head,
+.polling-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.polling-result-note {
+  margin: 0;
+  line-height: 1.65;
+}
+
+@media (max-width: 1180px) {
+  .polling-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .polling-tool-panel {
+    padding: 20px;
+  }
+
+  .polling-panel-header {
+    align-items: flex-start;
+  }
+
+  .polling-metrics-grid,
+  .polling-meta-grid,
+  .polling-action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .polling-result-head,
+  .polling-progress-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
