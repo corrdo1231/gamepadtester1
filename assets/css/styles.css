@@ -3541,3 +3541,237 @@ body[data-page="drift"] .faq {
     transform: translate(calc(var(--right-stick-x) * 52px), calc(var(--right-stick-y) * 52px));
   }
 }
+
+body[data-page="deadzone"] .tester-wrap {
+  padding: 30px 0 18px;
+}
+
+body[data-page="deadzone"] .guide,
+body[data-page="deadzone"] .faq {
+  padding: 14px 0 28px;
+}
+
+.deadzone-tool-card {
+  padding: 24px;
+}
+
+.deadzone-tool-header {
+  margin-bottom: 18px;
+}
+
+.deadzone-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.deadzone-title-row h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.deadzone-title-row p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.deadzone-tool-grid {
+  grid-template-columns: minmax(0, 1.86fr) minmax(320px, 1fr);
+  gap: 20px;
+}
+
+.deadzone-monitor-panel,
+.deadzone-settings-panel {
+  min-height: 100%;
+}
+
+.deadzone-monitor-panel {
+  padding: 20px 22px 18px;
+  display: grid;
+  gap: 18px;
+}
+
+.deadzone-monitor-topbar,
+.deadzone-stick-head,
+.deadzone-actions,
+.deadzone-settings-head,
+.deadzone-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.deadzone-monitor-topbar {
+  flex-wrap: wrap;
+}
+
+.deadzone-monitor-topbar h2,
+.deadzone-settings-head h2,
+.deadzone-summary-head h2,
+.deadzone-stick-head h3 {
+  margin: 0;
+}
+
+.deadzone-monitor-topbar h2,
+.deadzone-settings-head h2,
+.deadzone-summary-head h2 {
+  font-size: 1.15rem;
+}
+
+.deadzone-circle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.deadzone-stick-card,
+.deadzone-summary-block {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+}
+
+.deadzone-stick-card {
+  display: grid;
+  gap: 16px;
+}
+
+.deadzone-stick-head .state-pill {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.deadzone-stick-zone {
+  width: min(100%, 240px);
+  margin-top: 0;
+}
+
+.deadzone-stick-zone .stick-deadzone {
+  border-color: rgba(117, 180, 255, 0.92);
+  background: rgba(117, 180, 255, 0.06);
+}
+
+.deadzone-metric-grid,
+.deadzone-summary-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.deadzone-metric-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deadzone-metric-item,
+.deadzone-summary-item,
+.deadzone-range-note {
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface);
+}
+
+.deadzone-metric-item span,
+.deadzone-summary-item span,
+.deadzone-range-note span {
+  display: block;
+  color: var(--soft-text);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.deadzone-metric-item strong,
+.deadzone-summary-item strong,
+.deadzone-range-note strong {
+  display: block;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.deadzone-monitor-footer {
+  display: grid;
+  gap: 10px;
+}
+
+.deadzone-footnote {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.deadzone-settings-panel {
+  padding: 20px;
+}
+
+.deadzone-settings-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.deadzone-settings-block {
+  padding: 18px;
+}
+
+.deadzone-settings-head,
+.deadzone-summary-head {
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.deadzone-actions {
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.deadzone-actions .btn {
+  min-height: 46px;
+}
+
+.deadzone-range-note {
+  margin-top: 12px;
+}
+
+.deadzone-settings-block [data-deadzone-calibration-status] {
+  margin-top: 12px;
+}
+
+.deadzone-summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.deadzone-summary-item-wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1180px) {
+  .deadzone-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .deadzone-tool-card {
+    padding: 20px;
+  }
+
+  .deadzone-title-row,
+  .deadzone-monitor-topbar,
+  .deadzone-stick-head,
+  .deadzone-settings-head,
+  .deadzone-summary-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .deadzone-circle-grid,
+  .deadzone-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

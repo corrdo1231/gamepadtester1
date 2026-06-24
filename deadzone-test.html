@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=theme-toggle-v2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=deadzone-tool-v1">
 </head>
 <body data-page="deadzone">
   <header class="topbar">
@@ -65,143 +65,208 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="shell page-layout">
-        <div class="hero-copy">
-          <span class="eyebrow">Deadzone Test</span>
-          <h1>See how far a stick moves before you want games to respond.</h1>
-          <p>Deadzone is the small center area where tiny stick movement is ignored. This test overlays a live deadzone ring on each stick and helps you find a value that masks idle noise without eating too much precise input.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#deadzone-lab">Open deadzone lab</a>
-            <a class="btn btn-secondary" href="/controller-drift-test.html">Compare drift test</a>
+    <section class="tester-wrap deadzone-page" id="deadzone-lab">
+      <div class="shell panel deadzone-tool-card">
+        <div class="deadzone-tool-header">
+          <div class="deadzone-title-row">
+            <div>
+              <span class="eyebrow">Deadzone Calibration</span>
+              <h1>Controller Deadzone Calibration</h1>
+              <p>Adjust the deadzone threshold and watch how stick input is filtered around center.</p>
+            </div>
+            <div class="status-badge disconnected" data-status>Press any button to connect</div>
           </div>
-        </div>
-        <aside class="page-side">
-          <div class="page-note">
-            <span class="tag">Practical range</span>
-            <p>Healthy controllers often feel good with deadzones around <code>0.05</code> to <code>0.12</code>, but worn sticks may need more.</p>
-          </div>
-          <div class="page-note">
-            <span class="tag">Goal</span>
-            <p>Choose the lowest value that keeps the stick stable at rest. Too much deadzone can make aim and movement feel sluggish.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="tester-wrap" id="deadzone-lab">
-      <div class="shell panel">
-        <div class="panel-header">
-          <div class="section-title">
-            <h2>Deadzone lab</h2>
-            <p>Adjust the threshold, leave the sticks centered, then move them gently outward to see when your preferred zone begins.</p>
-          </div>
-          <div class="status-badge disconnected" data-status>Waiting for a controller</div>
         </div>
 
         <div class="unsupported hidden" data-unsupported>
           This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
         </div>
 
-        <div class="tester-grid">
-          <div class="stack">
-            <section class="subpanel">
-              <div class="controller-header">
-                <div>
-                  <h3>Connected devices</h3>
-                  <p class="mini-note">Detected controllers: <strong data-connected-count>0</strong></p>
-                </div>
-                <div class="control-row">
-                  <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
-                  <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
-                </div>
+        <div class="deadzone-tool-grid tester-grid">
+          <section class="dashboard-card deadzone-monitor-panel">
+            <div class="deadzone-monitor-topbar">
+              <div>
+                <h2>Deadzone Lab</h2>
+                <p class="mini-note">Move each stick slowly away from center to see when your chosen threshold starts filtering idle movement.</p>
               </div>
-              <div class="controller-list" data-controller-list></div>
-            </section>
-            <section class="subpanel">
-              <h3>Stick visualization</h3>
-              <div class="stick-grid">
-                <article class="stick-card">
-                  <strong>Left stick</strong>
-                  <div class="stick-zone">
-                    <div class="stick-deadzone" data-stick-deadzone="left"></div>
-                    <div class="stick-point" data-stick-point="left"></div>
-                  </div>
-                  <div class="stick-readout">
-                    <span>X: <strong data-stick-x="left">0.000</strong></span>
-                    <span>Y: <strong data-stick-y="left">0.000</strong></span>
-                  </div>
-                </article>
-                <article class="stick-card">
-                  <strong>Right stick</strong>
-                  <div class="stick-zone">
-                    <div class="stick-deadzone" data-stick-deadzone="right"></div>
-                    <div class="stick-point" data-stick-point="right"></div>
-                  </div>
-                  <div class="stick-readout">
-                    <span>X: <strong data-stick-x="right">0.000</strong></span>
-                    <span>Y: <strong data-stick-y="right">0.000</strong></span>
-                  </div>
-                </article>
-              </div>
-            </section>
-          </div>
+              <div class="controller-list controller-list-pills" data-controller-list></div>
+            </div>
 
-          <div class="stack">
-            <section class="subpanel">
-              <div class="range-wrap">
+            <div class="deadzone-circle-grid">
+              <article class="deadzone-stick-card">
+                <div class="deadzone-stick-head">
+                  <h3>Left Stick</h3>
+                  <div class="state-pill" data-drift-state="left">Centered</div>
+                </div>
+                <div class="stick-zone deadzone-stick-zone">
+                  <div class="stick-deadzone" data-stick-deadzone="left"></div>
+                  <div class="stick-point" data-stick-point="left"></div>
+                </div>
+                <div class="deadzone-metric-grid">
+                  <div class="deadzone-metric-item">
+                    <span>X</span>
+                    <strong data-stick-x="left">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Y</span>
+                    <strong data-stick-y="left">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Current</span>
+                    <strong data-metric="left-magnitude">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Peak</span>
+                    <strong data-metric="left-peak">0.000</strong>
+                  </div>
+                </div>
+              </article>
+
+              <article class="deadzone-stick-card">
+                <div class="deadzone-stick-head">
+                  <h3>Right Stick</h3>
+                  <div class="state-pill" data-drift-state="right">Centered</div>
+                </div>
+                <div class="stick-zone deadzone-stick-zone">
+                  <div class="stick-deadzone" data-stick-deadzone="right"></div>
+                  <div class="stick-point" data-stick-point="right"></div>
+                </div>
+                <div class="deadzone-metric-grid">
+                  <div class="deadzone-metric-item">
+                    <span>X</span>
+                    <strong data-stick-x="right">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Y</span>
+                    <strong data-stick-y="right">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Current</span>
+                    <strong data-metric="right-magnitude">0.000</strong>
+                  </div>
+                  <div class="deadzone-metric-item">
+                    <span>Peak</span>
+                    <strong data-metric="right-peak">0.000</strong>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="deadzone-monitor-footer">
+              <div class="controller-legend-row">
+                <span class="controller-legend-item">
+                  <span class="controller-legend-dot controller-legend-dot-active"></span>
+                  Live stick position
+                </span>
+                <span class="controller-legend-item">
+                  <span class="controller-legend-dot"></span>
+                  Active deadzone ring
+                </span>
+              </div>
+              <p class="deadzone-footnote">The dashed ring is the current filtered center zone. Values inside it are what games typically ignore.</p>
+            </div>
+          </section>
+
+          <aside class="dashboard-card deadzone-settings-panel">
+            <div class="deadzone-settings-stack">
+              <section class="deadzone-panel deadzone-settings-block">
+                <div class="deadzone-settings-head">
+                  <h2>Calibration Settings</h2>
+                  <p class="mini-note">Tune the center threshold, then reset the sample if you want a fresh reading.</p>
+                </div>
                 <label for="deadzone-input">
                   <span>Active deadzone</span>
                   <strong data-deadzone-value>0.120</strong>
                 </label>
                 <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-              </div>
-              <p class="mini-note">The dashed ring shows the current deadzone. Keep it small enough to preserve fine movement, but large enough to hide idle noise.</p>
-            </section>
-            <section class="subpanel">
-              <h3>Deadzone metrics</h3>
-              <div class="metrics-grid">
-                <article class="metric-card">
-                  <strong>Left stick magnitude</strong>
-                  <span>Distance from center</span>
-                  <code data-metric="left-magnitude">0.000</code>
-                  <div class="state-pill" data-drift-state="left">Centered</div>
-                </article>
-                <article class="metric-card">
-                  <strong>Right stick magnitude</strong>
-                  <span>Distance from center</span>
-                  <code data-metric="right-magnitude">0.000</code>
-                  <div class="state-pill" data-drift-state="right">Centered</div>
-                </article>
-                <article class="metric-card">
-                  <strong>Left stick peak</strong>
-                  <span>Idle offset sample</span>
-                  <code data-metric="left-peak">0.000</code>
-                </article>
-                <article class="metric-card">
-                  <strong>Right stick peak</strong>
-                  <span>Idle offset sample</span>
-                  <code data-metric="right-peak">0.000</code>
-                </article>
-              </div>
-              <div class="metric-card" style="margin-top: 14px;">
-                <strong>Suggested deadzone</strong>
-                <span>Peak idle offset + safety margin</span>
-                <code data-metric="recommended-deadzone">0.060</code>
-              </div>
-            </section>
-            <section class="subpanel">
-              <h3>Axis values</h3>
-              <div class="axis-grid">
-                <article class="axis-card"><strong>Left Stick X</strong><span>Horizontal</span><code data-axis="left-x">0.000</code></article>
-                <article class="axis-card"><strong>Left Stick Y</strong><span>Vertical</span><code data-axis="left-y">0.000</code></article>
-                <article class="axis-card"><strong>LT</strong><span>Trigger value</span><code data-axis="left-trigger">0.000</code></article>
-                <article class="axis-card"><strong>Right Stick X</strong><span>Horizontal</span><code data-axis="right-x">0.000</code></article>
-                <article class="axis-card"><strong>Right Stick Y</strong><span>Vertical</span><code data-axis="right-y">0.000</code></article>
-                <article class="axis-card"><strong>RT</strong><span>Trigger value</span><code data-axis="right-trigger">0.000</code></article>
-              </div>
-            </section>
-          </div>
+                <div class="deadzone-range-note">
+                  <span>Suggested range</span>
+                  <strong>0.05-0.12</strong>
+                </div>
+                <div class="state-pill" data-deadzone-calibration-status>Balanced</div>
+                <p class="deadzone-helper">Low values preserve fine input but may still allow unwanted motion. High values hide noise but can make movement feel sluggish.</p>
+                <div class="deadzone-actions">
+                  <button class="btn btn-primary" type="button" data-reset-drift>Reset Drift Sample</button>
+                  <button class="btn btn-secondary" type="button" data-refresh>Refresh Controllers</button>
+                </div>
+              </section>
+
+              <section class="deadzone-summary-block">
+                <div class="deadzone-summary-head">
+                  <h2>Current Session</h2>
+                  <p class="mini-note">Use the live values below to compare how your current threshold matches your controller's idle noise.</p>
+                </div>
+                <div class="deadzone-summary-grid">
+                  <div class="deadzone-summary-item deadzone-summary-item-wide">
+                    <span>Current controller</span>
+                    <strong data-controller-name>No controller detected</strong>
+                  </div>
+                  <div class="deadzone-summary-item">
+                    <span>Slot</span>
+                    <strong data-controller-index>--</strong>
+                  </div>
+                  <div class="deadzone-summary-item">
+                    <span>Detected</span>
+                    <strong data-connected-count>0</strong>
+                  </div>
+                  <div class="deadzone-summary-item deadzone-summary-item-wide">
+                    <span>Recommended deadzone</span>
+                    <strong data-metric="recommended-deadzone">0.060</strong>
+                  </div>
+                </div>
+              </section>
+
+              <details class="advanced-panel">
+                <summary>Advanced Debug</summary>
+                <div class="advanced-grid">
+                  <div class="advanced-item advanced-item-wide">
+                    <span>Browser Device ID</span>
+                    <strong data-controller-id>Waiting for browser access</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Mapping</span>
+                    <strong data-mapping>--</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Connection</span>
+                    <strong data-device-connected>Disconnected</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Button Count</span>
+                    <strong data-device-buttons>0</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Axis Count</span>
+                    <strong data-device-axes>0</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Left Stick X</span>
+                    <strong data-axis="left-x">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Left Stick Y</span>
+                    <strong data-axis="left-y">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Right Stick X</span>
+                    <strong data-axis="right-x">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Right Stick Y</span>
+                    <strong data-axis="right-y">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>LT</span>
+                    <strong data-axis="left-trigger">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>RT</span>
+                    <strong data-axis="right-trigger">0.000</strong>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -209,21 +274,48 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>How to choose a good deadzone</h2>
-          <p>The best setting is small enough to keep input sharp, but large enough to cover idle stick noise.</p>
+          <h2>What is controller deadzone?</h2>
+          <p>Deadzone is the small center area where tiny analog stick movement is ignored so idle noise does not trigger walking, aiming, or camera movement.</p>
         </div>
         <div class="steps-grid">
           <article class="step">
-            <h3>Start low</h3>
-            <p>Begin around <code>0.05</code>. If the stick remains stable at rest, you can usually keep the deadzone there or close to it.</p>
+            <h3>How to choose a deadzone value</h3>
+            <p>Start low, then increase only enough to keep the stick stable at rest. The best value is usually the smallest number that prevents unwanted movement.</p>
           </article>
           <article class="step">
-            <h3>Raise only when needed</h3>
-            <p>If the cursor or in-game camera drifts when untouched, increase the value until the live stick point stays centered at rest.</p>
+            <h3>Deadzone vs stick drift</h3>
+            <p>Deadzone is a software buffer. Stick drift is the hardware symptom. A larger deadzone can hide mild drift, but it does not repair the controller itself.</p>
           </article>
           <article class="step">
-            <h3>Retest after long play sessions</h3>
-            <p>Heat, wear, and dirt can change how a stick behaves over time, so it helps to recheck controllers that feel inconsistent.</p>
+            <h3>Why the recommended range matters</h3>
+            <p>Most healthy controllers feel responsive around <code>0.05</code> to <code>0.12</code>. If you need much more than that, the stick may already have noticeable wear.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="shell">
+        <div class="section-title">
+          <h2>Deadzone calibration FAQ</h2>
+          <p>Quick answers for choosing a usable threshold without over-filtering your controller.</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>What does “Too sensitive” mean?</h3>
+            <p>It means the deadzone is so small that even minor idle stick noise may still leak through and feel like drift in games.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What does “Too high” mean?</h3>
+            <p>It means the deadzone is large enough that subtle input near center may be ignored, which can make aiming or fine movement feel less precise.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Should both sticks use the same deadzone?</h3>
+            <p>Often yes, but some games let you tune them separately. If one stick is worn more than the other, asymmetric deadzones can make sense.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Why reset the sample on a deadzone page?</h3>
+            <p>Resetting the peak drift sample gives you a cleaner baseline before comparing the current threshold against fresh idle readings.</p>
           </article>
         </div>
       </div>

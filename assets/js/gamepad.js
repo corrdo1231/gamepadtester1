@@ -73,6 +73,7 @@
     leftDriftState: doc.querySelectorAll("[data-drift-state='left']"),
     rightDriftState: doc.querySelectorAll("[data-drift-state='right']"),
     recommendedDeadzone: doc.querySelector("[data-metric='recommended-deadzone']"),
+    deadzoneCalibrationStatus: doc.querySelector("[data-deadzone-calibration-status]"),
     driftAxis: {
       leftX: doc.querySelectorAll("[data-drift-axis='left-x']"),
       leftY: doc.querySelectorAll("[data-drift-axis='left-y']"),
@@ -265,6 +266,29 @@
         node.classList.add(next.className);
       }
     });
+  }
+
+  function updateDeadzoneCalibrationStatus(value) {
+    if (!elements.deadzoneCalibrationStatus) {
+      return;
+    }
+
+    let label = "Balanced";
+    let className = "";
+
+    if (value < 0.05) {
+      label = "Too sensitive";
+      className = "danger";
+    } else if (value > 0.12) {
+      label = "Too high";
+      className = "warn";
+    }
+
+    elements.deadzoneCalibrationStatus.textContent = label;
+    elements.deadzoneCalibrationStatus.className = "state-pill";
+    if (className) {
+      elements.deadzoneCalibrationStatus.classList.add(className);
+    }
   }
 
   function updateStick(zone, x, y) {
@@ -536,11 +560,13 @@
         state.deadzone = clamp(next, 0.02, 0.35);
         state.driftThreshold = state.deadzone;
         elements.deadzoneValue.textContent = formatAxis(state.deadzone);
+        updateDeadzoneCalibrationStatus(state.deadzone);
         if (elements.visualizer) {
           elements.visualizer.style.setProperty("--deadzone-threshold", String(state.deadzone));
         }
       });
       elements.deadzoneValue.textContent = formatAxis(state.deadzone);
+      updateDeadzoneCalibrationStatus(state.deadzone);
     }
 
     if (elements.visualizer) {
