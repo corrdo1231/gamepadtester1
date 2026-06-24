@@ -148,7 +148,11 @@
       return;
     }
 
-    elements.status.textContent = connected ? "Controller connected" : "Press any button to connect";
+    if (body.dataset.page === "drift") {
+      elements.status.textContent = connected ? "Controller Connected" : "No Controller";
+    } else {
+      elements.status.textContent = connected ? "Controller connected" : "Press any button to connect";
+    }
     elements.status.classList.toggle("connected", connected);
     elements.status.classList.toggle("disconnected", !connected);
   }
@@ -244,10 +248,10 @@
 
   function driftState(magnitude) {
     if (magnitude >= Math.max(state.driftThreshold, state.deadzone)) {
-      return { label: "Potential drift", className: "danger" };
+      return { label: body.dataset.page === "drift" ? "Drift Detected" : "Potential drift", className: "danger" };
     }
     if (magnitude >= Math.max(0.05, state.deadzone * 0.5)) {
-      return { label: "Slight offset", className: "warn" };
+      return { label: body.dataset.page === "drift" ? "Minor Drift" : "Slight offset", className: "warn" };
     }
     return { label: "Centered", className: "" };
   }

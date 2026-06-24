@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=theme-toggle-v2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=drift-tool-v1">
 </head>
 <body data-page="drift">
   <header class="topbar">
@@ -65,164 +65,216 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="shell page-layout">
-        <div class="hero-copy">
-          <span class="eyebrow">Controller Drift Test</span>
-          <h1>Measure unwanted stick movement while the controller rests.</h1>
-          <p>This page focuses on stick drift. Leave both analog sticks untouched, reset the drift sample, and watch the live magnitude plus peak idle offset values. If either stick remains outside your deadzone while untouched, you may be looking at drift.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#drift-tester">Start drift test</a>
-            <a class="btn btn-secondary" href="/deadzone-test.html">Compare deadzone test</a>
+    <section class="tester-wrap drift-page" id="drift-tester">
+      <div class="shell panel drift-tool-card">
+        <div class="drift-tool-header">
+          <div class="drift-tool-title">
+            <a class="drift-breadcrumb" href="/index.html">← Back to Home</a>
+            <div class="drift-title-row">
+              <div>
+                <span class="eyebrow">Instant Drift Monitor</span>
+                <h1>Controller Stick Drift Test</h1>
+                <p>Leave the controller untouched, reset the sample, and watch both sticks for idle movement in real time.</p>
+              </div>
+              <div class="status-badge disconnected" data-status>No Controller</div>
+            </div>
           </div>
-        </div>
-        <aside class="page-side">
-          <div class="page-note">
-            <span class="tag">Tip</span>
-            <p>Test on a flat surface. Small offsets can come from your hand resting on the stick, especially on lighter thumbsticks.</p>
-          </div>
-          <div class="page-note">
-            <span class="tag">What to watch</span>
-            <p>Keep an eye on both the current magnitude and the peak idle offset. Repeated values above about <code>0.10</code> often feel noticeable in games.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="tester-wrap" id="drift-tester">
-      <div class="shell panel">
-        <div class="panel-header">
-          <div class="section-title">
-            <h2>Live drift monitor</h2>
-            <p>Reset the sample, stop touching the controller, and let the peak values settle for a few seconds.</p>
-          </div>
-          <div class="status-badge disconnected" data-status>Waiting for a controller</div>
         </div>
 
         <div class="unsupported hidden" data-unsupported>
           This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
         </div>
 
-        <div class="tester-grid">
-          <div class="stack">
-            <section class="subpanel">
-              <div class="controller-header">
-                <div>
-                  <h3>Connected devices</h3>
-                  <p class="mini-note">Detected controllers: <strong data-connected-count>0</strong></p>
-                </div>
-                <div class="control-row">
-                  <button class="btn btn-secondary" type="button" data-refresh>Refresh devices</button>
-                  <button class="btn btn-secondary" type="button" data-reset-drift>Reset drift sample</button>
-                </div>
+        <div class="drift-tool-grid tester-dashboard-layout" data-visualizer>
+          <section class="dashboard-card drift-monitor-panel">
+            <div class="drift-monitor-topbar">
+              <div>
+                <h2>Live Drift Monitor</h2>
+                <p class="mini-note">Press any button to connect, then let both sticks rest naturally.</p>
               </div>
-              <div class="controller-list" data-controller-list></div>
-            </section>
-            <section class="subpanel">
-              <h3>Controller overview</h3>
-              <div class="device-meta">
-                <div class="meta-card">
-                  <span>Name / ID</span>
-                  <strong data-controller-name>No controller detected</strong>
-                </div>
-                <div class="meta-card">
-                  <span>Selected slot</span>
-                  <strong data-controller-index>--</strong>
-                </div>
-                <div class="meta-card">
-                  <span>Raw device ID</span>
-                  <strong data-controller-id>Waiting for browser access</strong>
-                </div>
-                <div class="meta-card">
-                  <span>Browser mapping</span>
-                  <strong data-mapping>--</strong>
-                </div>
-              </div>
-            </section>
-            <section class="subpanel">
-              <h3>Stick visualization</h3>
-              <div class="stick-grid">
-                <article class="stick-card">
-                  <strong>Left stick</strong>
-                  <div class="stick-zone">
-                    <div class="stick-deadzone" data-stick-deadzone="left"></div>
-                    <div class="stick-point" data-stick-point="left"></div>
-                  </div>
-                  <div class="stick-readout">
-                    <span>X: <strong data-stick-x="left">0.000</strong></span>
-                    <span>Y: <strong data-stick-y="left">0.000</strong></span>
-                  </div>
-                </article>
-                <article class="stick-card">
-                  <strong>Right stick</strong>
-                  <div class="stick-zone">
-                    <div class="stick-deadzone" data-stick-deadzone="right"></div>
-                    <div class="stick-point" data-stick-point="right"></div>
-                  </div>
-                  <div class="stick-readout">
-                    <span>X: <strong data-stick-x="right">0.000</strong></span>
-                    <span>Y: <strong data-stick-y="right">0.000</strong></span>
-                  </div>
-                </article>
-              </div>
-            </section>
-          </div>
+              <div class="controller-list controller-list-pills" data-controller-list></div>
+            </div>
 
-          <div class="stack">
-            <section class="subpanel">
-              <div class="range-wrap">
+            <div class="drift-circle-grid">
+              <article class="drift-stick-card">
+                <div class="drift-stick-head">
+                  <h3>Left Stick</h3>
+                  <div class="state-pill" data-drift-state="left">Centered</div>
+                </div>
+                <div class="drift-radar drift-radar-left">
+                  <span class="drift-radar-deadzone"></span>
+                  <span class="mini-scope-ring"></span>
+                  <span class="mini-scope-point mini-scope-point-left"></span>
+                </div>
+                <div class="drift-metric-grid">
+                  <div class="drift-metric-item">
+                    <span>X</span>
+                    <strong data-stick-x="left">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Y</span>
+                    <strong data-stick-y="left">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Current</span>
+                    <strong data-metric="left-magnitude">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Peak</span>
+                    <strong data-metric="left-peak">0.000</strong>
+                  </div>
+                </div>
+              </article>
+
+              <article class="drift-stick-card">
+                <div class="drift-stick-head">
+                  <h3>Right Stick</h3>
+                  <div class="state-pill" data-drift-state="right">Centered</div>
+                </div>
+                <div class="drift-radar drift-radar-right">
+                  <span class="drift-radar-deadzone"></span>
+                  <span class="mini-scope-ring"></span>
+                  <span class="mini-scope-point mini-scope-point-right drift-radar-point"></span>
+                </div>
+                <div class="drift-metric-grid">
+                  <div class="drift-metric-item">
+                    <span>X</span>
+                    <strong data-stick-x="right">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Y</span>
+                    <strong data-stick-y="right">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Current</span>
+                    <strong data-metric="right-magnitude">0.000</strong>
+                  </div>
+                  <div class="drift-metric-item">
+                    <span>Peak</span>
+                    <strong data-metric="right-peak">0.000</strong>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="drift-monitor-footer">
+              <div class="controller-legend-row">
+                <span class="controller-legend-item">
+                  <span class="controller-legend-dot controller-legend-dot-active"></span>
+                  Current stick position
+                </span>
+                <span class="controller-legend-item">
+                  <span class="controller-legend-dot"></span>
+                  Deadzone boundary
+                </span>
+              </div>
+              <p class="drift-footnote">If the point stays outside the deadzone while untouched, that stick may be drifting.</p>
+            </div>
+          </section>
+
+          <aside class="dashboard-card drift-settings-panel">
+            <div class="drift-settings-stack">
+              <section class="deadzone-panel drift-settings-block">
+                <div class="drift-settings-head">
+                  <h2>Settings</h2>
+                  <p class="mini-note">Adjust the threshold and reset the sample whenever you reposition the controller.</p>
+                </div>
                 <label for="deadzone-input">
-                  <span>Drift warning threshold</span>
+                  <span>Deadzone threshold</span>
                   <strong data-deadzone-value>0.120</strong>
                 </label>
                 <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-              </div>
-              <p class="mini-note">Raise the threshold if you only care about larger idle movement. Lower it if you want a more sensitive drift readout.</p>
-            </section>
-            <section class="subpanel">
-              <h3>Drift summary</h3>
-              <div class="metrics-grid">
-                <article class="metric-card">
-                  <strong>Left stick magnitude</strong>
-                  <span>Current offset</span>
-                  <code data-metric="left-magnitude">0.000</code>
-                  <div class="state-pill" data-drift-state="left">Centered</div>
-                </article>
-                <article class="metric-card">
-                  <strong>Right stick magnitude</strong>
-                  <span>Current offset</span>
-                  <code data-metric="right-magnitude">0.000</code>
-                  <div class="state-pill" data-drift-state="right">Centered</div>
-                </article>
-                <article class="metric-card">
-                  <strong>Left stick peak</strong>
-                  <span>Peak idle offset</span>
-                  <code data-metric="left-peak">0.000</code>
-                </article>
-                <article class="metric-card">
-                  <strong>Right stick peak</strong>
-                  <span>Peak idle offset</span>
-                  <code data-metric="right-peak">0.000</code>
-                </article>
-              </div>
-              <div class="metric-card" style="margin-top: 14px;">
-                <strong>Suggested deadzone</strong>
-                <span>Peak idle offset + safety margin</span>
-                <code data-metric="recommended-deadzone">0.060</code>
-              </div>
-            </section>
-            <section class="subpanel">
-              <h3>Related input values</h3>
-              <div class="axis-grid">
-                <article class="axis-card"><strong>Left Stick X</strong><span>Horizontal</span><code data-axis="left-x">0.000</code></article>
-                <article class="axis-card"><strong>Left Stick Y</strong><span>Vertical</span><code data-axis="left-y">0.000</code></article>
-                <article class="axis-card"><strong>LT</strong><span>Trigger value</span><code data-axis="left-trigger">0.000</code></article>
-                <article class="axis-card"><strong>Right Stick X</strong><span>Horizontal</span><code data-axis="right-x">0.000</code></article>
-                <article class="axis-card"><strong>Right Stick Y</strong><span>Vertical</span><code data-axis="right-y">0.000</code></article>
-                <article class="axis-card"><strong>RT</strong><span>Trigger value</span><code data-axis="right-trigger">0.000</code></article>
-              </div>
-            </section>
-          </div>
+                <p class="deadzone-helper">Lower values catch subtle drift sooner. Higher values focus on bigger idle movement.</p>
+                <div class="drift-actions">
+                  <button class="btn btn-primary" type="button" data-reset-drift>Reset Drift Sample</button>
+                  <button class="btn btn-secondary" type="button" data-refresh>Refresh Controllers</button>
+                </div>
+              </section>
+
+              <section class="drift-summary-block">
+                <div class="drift-summary-head">
+                  <h2>Session Status</h2>
+                  <p class="mini-note">Compact readout for the currently selected controller.</p>
+                </div>
+                <div class="drift-summary-grid">
+                  <div class="drift-summary-item drift-summary-item-wide">
+                    <span>Current controller</span>
+                    <strong data-controller-name>No controller detected</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Slot</span>
+                    <strong data-controller-index>--</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Detected</span>
+                    <strong data-connected-count>0</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Recommended deadzone</span>
+                    <strong data-metric="recommended-deadzone">0.060</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Left status</span>
+                    <strong data-drift-state="left">Centered</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Right status</span>
+                    <strong data-drift-state="right">Centered</strong>
+                  </div>
+                </div>
+              </section>
+
+              <details class="advanced-panel">
+                <summary>Advanced Debug</summary>
+                <div class="advanced-grid">
+                  <div class="advanced-item advanced-item-wide">
+                    <span>Browser Device ID</span>
+                    <strong data-controller-id>Waiting for browser access</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Mapping</span>
+                    <strong data-mapping>--</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Connection</span>
+                    <strong data-device-connected>Disconnected</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Button Count</span>
+                    <strong data-device-buttons>0</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Axis Count</span>
+                    <strong data-device-axes>0</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Left Stick X</span>
+                    <strong data-axis="left-x">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Left Stick Y</span>
+                    <strong data-axis="left-y">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Right Stick X</span>
+                    <strong data-axis="right-x">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>Right Stick Y</span>
+                    <strong data-axis="right-y">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>LT</span>
+                    <strong data-axis="left-trigger">0.000</strong>
+                  </div>
+                  <div class="advanced-item">
+                    <span>RT</span>
+                    <strong data-axis="right-trigger">0.000</strong>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -230,21 +282,48 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>Drift testing tips</h2>
-          <p>These checks help you separate real drift from normal stick noise and hand contact.</p>
+          <h2>What is stick drift?</h2>
+          <p>Stick drift happens when a resting analog stick still reports movement. That can move a character, cursor, or camera even when you are not touching the controller.</p>
         </div>
         <div class="steps-grid">
           <article class="step">
-            <h3>Reset before each reading</h3>
-            <p>Clear the peak values, then leave the controller untouched for three to five seconds to capture a cleaner idle sample.</p>
+            <h3>How to read drift values</h3>
+            <p>The current value shows the stick's live idle offset right now. The peak value shows the highest offset captured since the last reset, which is useful when the drift is intermittent.</p>
           </article>
           <article class="step">
-            <h3>Check both sticks</h3>
-            <p>Left stick drift is more common, but right stick issues still matter for camera control and fine aiming.</p>
+            <h3>What deadzone should I use?</h3>
+            <p>Many healthy controllers idle below about <code>0.05</code>. If your stick regularly sits above that while untouched, a slightly larger deadzone may help in games, but large values can hide a hardware problem.</p>
           </article>
           <article class="step">
-            <h3>Compare against game settings</h3>
-            <p>If the suggested deadzone here matches or exceeds the deadzone you need in games, the controller may need maintenance.</p>
+            <h3>Why reset the drift sample?</h3>
+            <p>Resetting clears the stored peak values so you can take a fresh reading after changing cable mode, moving to a flat surface, or letting the stick settle naturally.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="shell">
+        <div class="section-title">
+          <h2>Drift test FAQ</h2>
+          <p>Common questions when a controller feels off but you are not sure whether it is true stick drift.</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Does every small offset mean drift?</h3>
+            <p>No. Tiny fluctuations can be normal sensor noise. What matters is whether the stick repeatedly rests outside your usable deadzone and affects gameplay.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Should I test over USB or Bluetooth?</h3>
+            <p>USB usually gives the most stable browser readings. Bluetooth can still work well, but adapters and battery-saving behavior sometimes add more variability.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Why is only one stick drifting?</h3>
+            <p>The left stick often wears faster because movement is more frequent, but either stick can drift depending on usage, dust, spring wear, or potentiometer condition.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What if the peak value keeps climbing?</h3>
+            <p>That usually means the stick is not settling cleanly at center. Try resetting the sample on a flat surface. If the peak still rises while untouched, the controller may need cleaning or repair.</p>
           </article>
         </div>
       </div>

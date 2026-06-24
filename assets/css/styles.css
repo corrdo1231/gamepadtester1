@@ -3273,3 +3273,271 @@ body[data-page="vibration"] .faq {
     grid-column: auto;
   }
 }
+
+body[data-page="drift"] .tester-wrap {
+  padding: 30px 0 18px;
+}
+
+body[data-page="drift"] .guide,
+body[data-page="drift"] .faq {
+  padding: 14px 0 28px;
+}
+
+.drift-tool-card {
+  padding: 24px;
+}
+
+.drift-tool-header {
+  margin-bottom: 18px;
+}
+
+.drift-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.drift-breadcrumb:hover {
+  color: var(--text);
+}
+
+.drift-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.drift-title-row h1 {
+  margin: 14px 0 10px;
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.drift-title-row p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.drift-tool-grid {
+  grid-template-columns: minmax(0, 1.86fr) minmax(320px, 1fr);
+  gap: 20px;
+}
+
+.drift-monitor-panel,
+.drift-settings-panel {
+  min-height: 100%;
+}
+
+.drift-monitor-panel {
+  padding: 20px 22px 18px;
+  display: grid;
+  gap: 18px;
+}
+
+.drift-monitor-topbar,
+.drift-stick-head,
+.drift-actions,
+.drift-settings-head,
+.drift-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.drift-monitor-topbar {
+  flex-wrap: wrap;
+}
+
+.drift-monitor-topbar h2,
+.drift-settings-head h2,
+.drift-summary-head h2,
+.drift-stick-head h3 {
+  margin: 0;
+}
+
+.drift-monitor-topbar h2,
+.drift-settings-head h2,
+.drift-summary-head h2 {
+  font-size: 1.15rem;
+}
+
+.drift-circle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.drift-stick-card,
+.drift-summary-block {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface-faint);
+}
+
+.drift-stick-card {
+  display: grid;
+  gap: 16px;
+}
+
+.drift-stick-head .state-pill {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.drift-stick-card .drift-radar {
+  width: min(100%, 240px);
+  margin: 0 auto;
+}
+
+.drift-stick-card .drift-radar-deadzone {
+  width: calc(var(--deadzone-threshold) * 240px);
+  height: calc(var(--deadzone-threshold) * 240px);
+  margin: calc(var(--deadzone-threshold) * -120px) 0 0 calc(var(--deadzone-threshold) * -120px);
+}
+
+.drift-stick-card .mini-scope-point-left {
+  transform: translate(calc(var(--left-stick-x) * 62px), calc(var(--left-stick-y) * 62px));
+}
+
+.drift-stick-card .mini-scope-point-right,
+.drift-stick-card .drift-radar-point {
+  transform: translate(calc(var(--right-stick-x) * 62px), calc(var(--right-stick-y) * 62px));
+}
+
+.drift-metric-grid,
+.drift-summary-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.drift-metric-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.drift-metric-item,
+.drift-summary-item {
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--soft-border);
+  background: var(--soft-surface);
+}
+
+.drift-metric-item span,
+.drift-summary-item span {
+  display: block;
+  color: var(--soft-text);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.drift-metric-item strong,
+.drift-summary-item strong {
+  display: block;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.drift-summary-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.drift-summary-item-wide {
+  grid-column: 1 / -1;
+}
+
+.drift-monitor-footer {
+  display: grid;
+  gap: 10px;
+}
+
+.drift-footnote {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.drift-settings-panel {
+  padding: 20px;
+}
+
+.drift-settings-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.drift-settings-block {
+  padding: 18px;
+}
+
+.drift-settings-head,
+.drift-summary-head {
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.drift-actions {
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.drift-actions .btn {
+  min-height: 46px;
+}
+
+@media (max-width: 1180px) {
+  .drift-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .drift-tool-card {
+    padding: 20px;
+  }
+
+  .drift-title-row,
+  .drift-monitor-topbar,
+  .drift-stick-head,
+  .drift-settings-head,
+  .drift-summary-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drift-circle-grid,
+  .drift-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .drift-stick-card .drift-radar {
+    width: min(100%, 200px);
+  }
+
+  .drift-stick-card .drift-radar-deadzone {
+    width: calc(var(--deadzone-threshold) * 200px);
+    height: calc(var(--deadzone-threshold) * 200px);
+    margin: calc(var(--deadzone-threshold) * -100px) 0 0 calc(var(--deadzone-threshold) * -100px);
+  }
+
+  .drift-stick-card .mini-scope-point-left {
+    transform: translate(calc(var(--left-stick-x) * 52px), calc(var(--left-stick-y) * 52px));
+  }
+
+  .drift-stick-card .mini-scope-point-right,
+  .drift-stick-card .drift-radar-point {
+    transform: translate(calc(var(--right-stick-x) * 52px), calc(var(--right-stick-y) * 52px));
+  }
+}
