@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="pt-BR">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1950FMW07"></script>
@@ -19,16 +19,16 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Deadzone Test | Tune Analog Stick Thresholds | GamepadTester.tools</title>
-  <meta name="description" content="Use this deadzone test to compare analog stick movement against a live center threshold and choose a practical deadzone for your controller.">
-  <link rel="canonical" href="https://gamepadtester.tools/deadzone-test.html">
-  <link rel="alternate" hreflang="en" href="https://gamepadtester.tools/deadzone-test.html">
-  <link rel="alternate" hreflang="pt-BR" href="https://gamepadtester.tools/pt-br/deadzone-test.html">
-  <link rel="alternate" hreflang="x-default" href="https://gamepadtester.tools/deadzone-test.html">
+  <title>Teste de Drift do Controle | Verificação ao Vivo | GamepadTester.tools</title>
+  <meta name="description" content="Execute um teste de drift do controle no navegador com magnitude do stick ao vivo, pico de desvio parado e estimativa de deadzone para os dois sticks analógicos.">
+  <link rel="canonical" href="https://gamepadtester.tools/pt-br/controller-drift-test.html">
+  <link rel="alternate" hreflang="en" href="https://gamepadtester.tools/controller-drift-test.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://gamepadtester.tools/pt-br/controller-drift-test.html">
+  <link rel="alternate" hreflang="x-default" href="https://gamepadtester.tools/controller-drift-test.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Deadzone Test | GamepadTester.tools">
-  <meta property="og:description" content="Tune stick deadzone values with a live Gamepad API-powered browser test.">
-  <meta property="og:url" content="https://gamepadtester.tools/deadzone-test.html">
+  <meta property="og:title" content="Teste de Drift do Controle | GamepadTester.tools">
+  <meta property="og:description" content="Verifique o drift do stick analógico em tempo real com diagnóstico no navegador baseado na Gamepad API.">
+  <meta property="og:url" content="https://gamepadtester.tools/pt-br/controller-drift-test.html">
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -38,9 +38,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="/assets/js/i18n.js?v=ptbr-v1"></script>
   <script src="/assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=deadzone-tool-v1">
+  <link rel="stylesheet" href="/assets/css/styles.css?v=drift-tool-v1">
 </head>
-<body data-page="deadzone">
+<body data-page="drift">
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand" href="/" data-localized-link="home">
@@ -52,8 +52,8 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <a href="/index.html" data-nav="home" data-localized-link="home"><span>Home</span></a>
-        <a href="/controller-drift-test.html" data-nav="drift" data-localized-link="drift"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
-        <a class="active" href="/deadzone-test.html" data-nav="calibration" data-localized-link="deadzone"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
+        <a class="active" href="/controller-drift-test.html" data-nav="drift" data-localized-link="drift"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
+        <a href="/deadzone-test.html" data-nav="calibration" data-localized-link="deadzone"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
         <a href="/polling-rate-test.html" data-nav="polling" data-localized-link="polling-rate"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
         <a href="/vibration-test.html" data-nav="vibration" data-localized-link="vibration"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
         <a href="/tools.html" data-nav="tools"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
@@ -73,16 +73,19 @@
   </header>
 
   <main>
-    <section class="tester-wrap deadzone-page" id="deadzone-lab">
-      <div class="shell panel deadzone-tool-card">
-        <div class="deadzone-tool-header">
-          <div class="deadzone-title-row">
-            <div>
-              <span class="eyebrow">Deadzone Calibration</span>
-              <h1>Controller Deadzone Calibration</h1>
-              <p>Adjust the deadzone threshold and watch how stick input is filtered around center.</p>
+    <section class="tester-wrap drift-page" id="drift-tester">
+      <div class="shell panel drift-tool-card">
+        <div class="drift-tool-header">
+          <div class="drift-tool-title">
+            <a class="drift-breadcrumb" href="/index.html" data-localized-link="home">-> Back to Home</a>
+            <div class="drift-title-row">
+              <div>
+                <span class="eyebrow">Instant Drift Monitor</span>
+                <h1>Controller Stick Drift Test</h1>
+                <p>Leave the controller untouched, reset the sample, and watch both sticks for idle movement in real time.</p>
+              </div>
+              <div class="status-badge disconnected" data-status>No Controller</div>
             </div>
-            <div class="status-badge disconnected" data-status>Press any button to connect</div>
           </div>
         </div>
 
@@ -90,69 +93,71 @@
           This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
         </div>
 
-        <div class="deadzone-tool-grid tester-grid">
-          <section class="dashboard-card deadzone-monitor-panel">
-            <div class="deadzone-monitor-topbar">
+        <div class="drift-tool-grid tester-dashboard-layout" data-visualizer>
+          <section class="dashboard-card drift-monitor-panel">
+            <div class="drift-monitor-topbar">
               <div>
-                <h2>Deadzone Lab</h2>
-                <p class="mini-note">Move each stick slowly away from center to see when your chosen threshold starts filtering idle movement.</p>
+                <h2>Live Drift Monitor</h2>
+                <p class="mini-note">Press any button to connect, then let both sticks rest naturally.</p>
               </div>
               <div class="controller-list controller-list-pills" data-controller-list></div>
             </div>
 
-            <div class="deadzone-circle-grid">
-              <article class="deadzone-stick-card">
-                <div class="deadzone-stick-head">
+            <div class="drift-circle-grid">
+              <article class="drift-stick-card">
+                <div class="drift-stick-head">
                   <h3>Left Stick</h3>
                   <div class="state-pill" data-drift-state="left">Centered</div>
                 </div>
-                <div class="stick-zone deadzone-stick-zone">
-                  <div class="stick-deadzone" data-stick-deadzone="left"></div>
-                  <div class="stick-point" data-stick-point="left"></div>
+                <div class="drift-radar drift-radar-left">
+                  <span class="drift-radar-deadzone"></span>
+                  <span class="mini-scope-ring"></span>
+                  <span class="mini-scope-point mini-scope-point-left"></span>
                 </div>
-                <div class="deadzone-metric-grid">
-                  <div class="deadzone-metric-item">
+                <div class="drift-metric-grid">
+                  <div class="drift-metric-item">
                     <span>X</span>
                     <strong data-stick-x="left">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Y</span>
                     <strong data-stick-y="left">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Current</span>
                     <strong data-metric="left-magnitude">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Peak</span>
                     <strong data-metric="left-peak">0.000</strong>
                   </div>
                 </div>
               </article>
 
-              <article class="deadzone-stick-card">
-                <div class="deadzone-stick-head">
+              <article class="drift-stick-card">
+                <div class="drift-stick-head">
                   <h3>Right Stick</h3>
                   <div class="state-pill" data-drift-state="right">Centered</div>
                 </div>
-                <div class="stick-zone deadzone-stick-zone">
-                  <div class="stick-deadzone" data-stick-deadzone="right"></div>
-                  <div class="stick-point" data-stick-point="right"></div>
+                <div class="drift-radar drift-radar-right">
+                  <span class="drift-radar-deadzone"></span>
+                  <span class="mini-scope-ring"></span>
+                  <span class="mini-scope-point mini-scope-point-right drift-radar-point"></span>
                 </div>
-                <div class="deadzone-metric-grid">
-                  <div class="deadzone-metric-item">
+                <div class="drift-metric-grid">
+                  <div class="drift-metric-item">
                     <span>X</span>
                     <strong data-stick-x="right">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Y</span>
                     <strong data-stick-y="right">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Current</span>
                     <strong data-metric="right-magnitude">0.000</strong>
                   </div>
-                  <div class="deadzone-metric-item">
+                  <div class="drift-metric-item">
                     <span>Peak</span>
                     <strong data-metric="right-peak">0.000</strong>
                   </div>
@@ -160,66 +165,69 @@
               </article>
             </div>
 
-            <div class="deadzone-monitor-footer">
+            <div class="drift-monitor-footer">
               <div class="controller-legend-row">
                 <span class="controller-legend-item">
                   <span class="controller-legend-dot controller-legend-dot-active"></span>
-                  <span class="controller-legend-text">Live stick position</span>
+                  <span class="controller-legend-text">Current stick position</span>
                 </span>
                 <span class="controller-legend-item">
                   <span class="controller-legend-dot"></span>
-                  <span class="controller-legend-text">Active deadzone ring</span>
+                  <span class="controller-legend-text">Deadzone boundary</span>
                 </span>
               </div>
-              <p class="deadzone-footnote">The dashed ring is the current filtered center zone. Values inside it are what games typically ignore.</p>
+              <p class="drift-footnote">If the point stays outside the deadzone while untouched, that stick may be drifting.</p>
             </div>
           </section>
 
-          <aside class="dashboard-card deadzone-settings-panel">
-            <div class="deadzone-settings-stack">
-              <section class="deadzone-panel deadzone-settings-block">
-                <div class="deadzone-settings-head">
-                  <h2>Calibration Settings</h2>
-                  <p class="mini-note">Tune the center threshold, then reset the sample if you want a fresh reading.</p>
+          <aside class="dashboard-card drift-settings-panel">
+            <div class="drift-settings-stack">
+              <section class="deadzone-panel drift-settings-block">
+                <div class="drift-settings-head">
+                  <h2>Settings</h2>
+                  <p class="mini-note">Adjust the threshold and reset the sample whenever you reposition the controller.</p>
                 </div>
                 <label for="deadzone-input">
-                  <span>Active deadzone</span>
+                  <span>Deadzone threshold</span>
                   <strong data-deadzone-value>0.120</strong>
                 </label>
                 <input id="deadzone-input" data-deadzone-input type="range" min="0.02" max="0.35" step="0.01" value="0.12">
-                <div class="deadzone-range-note">
-                  <span>Suggested range</span>
-                  <strong>0.05-0.12</strong>
-                </div>
-                <div class="state-pill" data-deadzone-calibration-status>Balanced</div>
-                <p class="deadzone-helper">Low values preserve fine input but may still allow unwanted motion. High values hide noise but can make movement feel sluggish.</p>
-                <div class="deadzone-actions">
+                <p class="deadzone-helper">Lower values catch subtle drift sooner. Higher values focus on bigger idle movement.</p>
+                <div class="drift-actions">
                   <button class="btn btn-primary" type="button" data-reset-drift>Reset Drift Sample</button>
                   <button class="btn btn-secondary" type="button" data-refresh>Refresh Controllers</button>
                 </div>
               </section>
 
-              <section class="deadzone-summary-block">
-                <div class="deadzone-summary-head">
-                  <h2>Current Session</h2>
-                  <p class="mini-note">Use the live values below to compare how your current threshold matches your controller's idle noise.</p>
+              <section class="drift-summary-block">
+                <div class="drift-summary-head">
+                  <h2>Session Status</h2>
+                  <p class="mini-note">Compact readout for the currently selected controller.</p>
                 </div>
-                <div class="deadzone-summary-grid">
-                  <div class="deadzone-summary-item deadzone-summary-item-wide">
+                <div class="drift-summary-grid">
+                  <div class="drift-summary-item drift-summary-item-wide">
                     <span>Current controller</span>
                     <strong data-controller-name>No controller detected</strong>
                   </div>
-                  <div class="deadzone-summary-item">
+                  <div class="drift-summary-item">
                     <span>Slot</span>
                     <strong data-controller-index>--</strong>
                   </div>
-                  <div class="deadzone-summary-item">
+                  <div class="drift-summary-item">
                     <span>Detected</span>
                     <strong data-connected-count>0</strong>
                   </div>
-                  <div class="deadzone-summary-item deadzone-summary-item-wide">
+                  <div class="drift-summary-item">
                     <span>Recommended deadzone</span>
                     <strong data-metric="recommended-deadzone">0.060</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Left status</span>
+                    <strong data-drift-state="left">Centered</strong>
+                  </div>
+                  <div class="drift-summary-item">
+                    <span>Right status</span>
+                    <strong data-drift-state="right">Centered</strong>
                   </div>
                 </div>
               </section>
@@ -282,21 +290,21 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>What is controller deadzone?</h2>
-          <p>Deadzone is the small center area where tiny analog stick movement is ignored so idle noise does not trigger walking, aiming, or camera movement.</p>
+          <h2>What is stick drift?</h2>
+          <p>Stick drift happens when a resting analog stick still reports movement. That can move a character, cursor, or camera even when you are not touching the controller.</p>
         </div>
         <div class="steps-grid">
           <article class="step">
-            <h3>How to choose a deadzone value</h3>
-            <p>Start low, then increase only enough to keep the stick stable at rest. The best value is usually the smallest number that prevents unwanted movement.</p>
+            <h3>How to read drift values</h3>
+            <p>The current value shows the stick's live idle offset right now. The peak value shows the highest offset captured since the last reset, which is useful when the drift is intermittent.</p>
           </article>
           <article class="step">
-            <h3>Deadzone vs stick drift</h3>
-            <p>Deadzone is a software buffer. Stick drift is the hardware symptom. A larger deadzone can hide mild drift, but it does not repair the controller itself.</p>
+            <h3>What deadzone should I use?</h3>
+            <p>Many healthy controllers idle below about <code>0.05</code>. If your stick regularly sits above that while untouched, a slightly larger deadzone may help in games, but large values can hide a hardware problem.</p>
           </article>
           <article class="step">
-            <h3>Why the recommended range matters</h3>
-            <p>Most healthy controllers feel responsive around <code>0.05</code> to <code>0.12</code>. If you need much more than that, the stick may already have noticeable wear.</p>
+            <h3>Why reset the drift sample?</h3>
+            <p>Resetting clears the stored peak values so you can take a fresh reading after changing cable mode, moving to a flat surface, or letting the stick settle naturally.</p>
           </article>
         </div>
       </div>
@@ -305,25 +313,25 @@
     <section class="faq">
       <div class="shell">
         <div class="section-title">
-          <h2>Deadzone calibration FAQ</h2>
-          <p>Quick answers for choosing a usable threshold without over-filtering your controller.</p>
+          <h2>Drift test FAQ</h2>
+          <p>Common questions when a controller feels off but you are not sure whether it is true stick drift.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>What does “Too sensitive” mean?</h3>
-            <p>It means the deadzone is so small that even minor idle stick noise may still leak through and feel like drift in games.</p>
+            <h3>Does every small offset mean drift?</h3>
+            <p>No. Tiny fluctuations can be normal sensor noise. What matters is whether the stick repeatedly rests outside your usable deadzone and affects gameplay.</p>
           </article>
           <article class="faq-item">
-            <h3>What does “Too high” mean?</h3>
-            <p>It means the deadzone is large enough that subtle input near center may be ignored, which can make aiming or fine movement feel less precise.</p>
+            <h3>Should I test over USB or Bluetooth?</h3>
+            <p>USB usually gives the most stable browser readings. Bluetooth can still work well, but adapters and battery-saving behavior sometimes add more variability.</p>
           </article>
           <article class="faq-item">
-            <h3>Should both sticks use the same deadzone?</h3>
-            <p>Often yes, but some games let you tune them separately. If one stick is worn more than the other, asymmetric deadzones can make sense.</p>
+            <h3>Why is only one stick drifting?</h3>
+            <p>The left stick often wears faster because movement is more frequent, but either stick can drift depending on usage, dust, spring wear, or potentiometer condition.</p>
           </article>
           <article class="faq-item">
-            <h3>Why reset the sample on a deadzone page?</h3>
-            <p>Resetting the peak drift sample gives you a cleaner baseline before comparing the current threshold against fresh idle readings.</p>
+            <h3>What if the peak value keeps climbing?</h3>
+            <p>That usually means the stick is not settling cleanly at center. Try resetting the sample on a flat surface. If the peak still rises while untouched, the controller may need cleaning or repair.</p>
           </article>
         </div>
       </div>
@@ -334,7 +342,7 @@
     <div class="shell footer-box">
       <div>
         <strong>GamepadTester.tools</strong>
-        <p class="muted">Static controller testing for drift checks, deadzone tuning, and live analog readouts.</p>
+        <p class="muted">Live Gamepad API diagnostics for controller drift, deadzone tuning, and input validation.</p>
       </div>
       <div class="footer-links">
         <a href="/" data-footer="home" data-localized-link="home">Gamepad Tester</a>
@@ -353,3 +361,4 @@
   <script src="/assets/js/gamepad.js" defer></script>
 </body>
 </html>
+

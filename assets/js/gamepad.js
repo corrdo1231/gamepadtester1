@@ -2,6 +2,12 @@
   const doc = document;
   const body = doc.body;
   const hasGamepadApi = typeof navigator !== "undefined" && typeof navigator.getGamepads === "function";
+  const tr = function (key, fallback, vars) {
+    if (window.GamepadI18n && typeof window.GamepadI18n.t === "function") {
+      return window.GamepadI18n.t(key, fallback, vars);
+    }
+    return fallback;
+  };
 
   const state = {
     selectedIndex: null,
@@ -150,9 +156,13 @@
     }
 
     if (body.dataset.page === "drift") {
-      elements.status.textContent = connected ? "Controller Connected" : "No Controller";
+      elements.status.textContent = connected
+        ? tr("common.status.controllerConnectedTitle", "Controller Connected")
+        : tr("common.status.noController", "No Controller");
     } else {
-      elements.status.textContent = connected ? "Controller connected" : "Press any button to connect";
+      elements.status.textContent = connected
+        ? tr("common.status.controllerConnected", "Controller connected")
+        : tr("common.status.pressAnyButton", "Press any button to connect");
     }
     elements.status.classList.toggle("connected", connected);
     elements.status.classList.toggle("disconnected", !connected);
@@ -168,7 +178,7 @@
     if (!gamepads.length) {
       const empty = doc.createElement("span");
       empty.className = "muted";
-      empty.textContent = "Press any button to connect";
+      empty.textContent = tr("common.status.pressAnyButton", "Press any button to connect");
       elements.controllerList.appendChild(empty);
       return;
     }
@@ -193,14 +203,19 @@
       elements.connectedCount.textContent = String(count);
     }
 
-    setText(elements.deviceConnected, activePad ? "Connected" : "Disconnected");
+    setText(
+      elements.deviceConnected,
+      activePad
+        ? tr("common.status.connected", "Connected")
+        : tr("common.status.disconnected", "Disconnected")
+    );
 
     if (!activePad) {
       if (elements.controllerName) {
-        elements.controllerName.textContent = "No controller detected";
+        elements.controllerName.textContent = tr("common.status.noControllerDetected", "No controller detected");
       }
       if (elements.controllerId) {
-        elements.controllerId.textContent = "Waiting for browser access";
+        elements.controllerId.textContent = tr("common.status.waitingForBrowserAccess", "Waiting for browser access");
       }
       setText(elements.controllerIndex, "--");
       setText(elements.mapping, "--");
@@ -249,12 +264,22 @@
 
   function driftState(magnitude) {
     if (magnitude >= Math.max(state.driftThreshold, state.deadzone)) {
-      return { label: body.dataset.page === "drift" ? "Drift Detected" : "Potential drift", className: "danger" };
+      return {
+        label: body.dataset.page === "drift"
+          ? tr("common.drift.detected", "Drift Detected")
+          : tr("common.drift.potential", "Potential drift"),
+        className: "danger"
+      };
     }
     if (magnitude >= Math.max(0.05, state.deadzone * 0.5)) {
-      return { label: body.dataset.page === "drift" ? "Minor Drift" : "Slight offset", className: "warn" };
+      return {
+        label: body.dataset.page === "drift"
+          ? tr("common.drift.minor", "Minor Drift")
+          : tr("common.drift.slightOffset", "Slight offset"),
+        className: "warn"
+      };
     }
-    return { label: "Centered", className: "" };
+    return { label: tr("common.drift.centered", "Centered"), className: "" };
   }
 
   function updateStatePill(nodes, magnitude) {
@@ -273,14 +298,14 @@
       return;
     }
 
-    let label = "Balanced";
+    let label = tr("common.deadzone.balanced", "Balanced");
     let className = "";
 
     if (value < 0.05) {
-      label = "Too sensitive";
+      label = tr("common.deadzone.tooSensitive", "Too sensitive");
       className = "danger";
     } else if (value > 0.12) {
-      label = "Too high";
+      label = tr("common.deadzone.tooHigh", "Too high");
       className = "warn";
     }
 
@@ -384,8 +409,8 @@
 
     if (elements.rawStatus) {
       elements.rawStatus.textContent = activePad
-        ? "Live browser values update instantly."
-        : "Press any button to connect.";
+        ? tr("common.status.liveBrowserValues", "Live browser values update instantly.")
+        : tr("common.status.pressAnyButton", "Press any button to connect");
     }
   }
 
@@ -404,28 +429,28 @@
 
     if (elements.vibrationStatus) {
       if (!activePad) {
-        elements.vibrationStatus.textContent = "Requires a connected controller with rumble support.";
+        elements.vibrationStatus.textContent = tr("common.status.requiresRumble", "Requires a connected controller with rumble support.");
       } else if (!supportsVibration) {
-        elements.vibrationStatus.textContent = "This controller or browser does not expose vibration.";
+        elements.vibrationStatus.textContent = tr("common.status.noVibrationSupport", "This controller or browser does not expose vibration.");
       } else {
-        elements.vibrationStatus.textContent = "Choose a rumble test.";
+        elements.vibrationStatus.textContent = tr("common.status.chooseRumble", "Choose a rumble test.");
       }
     }
   }
 
   async function runVibration(mode) {
     const presets = {
-      light: { duration: 140, strongMagnitude: 0.2, weakMagnitude: 0.18, label: "Light rumble sent." },
-      medium: { duration: 220, strongMagnitude: 0.45, weakMagnitude: 0.35, label: "Medium rumble sent." },
-      heavy: { duration: 340, strongMagnitude: 0.9, weakMagnitude: 0.75, label: "Heavy rumble sent." },
-      pulse: { duration: 520, strongMagnitude: 0.65, weakMagnitude: 0.25, label: "Pulse rumble sent." }
+      light: { duration: 140, strongMagnitude: 0.2, weakMagnitude: 0.18, label: tr("home.dynamic.vibration.lightSent", "Light rumble sent.") },
+      medium: { duration: 220, strongMagnitude: 0.45, weakMagnitude: 0.35, label: tr("home.dynamic.vibration.mediumSent", "Medium rumble sent.") },
+      heavy: { duration: 340, strongMagnitude: 0.9, weakMagnitude: 0.75, label: tr("home.dynamic.vibration.heavySent", "Heavy rumble sent.") },
+      pulse: { duration: 520, strongMagnitude: 0.65, weakMagnitude: 0.25, label: tr("home.dynamic.vibration.pulseSent", "Pulse rumble sent.") }
     };
     const preset = presets[mode];
     const pad = choosePad(getGamepads());
 
     if (!preset || !pad) {
       if (elements.vibrationStatus) {
-        elements.vibrationStatus.textContent = "Connect a controller first.";
+        elements.vibrationStatus.textContent = tr("common.status.connectFirst", "Connect a controller first.");
       }
       return;
     }
@@ -443,7 +468,7 @@
       } else if (Array.isArray(pad.hapticActuators) && pad.hapticActuators[0] && typeof pad.hapticActuators[0].pulse === "function") {
         await pad.hapticActuators[0].pulse(Math.max(preset.strongMagnitude, preset.weakMagnitude), preset.duration);
       } else if (elements.vibrationStatus) {
-        elements.vibrationStatus.textContent = "This controller or browser does not expose vibration.";
+        elements.vibrationStatus.textContent = tr("common.status.noVibrationSupport", "This controller or browser does not expose vibration.");
         return;
       }
 
@@ -452,7 +477,7 @@
       }
     } catch (error) {
       if (elements.vibrationStatus) {
-        elements.vibrationStatus.textContent = "Vibration could not be triggered in this browser.";
+        elements.vibrationStatus.textContent = tr("common.status.vibrationFailed", "Vibration could not be triggered in this browser.");
       }
     }
   }
@@ -605,6 +630,15 @@
 
     window.addEventListener("gamepaddisconnected", function () {
       const pads = getGamepads();
+      renderPad(choosePad(pads), pads);
+    });
+
+    window.addEventListener("i18n:ready", function () {
+      const pads = getGamepads();
+      if (elements.deadzoneValue) {
+        elements.deadzoneValue.textContent = formatAxis(state.deadzone);
+      }
+      updateDeadzoneCalibrationStatus(state.deadzone);
       renderPad(choosePad(pads), pads);
     });
 

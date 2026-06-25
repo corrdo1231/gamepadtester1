@@ -1,0 +1,527 @@
+{
+  "common": {
+    "brand": {
+      "tagline": "Diagnóstico de controles no seu navegador"
+    },
+    "nav": {
+      "home": "Home",
+      "drift": "Drift",
+      "calibration": "Calibração",
+      "pollingRate": "Taxa de Polling",
+      "vibration": "Vibração",
+      "tools": "Ferramentas",
+      "widgets": "Widgets"
+    },
+    "language": {
+      "label": "Idioma",
+      "english": "English",
+      "portugueseBrazil": "Português (Brasil)"
+    },
+    "footer": {
+      "tagline": "Teste de controles no navegador para botões, sticks, gatilhos, drift, deadzone, polling e vibração.",
+      "links": {
+        "home": "Teste de Controle",
+        "drift": "Teste de Drift",
+        "deadzone": "Teste de Deadzone",
+        "xbox": "Teste de Controle Xbox",
+        "ps5": "Teste de Controle PS5",
+        "about": "Sobre",
+        "privacy": "Política de Privacidade",
+        "terms": "Termos",
+        "contact": "Contato"
+      }
+    },
+    "status": {
+      "unsupportedBrowser": "Este navegador não expõe a Gamepad API. Tente uma versão recente do Chrome, Edge ou Firefox em uma página segura.",
+      "pressAnyButton": "Pressione qualquer botão para conectar",
+      "controllerConnected": "Controle conectado",
+      "controllerConnectedTitle": "Controle conectado",
+      "noController": "Nenhum controle",
+      "connected": "Conectado",
+      "disconnected": "Desconectado",
+      "noControllerDetected": "Nenhum controle detectado",
+      "waitingForBrowserAccess": "Aguardando acesso do navegador",
+      "liveBrowserValues": "Os valores do navegador são atualizados ao vivo.",
+      "requiresRumble": "Requer um controle conectado com suporte a vibração.",
+      "noVibrationSupport": "Este controle ou navegador não expõe vibração.",
+      "chooseRumble": "Escolha um teste de vibração.",
+      "connectFirst": "Conecte um controle primeiro.",
+      "vibrationFailed": "Não foi possível acionar a vibração neste navegador."
+    },
+    "labels": {
+      "leftStick": "Stick esquerdo",
+      "rightStick": "Stick direito",
+      "current": "Atual",
+      "peak": "Pico",
+      "currentController": "Controle atual",
+      "slot": "Slot",
+      "detected": "Detectados",
+      "recommendedDeadzone": "Deadzone recomendado",
+      "leftStatus": "Status esquerdo",
+      "rightStatus": "Status direito",
+      "advancedDebug": "Debug avançado",
+      "browserDeviceId": "ID do dispositivo no navegador",
+      "mapping": "Mapping",
+      "connection": "Conexão",
+      "buttonCount": "Quantidade de botões",
+      "axisCount": "Quantidade de eixos"
+    },
+    "buttons": {
+      "refreshControllers": "Atualizar controles"
+    },
+    "vibrationPresets": {
+      "light": "Leve",
+      "medium": "Médio",
+      "heavy": "Forte",
+      "pulse": "Pulso",
+      "heartbeat": "Batimento",
+      "explosion": "Explosão",
+      "click": "Clique"
+    },
+    "drift": {
+      "centered": "Centralizado",
+      "minor": "Drift leve",
+      "detected": "Drift detectado",
+      "potential": "Possível drift",
+      "slightOffset": "Pequeno desvio"
+    },
+    "deadzone": {
+      "balanced": "Equilibrado",
+      "tooSensitive": "Sensível demais",
+      "tooHigh": "Alto demais"
+    },
+    "polling": {
+      "idle": "Inativo",
+      "testing": "Testando",
+      "complete": "Concluído",
+      "unavailable": "Indisponível",
+      "noInput": "Nenhuma entrada detectada",
+      "excellent": "Excelente",
+      "stable": "Estável",
+      "inconsistent": "Inconsistente"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Gamepad API do navegador - Front end estático",
+      "title": "Teste botões, sticks, gatilhos e drift em tempo real.",
+      "description": "O GamepadTester.tools transforma o seu navegador em um laboratório ao vivo para controles. Conecte um gamepad, pressione qualquer botão e veja a Gamepad API transmitir A/B/X/Y, bumpers, D-pad, pressão dos gatilhos e movimento dos sticks sem instalação e sem backend.",
+      "launch": "Abrir teste",
+      "driftGuide": "Abrir guia de drift"
+    },
+    "stats": {
+      "refreshLabel": "Atualização de entrada",
+      "refreshValue": "loop rAF",
+      "connectionLabel": "Eventos de conexão",
+      "connectionValue": "Detecção ao vivo",
+      "deploymentLabel": "Deploy",
+      "deploymentValue": "Cloudflare Pages",
+      "runtimeLabel": "Runtime",
+      "runtimeValue": "100% estático"
+    },
+    "note": {
+      "tag": "Melhores resultados",
+      "description": "Versões modernas de Chromium, Firefox e Edge normalmente expõem o mapping padrão mais limpo. Se nada aparecer, reconecte o controle e pressione um botão frontal uma vez para acordá-lo."
+    },
+    "panel": {
+      "title": "Teste de controle",
+      "subtitle": "Pressione qualquer botão para conectar e testar na hora."
+    },
+    "visualizer": {
+      "title": "Visualizador do controle",
+      "note": "A visualização principal reflete a atividade ao vivo de sticks, botões e gatilhos.",
+      "legendActive": "Entrada ativa",
+      "legendIdle": "Estado inativo"
+    },
+    "stick": {
+      "title": "Teste de sticks",
+      "note": "Resposta do lado esquerdo e direito",
+      "footnote": "Valores X/Y ao vivo de -1.00 a 1.00."
+    },
+    "trigger": {
+      "title": "Teste de gatilhos",
+      "note": "Leitura rápida da pressão analógica"
+    },
+    "vibration": {
+      "title": "Teste de vibração",
+      "note": "Teste simples de rumble do controle"
+    },
+    "dynamic": {
+      "vibration": {
+        "lightSent": "Vibração leve enviada.",
+        "mediumSent": "Vibração média enviada.",
+        "heavySent": "Vibração forte enviada.",
+        "pulseSent": "Vibração em pulso enviada."
+      }
+    },
+    "advanced": {
+      "title": "Debug avançado",
+      "currentDevice": "Dispositivo atual",
+      "browserDeviceId": "ID do dispositivo no navegador",
+      "controllerSlot": "Slot do controle",
+      "connection": "Conexão",
+      "controllerCount": "Quantidade de controles",
+      "buttonCount": "Quantidade de botões",
+      "axisCount": "Quantidade de eixos",
+      "mapping": "Mapping",
+      "suggestedDeadzone": "Deadzone sugerido"
+    },
+    "tools": {
+      "title": "Ferramentas focadas para controles",
+      "subtitle": "Use o mesmo núcleo de teste ao vivo com páginas dedicadas para drift, ajuste de deadzone e verificações específicas de controle.",
+      "card1": {
+        "tag": "Teste de drift",
+        "title": "Veja movimento parado antes que ele afete a mira.",
+        "description": "Acompanhe magnitude do stick em tempo real, pico de desvio e valores recomendados de deadzone enquanto os sticks ficam parados."
+      },
+      "card2": {
+        "tag": "Teste de deadzone",
+        "title": "Ajuste um limite estável sem esconder sua entrada.",
+        "description": "Compare o movimento ao vivo do stick com um anel de deadzone controlado pelo usuário e veja quão perto você está do centro."
+      },
+      "card3": {
+        "tag": "Teste de controle Xbox",
+        "title": "Verifique mapping padrão, gatilhos, bumpers e curso dos sticks.",
+        "description": "Ideal para controles Xbox via USB ou Bluetooth em navegadores desktop que expõem o layout padrão da Gamepad API."
+      },
+      "card4": {
+        "tag": "Teste de controle PS5",
+        "title": "Inspecione botões do DualSense, valores dos gatilhos adaptativos e resposta dos sticks.",
+        "description": "Verifique se o navegador enxerga o controle corretamente e confirme que a entrada analógica parece limpa e centralizada."
+      },
+      "card5": {
+        "tag": "Núcleo da Gamepad API",
+        "title": "Construído sobre os primitivos do navegador que você pediu.",
+        "description": "O site é alimentado por <code>navigator.getGamepads()</code>, <code>gamepadconnected</code>, <code>gamepaddisconnected</code> e um loop de atualização com <code>requestAnimationFrame</code>."
+      },
+      "card6": {
+        "tag": "Deploy estático",
+        "title": "Rápido para publicar com GitHub + Cloudflare Pages.",
+        "description": "Sem backend, sem banco de dados e sem pipeline de build. O diretório raiz pode ser publicado diretamente como um site estático."
+      }
+    },
+    "guide": {
+      "title": "Como usar o teste",
+      "subtitle": "O fluxo é simples, mas estes três passos entregam a leitura mais limpa de drift, deadzone e saúde dos botões.",
+      "step1": {
+        "title": "1. Conecte e acorde o controle",
+        "description": "Conecte via USB ou emparelhe por Bluetooth e pressione um botão frontal uma vez. Alguns navegadores só expõem o controle após a primeira interação."
+      },
+      "step2": {
+        "title": "2. Solte os dois sticks",
+        "description": "Para checar drift, tire os polegares dos sticks e observe por alguns segundos os números de magnitude ao vivo e de pico parado."
+      },
+      "step3": {
+        "title": "3. Varra todas as entradas",
+        "description": "Pressione A/B/X/Y, LB/RB, Start, Select, direções do D-pad e depois gire os dois sticks em círculos completos para confirmar curso e faixa dos gatilhos."
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Respostas rápidas para as dúvidas mais comuns sobre teste de controles.",
+      "item1": {
+        "question": "Preciso instalar alguma coisa?",
+        "answer": "Não. O GamepadTester.tools é um site estático simples que lê a entrada do controle diretamente do navegador."
+      },
+      "item2": {
+        "question": "Por que meu controle não aparece?",
+        "answer": "Navegadores muitas vezes exigem um pressionamento de botão após a conexão. Se ainda não aparecer, reconecte e tente em uma versão atual do Chrome, Edge ou Firefox."
+      },
+      "item3": {
+        "question": "O que significa deadzone sugerido?",
+        "answer": "É uma estimativa leve baseada no maior desvio parado observado desde o último reset, com uma pequena margem de segurança."
+      },
+      "item4": {
+        "question": "Esse teste funciona com controles Xbox e PS5?",
+        "answer": "Sim. Controles Xbox com mapping padrão e controles PS5 DualSense costumam funcionar bem quando conectados a um navegador desktop compatível."
+      }
+    }
+  },
+  "drift": {
+    "breadcrumb": "-> Voltar para a Home",
+    "header": {
+      "eyebrow": "Monitor de drift instantâneo",
+      "title": "Teste de drift do stick do controle",
+      "description": "Deixe o controle parado, redefina a amostra e observe os dois sticks em busca de movimento ocioso em tempo real."
+    },
+    "monitor": {
+      "title": "Monitor de drift ao vivo",
+      "note": "Pressione qualquer botão para conectar e então deixe os dois sticks descansarem naturalmente.",
+      "legendCurrent": "Posição atual do stick",
+      "legendDeadzone": "Limite do deadzone",
+      "footnote": "Se o ponto ficar fora do deadzone enquanto o controle está parado, esse stick pode estar com drift."
+    },
+    "settings": {
+      "title": "Configurações",
+      "note": "Ajuste o limite e redefina a amostra sempre que reposicionar o controle.",
+      "deadzone": "Limite de deadzone",
+      "helper": "Valores menores capturam drift sutil mais cedo. Valores maiores focam em movimentos parados mais fortes.",
+      "reset": "Redefinir amostra de drift"
+    },
+    "summary": {
+      "title": "Status da sessão",
+      "note": "Leitura compacta do controle selecionado no momento."
+    },
+    "guide": {
+      "title": "O que é stick drift?",
+      "subtitle": "Stick drift acontece quando um controle reporta movimento mesmo enquanto o stick está descansando perto do centro.",
+      "step1": {
+        "title": "Como ler os círculos",
+        "description": "Cada círculo plota a posição ociosa ao vivo de um stick. Quanto mais perto o ponto ficar do centro, mais limpo está o stick em repouso."
+      },
+      "step2": {
+        "title": "O que significam atual e pico",
+        "description": "Atual mostra a magnitude ao vivo neste momento. Pico guarda o maior desvio parado desde o último reset para comparar picos rápidos com drift contínuo."
+      },
+      "step3": {
+        "title": "Como usar o limite",
+        "description": "Um deadzone um pouco maior esconde jitter ocioso muito pequeno, enquanto um menor ajuda a revelar drift sutil antes que ele apareça nos jogos."
+      }
+    },
+    "faq": {
+      "title": "FAQ do teste de drift",
+      "subtitle": "Respostas rápidas para interpretar movimento ocioso do stick no navegador.",
+      "item1": {
+        "question": "O que conta como drift?",
+        "answer": "Se o stick continua reportando movimento sem ser tocado e esse movimento fica fora do deadzone prático, isso normalmente é sinal de drift."
+      },
+      "item2": {
+        "question": "Por que devo redefinir a amostra?",
+        "answer": "O reset limpa o pico salvo para que você possa fazer uma nova medição após mover o controle, recolocar o cabo ou alterar o deadzone."
+      },
+      "item3": {
+        "question": "Os valores no navegador podem diferir dos jogos?",
+        "answer": "Sim. Jogos podem aplicar o próprio deadzone e filtros, então a visão do navegador é uma base limpa, não uma leitura exata do jogo."
+      },
+      "item4": {
+        "question": "Com que deadzone devo começar?",
+        "answer": "A maioria dos controles fica razoável entre 0.05 e 0.12. Use o monitor ao vivo para decidir se o seu controle precisa do limite inferior ou superior dessa faixa."
+      }
+    }
+  },
+  "deadzone": {
+    "header": {
+      "eyebrow": "Calibração de deadzone",
+      "title": "Calibração de deadzone do controle",
+      "description": "Ajuste o limite de deadzone e observe como a entrada do stick é filtrada ao redor do centro."
+    },
+    "monitor": {
+      "title": "Laboratório de deadzone",
+      "note": "Mova cada stick lentamente para longe do centro para ver quando o limite escolhido começa a filtrar o movimento ocioso.",
+      "legendLive": "Posição do stick ao vivo",
+      "legendRing": "Anel de deadzone ativo",
+      "footnote": "O anel tracejado é a zona central filtrada atual. Valores dentro dele são o que os jogos normalmente ignoram."
+    },
+    "settings": {
+      "title": "Configurações de calibração",
+      "note": "Ajuste o limite central e depois redefina a amostra se quiser uma leitura nova.",
+      "activeDeadzone": "Deadzone ativo",
+      "suggestedRange": "Faixa sugerida",
+      "rangeValue": "0.05-0.12",
+      "helper": "Valores baixos preservam a entrada fina, mas ainda podem deixar passar movimento indesejado. Valores altos escondem ruído, mas podem deixar o movimento mais lento.",
+      "reset": "Redefinir amostra de drift"
+    },
+    "summary": {
+      "title": "Sessão atual",
+      "note": "Use os valores ao vivo abaixo para comparar como o seu limite atual combina com o ruído ocioso do controle."
+    },
+    "guide": {
+      "title": "O que é deadzone de controle?",
+      "subtitle": "Deadzone é a pequena área central em que os jogos ignoram micro movimentos do stick para evitar entrada acidental.",
+      "step1": {
+        "title": "Por que a calibração importa",
+        "description": "Se o deadzone estiver baixo demais, movimentos ociosos muito pequenos ainda podem parecer ruído. Se estiver alto demais, o início do movimento do stick pode parecer amortecido ou atrasado."
+      },
+      "step2": {
+        "title": "Como escolher um valor",
+        "description": "Comece perto de 0.05, mova o stick suavemente e aumente o limite apenas se o controle ainda apresentar drift ou jitter quando está parado."
+      },
+      "step3": {
+        "title": "Deadzone vs drift",
+        "description": "Um deadzone pode esconder pequenos desvios em repouso, mas não corrige drift de hardware. Use-o como ajuste de conforto, não como reparo permanente."
+      }
+    },
+    "faq": {
+      "title": "FAQ da calibração de deadzone",
+      "subtitle": "Respostas curtas para escolher um valor de deadzone prático.",
+      "item1": {
+        "question": "Que valor costuma ser seguro?",
+        "answer": "Muitos controles ficam bons entre 0.05 e 0.12, mas o valor ideal depende do controle, do modo de conexão e do nível de sensibilidade desejado."
+      },
+      "item2": {
+        "question": "O que significa sensível demais?",
+        "answer": "Significa que o limite atual está baixo a ponto de pequenas entradas ou ruído ocioso ainda poderem passar nos jogos."
+      },
+      "item3": {
+        "question": "O que significa alto demais?",
+        "answer": "Significa que o limite pode estar grande o bastante para esconder o início do movimento do stick e deixar mira fina ou caminhada menos responsivas."
+      },
+      "item4": {
+        "question": "Os dois sticks devem usar o mesmo deadzone?",
+        "answer": "Na maioria dos casos sim, mas alguns jogadores preferem uma sensação um pouco diferente para movimento e câmera dependendo do jogo."
+      }
+    }
+  },
+  "vibration": {
+    "header": {
+      "eyebrow": "Verificação de rumble no navegador",
+      "title": "Teste a vibração do controle instantaneamente.",
+      "description": "Pressione qualquer botão para conectar, ajuste os dois motores e envie um padrão rápido de rumble direto do navegador."
+    },
+    "visualizer": {
+      "title": "Visualizador do controle",
+      "note": "Sticks, botões e pressão dos gatilhos são atualizados ao vivo enquanto você testa o suporte a vibração.",
+      "legendActive": "Entrada ativa",
+      "legendIdle": "Estado inativo"
+    },
+    "controls": {
+      "title": "Controles de rumble",
+      "note": "Motor forte, motor fraco, duração e presets com um toque.",
+      "rumbleSupport": "Suporte a rumble",
+      "leftMotor": "Motor esquerdo",
+      "rightMotor": "Motor direito",
+      "duration": "Duração",
+      "inlineNote": "O motor esquerdo corresponde ao rumble mais forte e de baixa frequência quando o navegador expõe <code>dual-rumble</code>.",
+      "presetsTitle": "Presets rápidos",
+      "presetsNote": "Use estes padrões para comparar estilos comuns de vibração sem mexer nos sliders.",
+      "startButton": "Iniciar vibração"
+    },
+    "dynamic": {
+      "connectedController": "Controle conectado",
+      "waitingForController": "Aguardando controle",
+      "connectToBegin": "Conecte um controle com suporte a rumble para começar o teste.",
+      "standardController": "Controle padrão",
+      "supported": "Compatível",
+      "notExposed": "Não exposto",
+      "ready": "Pronto. Use um preset ou envie um comando dual-rumble personalizado.",
+      "unsupported": "A vibração não é compatível com este navegador ou controle.",
+      "sending": "Enviando comando de vibração...",
+      "rejected": "O navegador rejeitou a solicitação de vibração.",
+      "customSent": "Vibração personalizada enviada.",
+      "apiUnavailable": "Gamepad API indisponível",
+      "browserUnsupported": "Navegador não compatível",
+      "unavailableMessage": "Este navegador não expõe a Gamepad API, então o teste de vibração não pode ser executado aqui.",
+      "presets": {
+        "lightSent": "Preset leve enviado.",
+        "mediumSent": "Preset médio enviado.",
+        "heavySent": "Preset forte enviado.",
+        "pulseSent": "Preset de pulso enviado.",
+        "heartbeatSent": "Preset de batimento enviado.",
+        "explosionSent": "Preset de explosão enviado.",
+        "clickSent": "Preset de clique enviado."
+      }
+    },
+    "guide": {
+      "title": "O que é teste de vibração do controle?",
+      "subtitle": "O teste de vibração verifica se o navegador consegue enviar comandos de rumble ao controle e se os dois motores respondem com a força esperada.",
+      "step1": {
+        "title": "Checagem rápida de hardware",
+        "description": "Se um gamepad conectar, o visualizador atualiza imediatamente. Se o rumble também funcionar, você consegue confirmar que o navegador, o sistema operacional, o cabo, o modo sem fio e o firmware do controle estão expondo haptics corretamente."
+      },
+      "step2": {
+        "title": "Por que o suporte varia",
+        "description": "Alguns navegadores expõem apenas botões e eixos padrão, enquanto outros também expõem <code>vibrationActuator</code> ou métodos alternativos de haptics. Modo Bluetooth, navegadores móveis e certos adaptadores podem esconder o rumble por completo."
+      },
+      "step3": {
+        "title": "Motor esquerdo vs motor direito",
+        "description": "Em controles com suporte a dual rumble, o motor esquerdo normalmente parece mais pesado e grave, enquanto o direito parece mais leve e agudo. Testá-los separadamente facilita perceber desequilíbrios."
+      }
+    },
+    "faq": {
+      "title": "FAQ do teste de vibração",
+      "subtitle": "Perguntas comuns quando o rumble funciona em jogos, mas não funciona dentro do navegador.",
+      "item1": {
+        "question": "Por que Iniciar vibração está desativado?",
+        "answer": "O botão fica desativado até a página ver um controle conectado e confirmar que o navegador expõe uma API de vibração utilizável para esse controle."
+      },
+      "item2": {
+        "question": "Por que jogos vibram, mas o navegador não?",
+        "answer": "Jogos podem usar drivers específicos da plataforma ou APIs nativas às quais o navegador não tem acesso. Páginas web dependem da implementação de Gamepad do navegador, que é mais limitada."
+      },
+      "item3": {
+        "question": "O modo sem fio muda o suporte a rumble?",
+        "answer": "Sim. Alguns controles expõem haptics mais ricos por USB do que por Bluetooth, e alguns adaptadores só repassam botões e sticks básicos sem suporte a rumble."
+      },
+      "item4": {
+        "question": "O que devo fazer se a vibração falhar aqui?",
+        "answer": "Reconecte o controle, acorde-o com um botão, teste USB em vez de Bluetooth e tente novamente no Chrome ou Edge mais recente. Se o controle ainda não reportar suporte, o navegador provavelmente não expõe rumble para esse dispositivo."
+      }
+    }
+  },
+  "polling": {
+    "header": {
+      "eyebrow": "Verificação de timing no navegador",
+      "title": "Teste de taxa de polling do controle",
+      "description": "Mova um stick ou pressione botões para medir o tempo de atualização do gamepad no navegador."
+    },
+    "visualizer": {
+      "title": "Atividade de entrada ao vivo",
+      "note": "Taxa de atualização de entrada observada pelo navegador. Mova qualquer stick continuamente ou pressione botões durante o teste."
+    },
+    "metrics": {
+      "browserObserved": "Taxa de atualização de entrada observada pelo navegador",
+      "averageInterval": "Intervalo médio",
+      "minInterval": "Intervalo mínimo",
+      "maxInterval": "Intervalo máximo",
+      "samplesCollected": "Amostras coletadas"
+    },
+    "controls": {
+      "title": "Controles do teste",
+      "note": "Inicie uma sessão cronometrada, mantenha a entrada em movimento e revise a variação dos intervalos.",
+      "session": "Sessão",
+      "durationTitle": "Duração do teste",
+      "durationNote": "Selecione por quanto tempo coletar amostras de mudança de entrada.",
+      "startButton": "Iniciar teste",
+      "resetButton": "Resetar",
+      "resultSummary": "Resumo do resultado",
+      "timeLeft": "Tempo restante"
+    },
+    "dynamic": {
+      "connectedController": "Controle conectado",
+      "standardController": "Controle padrão",
+      "connectThenMove": "Conecte um controle, inicie o teste e então mova qualquer stick continuamente ou pressione botões durante a sessão.",
+      "notEnoughInput": "O teste terminou sem entrada variável suficiente. Inicie novamente e mantenha um stick em movimento ou pressione botões durante a sessão.",
+      "excellentNote": "As atualizações observadas pelo navegador permaneceram frequentes e bem agrupadas durante a entrada ativa.",
+      "stableNote": "O timing de atualização observado permaneceu razoavelmente consistente, com alguma variação normal do navegador.",
+      "inconsistentNote": "A variação entre intervalos foi perceptível. Isso pode vir do agendamento do navegador, transporte Bluetooth, adaptadores ou movimento desigual de entrada.",
+      "moveDuringTest": "Mova qualquer stick continuamente ou pressione botões durante o teste.",
+      "unavailableMessage": "Este navegador não expõe a Gamepad API, então o teste de taxa de polling não pode ser executado aqui."
+    },
+    "guide": {
+      "title": "O que é taxa de polling do controle?",
+      "subtitle": "Taxa de polling descreve com que frequência novos estados de entrada são observados ao longo do tempo. Nesta página, o resultado se baseia nas atualizações visíveis ao navegador, não em uma leitura direta do barramento de hardware.",
+      "step1": {
+        "title": "Por que a taxa no navegador pode ser diferente",
+        "description": "Os navegadores ficam acima do sistema operacional, do driver, da pilha sem fio e do firmware do controle. Isso significa que o timing mostrado aqui é útil para comparação, mas não garante uma medição de polling em nível de hardware."
+      },
+      "step2": {
+        "title": "Como interpretar o resultado",
+        "description": "Intervalos menores e mais constantes costumam parecer mais consistentes. Uma diferença grande entre o mínimo e o máximo pode apontar limitações de agendamento do navegador, variabilidade do Bluetooth ou movimento de entrada inconsistente durante o teste."
+      },
+      "step3": {
+        "title": "Melhor forma de testar",
+        "description": "Use conexão com fio quando possível, inicie o teste e então mova um stick em círculos suaves ou pressione botões em ritmo constante até o tempo acabar."
+      }
+    },
+    "faq": {
+      "title": "FAQ da taxa de polling",
+      "subtitle": "Respostas rápidas para entender o que esta ferramenta de timing no navegador pode e não pode mostrar.",
+      "item1": {
+        "question": "Essa é a taxa real de polling do hardware?",
+        "answer": "Não. Esta página mostra uma taxa de atualização de entrada observada pelo navegador, moldada pelo loop de eventos do navegador e pela visibilidade da Gamepad API."
+      },
+      "item2": {
+        "question": "Por que a página diz que nenhuma entrada foi detectada?",
+        "answer": "Isso normalmente significa que o controle conectou, mas não produziu entrada variável suficiente durante a janela do teste. Inicie novamente e mantenha um stick em movimento ou pressione botões repetidamente."
+      },
+      "item3": {
+        "question": "Por que Bluetooth e USB parecem diferentes?",
+        "answer": "Transporte sem fio, buffering do sistema operacional e timing do navegador podem mudar a frequência com que novos estados de entrada chegam à página."
+      },
+      "item4": {
+        "question": "O que conta como um resultado excelente?",
+        "answer": "Nesta ferramenta, excelente significa atualizações frequentes e relativamente uniformes observadas pelo navegador durante a entrada ativa. É uma indicação de estabilidade, não uma certificação do controle."
+      }
+    }
+  }
+}

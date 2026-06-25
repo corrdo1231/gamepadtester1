@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="pt-BR">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1950FMW07"></script>
@@ -19,16 +19,16 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Controller Vibration Test | GamepadTester.tools</title>
-  <meta name="description" content="Test gamepad rumble in the browser with adjustable left motor, right motor, duration, and quick vibration presets.">
-  <link rel="canonical" href="https://gamepadtester.tools/vibration-test.html">
-  <link rel="alternate" hreflang="en" href="https://gamepadtester.tools/vibration-test.html">
-  <link rel="alternate" hreflang="pt-BR" href="https://gamepadtester.tools/pt-br/vibration-test.html">
-  <link rel="alternate" hreflang="x-default" href="https://gamepadtester.tools/vibration-test.html">
+  <title>Teste de Taxa de Polling do Controle | GamepadTester.tools</title>
+  <meta name="description" content="Meça o timing de atualização de entrada do controle observado pelo navegador com um teste ao vivo da taxa de polling via Gamepad API.">
+  <link rel="canonical" href="https://gamepadtester.tools/pt-br/polling-rate-test.html">
+  <link rel="alternate" hreflang="en" href="https://gamepadtester.tools/polling-rate-test.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://gamepadtester.tools/pt-br/polling-rate-test.html">
+  <link rel="alternate" hreflang="x-default" href="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Controller Vibration Test | GamepadTester.tools">
-  <meta property="og:description" content="Run a real browser-based vibration test with live controller preview, motor sliders, and rumble presets.">
-  <meta property="og:url" content="https://gamepadtester.tools/vibration-test.html">
+  <meta property="og:title" content="Teste de Taxa de Polling do Controle | GamepadTester.tools">
+  <meta property="og:description" content="Execute uma verificação de taxa de polling no navegador para timing de entrada, intervalos de atualização e estabilidade.">
+  <meta property="og:url" content="https://gamepadtester.tools/pt-br/polling-rate-test.html">
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -38,9 +38,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="/assets/js/i18n.js?v=ptbr-v1"></script>
   <script src="/assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=vibration-tool-v1">
+  <link rel="stylesheet" href="/assets/css/styles.css?v=polling-tool-v1">
 </head>
-<body data-page="vibration">
+<body data-page="polling-rate">
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="brand" href="/" data-localized-link="home">
@@ -54,8 +54,8 @@
         <a href="/index.html" data-nav="home" data-localized-link="home"><span>Home</span></a>
         <a href="/controller-drift-test.html" data-nav="drift" data-localized-link="drift"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
         <a href="/deadzone-test.html" data-nav="calibration" data-localized-link="deadzone"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
-        <a href="/polling-rate-test.html" data-nav="polling" data-localized-link="polling-rate"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
-        <a class="active" href="/vibration-test.html" data-nav="vibration" data-localized-link="vibration"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
+        <a class="active" href="/polling-rate-test.html" data-nav="polling" data-localized-link="polling-rate"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
+        <a href="/vibration-test.html" data-nav="vibration" data-localized-link="vibration"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
         <a href="/tools.html" data-nav="tools"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
         <a href="/widgets.html" data-nav="widgets"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
       </nav>
@@ -73,13 +73,13 @@
   </header>
 
   <main>
-    <section class="tester-wrap vibration-page" id="tester">
-      <div class="shell panel tester-panel vibration-tool-panel">
-        <div class="panel-header vibration-panel-header">
+    <section class="tester-wrap polling-page" id="polling-tool">
+      <div class="shell panel tester-panel polling-tool-panel">
+        <div class="panel-header polling-panel-header">
           <div class="section-title">
-            <span class="eyebrow">Browser Rumble Check</span>
-            <h1>Test controller vibration instantly.</h1>
-            <p>Press any button to connect, tune the two motors, then send a quick rumble pattern straight from the browser.</p>
+            <span class="eyebrow">Browser Timing Check</span>
+            <h1>Controller Polling Rate Test</h1>
+            <p>Move a stick or press buttons to measure browser gamepad update timing.</p>
           </div>
           <div class="status-badge disconnected" data-status>Press any button to connect</div>
         </div>
@@ -88,14 +88,14 @@
           This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.
         </div>
 
-        <div class="vibration-tool-grid" data-visualizer>
-          <section class="dashboard-card dashboard-card-main vibration-visualizer-card">
+        <div class="polling-tool-grid" data-visualizer>
+          <section class="dashboard-card dashboard-card-main polling-visualizer-card">
             <div class="dashboard-card-head dashboard-card-head-main">
               <div class="dashboard-heading">
-                <span class="dashboard-token dashboard-token-blue">V</span>
+                <span class="dashboard-token dashboard-token-blue">P</span>
                 <div>
-                  <h2>Controller Visualizer</h2>
-                  <p class="mini-note">Live sticks, buttons, and trigger pressure update while you test rumble support.</p>
+                  <h2>Live Input Activity</h2>
+                  <p class="mini-note">Browser-observed input update rate. Move either stick continuously or press buttons during the test.</p>
                 </div>
               </div>
               <div class="dashboard-main-topbar">
@@ -228,94 +228,83 @@
               </svg>
             </div>
 
-            <div class="controller-legend-row">
-              <span class="controller-legend-item">
-                <span class="controller-legend-dot controller-legend-dot-active"></span>
-                <span class="controller-legend-text">Active input</span>
-              </span>
-              <span class="controller-legend-item">
-                <span class="controller-legend-dot"></span>
-                <span class="controller-legend-text">Idle state</span>
-              </span>
+            <div class="polling-metrics-grid">
+              <article class="polling-metric-card polling-metric-card-feature">
+                <span>Browser-observed input update rate</span>
+                <strong data-polling-rate>0 Hz</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Average interval</span>
+                <strong data-polling-avg>--</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Min interval</span>
+                <strong data-polling-min>--</strong>
+              </article>
+              <article class="polling-metric-card">
+                <span>Max interval</span>
+                <strong data-polling-max>--</strong>
+              </article>
+              <article class="polling-metric-card polling-metric-card-wide">
+                <span>Samples collected</span>
+                <strong data-polling-samples>0</strong>
+              </article>
             </div>
           </section>
 
-          <aside class="dashboard-card dashboard-metric-card vibration-controls-card">
+          <aside class="dashboard-card dashboard-metric-card polling-controls-card">
             <div class="dashboard-card-head">
               <div class="dashboard-heading">
-                <span class="dashboard-token dashboard-token-purple">R</span>
+                <span class="dashboard-token dashboard-token-green">R</span>
                 <div>
-                  <h2>Rumble Controls</h2>
-                  <p class="mini-note">Strong motor, weak motor, duration, and one-tap presets.</p>
+                  <h2>Test Controls</h2>
+                  <p class="mini-note">Start a timed session, keep input moving, and review the interval spread.</p>
                 </div>
               </div>
             </div>
 
-            <div class="vibration-meta-grid">
-              <div class="vibration-meta-item vibration-meta-item-wide">
+            <div class="polling-meta-grid">
+              <div class="polling-meta-item polling-meta-item-wide">
                 <span>Current controller</span>
                 <strong data-controller-name>No controller detected</strong>
               </div>
-              <div class="vibration-meta-item">
+              <div class="polling-meta-item">
                 <span>Slot</span>
                 <strong data-controller-slot>--</strong>
               </div>
-              <div class="vibration-meta-item">
-                <span>Rumble support</span>
-                <strong data-vibration-support>Waiting for controller</strong>
+              <div class="polling-meta-item">
+                <span>Session</span>
+                <strong data-polling-session-state>Idle</strong>
               </div>
             </div>
 
-            <div class="vibration-slider-stack">
-              <div class="vibration-slider-group">
-                <label for="left-motor">
-                  <span>Left motor</span>
-                  <strong data-vibration-left-value>60%</strong>
-                </label>
-                <input id="left-motor" type="range" min="0" max="100" step="1" value="60" data-vibration-left>
+            <div class="polling-duration-block">
+              <div class="polling-block-heading">
+                <h3>Test duration</h3>
+                <p>Select how long to collect input change samples.</p>
               </div>
-
-              <div class="vibration-slider-group">
-                <label for="right-motor">
-                  <span>Right motor</span>
-                  <strong data-vibration-right-value>35%</strong>
-                </label>
-                <input id="right-motor" type="range" min="0" max="100" step="1" value="35" data-vibration-right>
-              </div>
-
-              <div class="vibration-slider-group">
-                <label for="vibration-duration">
-                  <span>Duration</span>
-                  <strong data-vibration-duration-value>320ms</strong>
-                </label>
-                <input id="vibration-duration" type="range" min="100" max="3000" step="50" value="320" data-vibration-duration>
+              <div class="polling-duration-grid">
+                <button class="polling-duration-button active" type="button" data-polling-duration="5">5s</button>
+                <button class="polling-duration-button" type="button" data-polling-duration="10">10s</button>
+                <button class="polling-duration-button" type="button" data-polling-duration="30">30s</button>
               </div>
             </div>
 
-            <div class="vibration-inline-note">
-              Left motor maps to the stronger low-frequency rumble when the browser exposes <code>dual-rumble</code>.
+            <div class="polling-action-grid">
+              <button class="polling-action-button polling-action-button-primary" type="button" data-polling-start disabled>Start Test</button>
+              <button class="polling-action-button" type="button" data-polling-reset>Reset</button>
             </div>
 
-            <div class="vibration-preset-block">
-              <div class="vibration-block-heading">
-                <h3>Quick presets</h3>
-                <p>Use these to compare common vibration styles without touching the sliders.</p>
+            <div class="polling-result-panel">
+              <div class="polling-result-head">
+                <span>Result summary</span>
+                <strong data-polling-result>No input detected</strong>
               </div>
-              <div class="vibration-preset-grid">
-                <button class="vibration-preset-button" type="button" data-vibration-preset="light">Light</button>
-                <button class="vibration-preset-button" type="button" data-vibration-preset="medium">Medium</button>
-                <button class="vibration-preset-button" type="button" data-vibration-preset="heavy">Heavy</button>
-                <button class="vibration-preset-button" type="button" data-vibration-preset="pulse">Pulse</button>
-                <button class="vibration-preset-button" type="button" data-vibration-preset="heartbeat">Heartbeat</button>
-                <button class="vibration-preset-button" type="button" data-vibration-preset="explosion">Explosion</button>
-                <button class="vibration-preset-button vibration-preset-button-wide" type="button" data-vibration-preset="click">Click</button>
+              <p class="polling-result-note" data-polling-note>Connect a controller, start the test, then move either stick continuously or press buttons during the session.</p>
+              <div class="polling-progress-row">
+                <span>Time left</span>
+                <strong data-polling-time-left>--</strong>
               </div>
-            </div>
-
-            <button class="vibration-start-button" type="button" data-vibration-start disabled>Start Vibration</button>
-
-            <div class="vibration-status-panel" data-vibration-status>
-              Connect a controller with rumble support to begin testing.
             </div>
           </aside>
         </div>
@@ -325,21 +314,21 @@
     <section class="guide">
       <div class="shell">
         <div class="section-title">
-          <h2>What is controller vibration testing?</h2>
-          <p>Vibration testing checks whether the browser can send rumble commands to your controller and whether both motors respond at the expected strength.</p>
+          <h2>What is controller polling rate?</h2>
+          <p>Polling rate describes how frequently new input states are observed over time. On this page, the result is based on browser-visible input updates, not a direct hardware bus reading.</p>
         </div>
         <div class="steps-grid">
           <article class="step">
-            <h3>Quick hardware check</h3>
-            <p>If a gamepad connects, the visualizer updates immediately. If rumble also works, you can confirm that the browser, operating system, cable, wireless mode, and controller firmware are all exposing haptics correctly.</p>
+            <h3>Why browser polling rate may differ</h3>
+            <p>Browsers sit above the operating system, driver, wireless stack, and controller firmware. That means the timing reported here is useful for comparison, but not a guaranteed hardware-level polling rate measurement.</p>
           </article>
           <article class="step">
-            <h3>Why support varies</h3>
-            <p>Some browsers only expose standard buttons and axes, while others also expose <code>vibrationActuator</code> or haptic fallback methods. Bluetooth mode, mobile browsers, and certain adapters may hide rumble entirely.</p>
+            <h3>How to interpret the result</h3>
+            <p>Smaller intervals and steadier spacing usually feel more consistent. A wide spread between minimum and maximum intervals can point to browser scheduling limits, Bluetooth variability, or inconsistent input movement during the test.</p>
           </article>
           <article class="step">
-            <h3>Left motor vs right motor</h3>
-            <p>On controllers that support dual rumble, the left motor usually feels heavier and lower frequency, while the right motor feels lighter and sharper. Testing them separately makes imbalance easier to spot.</p>
+            <h3>Best way to test</h3>
+            <p>Use a wired connection when possible, start the test, then move a stick in smooth circles or press buttons rhythmically until the timer ends.</p>
           </article>
         </div>
       </div>
@@ -348,25 +337,25 @@
     <section class="faq">
       <div class="shell">
         <div class="section-title">
-          <h2>Vibration test FAQ</h2>
-          <p>Common questions when rumble works in games but does not work inside the browser.</p>
+          <h2>Polling rate FAQ</h2>
+          <p>Quick answers for understanding what this browser timing tool can and cannot tell you.</p>
         </div>
         <div class="faq-grid">
           <article class="faq-item">
-            <h3>Why is Start Vibration disabled?</h3>
-            <p>The button stays disabled until the page sees a connected controller and confirms that the browser exposes a usable vibration API for that controller.</p>
+            <h3>Is this the true hardware polling rate?</h3>
+            <p>No. This page reports a browser-observed input update rate, which is shaped by the browser event loop and Gamepad API visibility.</p>
           </article>
           <article class="faq-item">
-            <h3>Why do games vibrate but the browser does not?</h3>
-            <p>Games can use platform-specific drivers or native APIs that the browser cannot access. Web pages depend on the browser's Gamepad implementation, which is more limited.</p>
+            <h3>Why does the page say no input detected?</h3>
+            <p>That usually means the controller connected but did not produce enough changing input during the test window. Start again and keep a stick moving or press buttons repeatedly.</p>
           </article>
           <article class="faq-item">
-            <h3>Does wireless mode change rumble support?</h3>
-            <p>Yes. Some controllers expose richer haptics over USB than Bluetooth, and some adapters only pass through basic buttons and sticks with no rumble support.</p>
+            <h3>Why do Bluetooth and USB look different?</h3>
+            <p>Wireless transport, operating system buffering, and browser timing can all change how often new input states reach the page.</p>
           </article>
           <article class="faq-item">
-            <h3>What should I do if vibration fails here?</h3>
-            <p>Reconnect the controller, wake it with a button press, try USB instead of Bluetooth, and test again in the latest Chrome or Edge. If the controller still does not report support, the browser likely does not expose rumble for that device.</p>
+            <h3>What counts as an excellent result?</h3>
+            <p>In this tool, excellent means frequent and fairly even browser-observed updates during active input. It is a stability hint, not a certification of the controller itself.</p>
           </article>
         </div>
       </div>
@@ -377,7 +366,7 @@
     <div class="shell footer-box">
       <div>
         <strong>GamepadTester.tools</strong>
-        <p class="muted">Browser-based controller testing for buttons, sticks, triggers, drift, deadzone, and vibration checks.</p>
+        <p class="muted">Browser-based controller testing for buttons, sticks, triggers, drift, deadzone, polling, and vibration checks.</p>
       </div>
       <div class="footer-links">
         <a href="/" data-footer="home" data-localized-link="home">Gamepad Tester</a>
@@ -393,6 +382,7 @@
     </div>
   </footer>
 
-  <script src="/assets/js/vibration-page.js?v=build-v1"></script>
+  <script src="/assets/js/polling-page.js?v=build-v1"></script>
 </body>
 </html>
+

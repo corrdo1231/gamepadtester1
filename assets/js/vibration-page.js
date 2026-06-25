@@ -7,6 +7,12 @@
   }
 
   var hasGamepadApi = typeof navigator !== "undefined" && typeof navigator.getGamepads === "function";
+  var tr = function (key, fallback, vars) {
+    if (window.GamepadI18n && typeof window.GamepadI18n.t === "function") {
+      return window.GamepadI18n.t(key, fallback, vars);
+    }
+    return fallback;
+  };
   var buttonMap = [
     { key: "a", index: 0 },
     { key: "b", index: 1 },
@@ -161,7 +167,7 @@
       button.className = "controller-chip" + (isActive ? " active" : "");
       button.setAttribute("data-controller-select", String(pad.index));
       button.textContent = "P" + (position + 1);
-      button.title = pad.id || "Connected controller";
+      button.title = pad.id || tr("vibration.dynamic.connectedController", "Connected controller");
       elements.controllerList.appendChild(button);
     });
   }
@@ -234,10 +240,10 @@
 
     if (!pad) {
       zeroVisualizer();
-      setStatus(false, "Press any button to connect");
+      setStatus(false, tr("common.status.pressAnyButton", "Press any button to connect"));
 
       if (elements.controllerName) {
-        elements.controllerName.textContent = "No controller detected";
+        elements.controllerName.textContent = tr("common.status.noControllerDetected", "No controller detected");
       }
 
       if (elements.controllerSlot) {
@@ -245,24 +251,24 @@
       }
 
       if (elements.support) {
-        elements.support.textContent = "Waiting for controller";
+        elements.support.textContent = tr("vibration.dynamic.waitingForController", "Waiting for controller");
       }
 
       state.supportsVibration = false;
       setControlsEnabled(false);
 
       if (state.lastAvailability !== "disconnected") {
-        setMessage("Connect a controller with rumble support to begin testing.", "is-warn");
+        setMessage(tr("vibration.dynamic.connectToBegin", "Connect a controller with rumble support to begin testing."), "is-warn");
         state.lastAvailability = "disconnected";
       }
 
       return;
     }
 
-    setStatus(true, "Controller connected");
+    setStatus(true, tr("common.status.controllerConnected", "Controller connected"));
 
     if (elements.controllerName) {
-      elements.controllerName.textContent = pad.id || "Standard controller";
+      elements.controllerName.textContent = pad.id || tr("vibration.dynamic.standardController", "Standard controller");
     }
 
     if (elements.controllerSlot) {
@@ -273,15 +279,17 @@
     setControlsEnabled(state.supportsVibration);
 
     if (elements.support) {
-      elements.support.textContent = state.supportsVibration ? "Supported" : "Not exposed";
+      elements.support.textContent = state.supportsVibration
+        ? tr("vibration.dynamic.supported", "Supported")
+        : tr("vibration.dynamic.notExposed", "Not exposed");
     }
 
     if (!state.isRunning) {
       if (state.supportsVibration && state.lastAvailability !== "supported") {
-        setMessage("Ready. Use a preset or send a custom dual-rumble command.", "is-success");
+        setMessage(tr("vibration.dynamic.ready", "Ready. Use a preset or send a custom dual-rumble command."), "is-success");
         state.lastAvailability = "supported";
       } else if (!state.supportsVibration && state.lastAvailability !== "unsupported") {
-        setMessage("Vibration is not supported by this browser or controller.", "is-error");
+        setMessage(tr("vibration.dynamic.unsupported", "Vibration is not supported by this browser or controller."), "is-error");
         state.lastAvailability = "unsupported";
       }
     }
@@ -347,33 +355,33 @@
   function getPresetSteps(name) {
     var presets = {
       light: {
-        label: "Light preset sent.",
+        label: tr("vibration.dynamic.presets.lightSent", "Light preset sent."),
         steps: [{ duration: 130, strongMagnitude: 0.2, weakMagnitude: 0.14 }]
       },
       medium: {
-        label: "Medium preset sent.",
+        label: tr("vibration.dynamic.presets.mediumSent", "Medium preset sent."),
         steps: [{ duration: 240, strongMagnitude: 0.48, weakMagnitude: 0.34 }]
       },
       heavy: {
-        label: "Heavy preset sent.",
+        label: tr("vibration.dynamic.presets.heavySent", "Heavy preset sent."),
         steps: [{ duration: 360, strongMagnitude: 0.95, weakMagnitude: 0.72 }]
       },
       pulse: {
-        label: "Pulse preset sent.",
+        label: tr("vibration.dynamic.presets.pulseSent", "Pulse preset sent."),
         steps: [
           { duration: 140, strongMagnitude: 0.72, weakMagnitude: 0.22, pause: 90 },
           { duration: 140, strongMagnitude: 0.72, weakMagnitude: 0.22, pause: 40 }
         ]
       },
       heartbeat: {
-        label: "Heartbeat preset sent.",
+        label: tr("vibration.dynamic.presets.heartbeatSent", "Heartbeat preset sent."),
         steps: [
           { duration: 90, strongMagnitude: 0.7, weakMagnitude: 0.18, pause: 75 },
           { duration: 160, strongMagnitude: 0.95, weakMagnitude: 0.22, pause: 240 }
         ]
       },
       explosion: {
-        label: "Explosion preset sent.",
+        label: tr("vibration.dynamic.presets.explosionSent", "Explosion preset sent."),
         steps: [
           { duration: 90, strongMagnitude: 0.18, weakMagnitude: 0.36, pause: 25 },
           { duration: 160, strongMagnitude: 0.52, weakMagnitude: 0.48, pause: 25 },
@@ -381,7 +389,7 @@
         ]
       },
       click: {
-        label: "Click preset sent.",
+        label: tr("vibration.dynamic.presets.clickSent", "Click preset sent."),
         steps: [{ duration: 100, strongMagnitude: 0.14, weakMagnitude: 0.24 }]
       }
     };
@@ -396,19 +404,19 @@
     renderPad(pad, gamepads);
 
     if (!pad) {
-      setMessage("Connect a controller first.", "is-warn");
+      setMessage(tr("common.status.connectFirst", "Connect a controller first."), "is-warn");
       return;
     }
 
     if (!supportsVibration(pad)) {
-      setMessage("Vibration is not supported by this browser or controller.", "is-error");
+      setMessage(tr("vibration.dynamic.unsupported", "Vibration is not supported by this browser or controller."), "is-error");
       return;
     }
 
     var token = ++state.activeSequenceToken;
     state.isRunning = true;
     setControlsEnabled(true);
-    setMessage("Sending vibration command...", "is-busy");
+    setMessage(tr("vibration.dynamic.sending", "Sending vibration command..."), "is-busy");
 
     try {
       for (var i = 0; i < steps.length; i += 1) {
@@ -419,7 +427,7 @@
         var supported = await playEffect(pad, steps[i]);
 
         if (!supported) {
-          setMessage("Vibration is not supported by this browser or controller.", "is-error");
+          setMessage(tr("vibration.dynamic.unsupported", "Vibration is not supported by this browser or controller."), "is-error");
           return;
         }
 
@@ -433,7 +441,7 @@
         state.lastAvailability = "supported";
       }
     } catch (error) {
-      setMessage("The browser rejected the vibration request.", "is-error");
+      setMessage(tr("vibration.dynamic.rejected", "The browser rejected the vibration request."), "is-error");
     } finally {
       if (token === state.activeSequenceToken) {
         state.isRunning = false;
@@ -451,7 +459,7 @@
       duration: Number(elements.durationSlider.value || 320),
       strongMagnitude: Number(elements.leftSlider.value || 0) / 100,
       weakMagnitude: Number(elements.rightSlider.value || 0) / 100
-    }], "Custom vibration sent.");
+    }], tr("vibration.dynamic.customSent", "Custom vibration sent."));
   }
 
   function tick() {
@@ -471,13 +479,13 @@
         elements.unsupported.classList.remove("hidden");
       }
 
-      setStatus(false, "Gamepad API unavailable");
+      setStatus(false, tr("vibration.dynamic.apiUnavailable", "Gamepad API unavailable"));
 
       if (elements.support) {
-        elements.support.textContent = "Browser unsupported";
+        elements.support.textContent = tr("vibration.dynamic.browserUnsupported", "Browser unsupported");
       }
 
-      setMessage("This browser does not expose the Gamepad API, so vibration testing cannot run here.", "is-error");
+      setMessage(tr("vibration.dynamic.unavailableMessage", "This browser does not expose the Gamepad API, so vibration testing cannot run here."), "is-error");
       setControlsEnabled(false);
       return;
     }
@@ -528,11 +536,16 @@
 
     window.addEventListener("gamepadconnected", function (event) {
       state.selectedIndex = event.gamepad.index;
-      setStatus(true, "Controller connected");
+      setStatus(true, tr("common.status.controllerConnected", "Controller connected"));
       renderPad(choosePad(getGamepads()), getGamepads());
     });
 
     window.addEventListener("gamepaddisconnected", function () {
+      renderPad(choosePad(getGamepads()), getGamepads());
+    });
+
+    window.addEventListener("i18n:ready", function () {
+      updateSliderLabels();
       renderPad(choosePad(getGamepads()), getGamepads());
     });
 

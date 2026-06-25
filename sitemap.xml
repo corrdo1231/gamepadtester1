@@ -39,4 +39,19 @@
   <url>
     <loc>https://gamepadtester.tools/contact.html</loc>
   </url>
+  <url>
+    <loc>https://gamepadtester.tools/pt-br/</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/pt-br/controller-drift-test.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/pt-br/deadzone-test.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/pt-br/polling-rate-test.html</loc>
+  </url>
+  <url>
+    <loc>https://gamepadtester.tools/pt-br/vibration-test.html</loc>
+  </url>
 </urlset>

@@ -7,6 +7,12 @@
   }
 
   var hasGamepadApi = typeof navigator !== "undefined" && typeof navigator.getGamepads === "function";
+  var tr = function (key, fallback, vars) {
+    if (window.GamepadI18n && typeof window.GamepadI18n.t === "function") {
+      return window.GamepadI18n.t(key, fallback, vars);
+    }
+    return fallback;
+  };
   var buttonMap = [
     { key: "a", index: 0 },
     { key: "b", index: 1 },
@@ -77,7 +83,9 @@
       return;
     }
 
-    elements.status.textContent = connected ? "Controller connected" : "Press any button to connect";
+    elements.status.textContent = connected
+      ? tr("common.status.controllerConnected", "Controller connected")
+      : tr("common.status.pressAnyButton", "Press any button to connect");
     elements.status.classList.toggle("connected", connected);
     elements.status.classList.toggle("disconnected", !connected);
   }
@@ -118,7 +126,7 @@
     if (!gamepads.length) {
       var empty = doc.createElement("span");
       empty.className = "muted";
-      empty.textContent = "Press any button to connect";
+      empty.textContent = tr("common.status.pressAnyButton", "Press any button to connect");
       elements.controllerList.appendChild(empty);
       return;
     }
@@ -128,7 +136,7 @@
       chip.type = "button";
       chip.className = "controller-chip" + (activePad && activePad.index === pad.index ? " active" : "");
       chip.textContent = "P" + (pad.index + 1);
-      chip.title = pad.id || "Connected controller";
+      chip.title = pad.id || tr("polling.dynamic.connectedController", "Connected controller");
       chip.addEventListener("click", function () {
         state.selectedIndex = pad.index;
       });
@@ -191,7 +199,7 @@
     if (!pad) {
       zeroVisualizer();
       if (elements.controllerName) {
-        elements.controllerName.textContent = "No controller detected";
+        elements.controllerName.textContent = tr("common.status.noControllerDetected", "No controller detected");
       }
       if (elements.controllerSlot) {
         elements.controllerSlot.textContent = "--";
@@ -200,14 +208,17 @@
         elements.startButton.disabled = true;
       }
       if (!state.testRunning) {
-        setResult("No input detected", "Connect a controller, start the test, then move either stick continuously or press buttons during the session.");
-        setSessionState("Idle");
+        setResult(
+          tr("common.polling.noInput", "No input detected"),
+          tr("polling.dynamic.connectThenMove", "Connect a controller, start the test, then move either stick continuously or press buttons during the session.")
+        );
+        setSessionState(tr("common.polling.idle", "Idle"));
       }
       return;
     }
 
     if (elements.controllerName) {
-      elements.controllerName.textContent = pad.id || "Standard controller";
+      elements.controllerName.textContent = pad.id || tr("polling.dynamic.standardController", "Standard controller");
     }
     if (elements.controllerSlot) {
       elements.controllerSlot.textContent = "P" + (pad.index + 1);
@@ -335,8 +346,8 @@
   function classifyResult() {
     if (state.intervals.length < 2 || state.changeCount < 3) {
       return {
-        label: "No input detected",
-        note: "The test finished without enough changing input. Start again and keep a stick moving or press buttons during the session."
+        label: tr("common.polling.noInput", "No input detected"),
+        note: tr("polling.dynamic.notEnoughInput", "The test finished without enough changing input. Start again and keep a stick moving or press buttons during the session.")
       };
     }
 
@@ -350,27 +361,27 @@
 
     if (ratio <= 0.18 && avg <= 20) {
       return {
-        label: "Excellent",
-        note: "The browser-observed updates stayed frequent and tightly grouped during active input."
+        label: tr("common.polling.excellent", "Excellent"),
+        note: tr("polling.dynamic.excellentNote", "The browser-observed updates stayed frequent and tightly grouped during active input.")
       };
     }
 
     if (ratio <= 0.45 && avg <= 28) {
       return {
-        label: "Stable",
-        note: "The observed update timing stayed reasonably consistent, with some normal browser-level variation."
+        label: tr("common.polling.stable", "Stable"),
+        note: tr("polling.dynamic.stableNote", "The observed update timing stayed reasonably consistent, with some normal browser-level variation.")
       };
     }
 
     return {
-      label: "Inconsistent",
-      note: "The interval spread varied noticeably. That can come from browser scheduling, Bluetooth transport, adapters, or uneven input movement."
+      label: tr("common.polling.inconsistent", "Inconsistent"),
+      note: tr("polling.dynamic.inconsistentNote", "The interval spread varied noticeably. That can come from browser scheduling, Bluetooth transport, adapters, or uneven input movement.")
     };
   }
 
   function finishTest() {
     state.testRunning = false;
-    setSessionState("Complete");
+    setSessionState(tr("common.polling.complete", "Complete"));
     if (elements.startButton) {
       elements.startButton.disabled = !choosePad(getGamepads());
     }
@@ -399,16 +410,22 @@
     if (elements.startButton) {
       elements.startButton.disabled = true;
     }
-    setSessionState("Testing");
-    setResult("No input detected", "Move either stick continuously or press buttons during the test.");
+    setSessionState(tr("common.polling.testing", "Testing"));
+    setResult(
+      tr("common.polling.noInput", "No input detected"),
+      tr("polling.dynamic.moveDuringTest", "Move either stick continuously or press buttons during the test.")
+    );
   }
 
   function resetTestState() {
     state.testRunning = false;
     state.testEndsAt = 0;
     resetMetrics();
-    setSessionState("Idle");
-    setResult("No input detected", "Connect a controller, start the test, then move either stick continuously or press buttons during the session.");
+    setSessionState(tr("common.polling.idle", "Idle"));
+    setResult(
+      tr("common.polling.noInput", "No input detected"),
+      tr("polling.dynamic.connectThenMove", "Connect a controller, start the test, then move either stick continuously or press buttons during the session.")
+    );
     if (elements.startButton) {
       elements.startButton.disabled = !choosePad(getGamepads());
     }
@@ -465,8 +482,11 @@
       if (elements.startButton) {
         elements.startButton.disabled = true;
       }
-      setSessionState("Unavailable");
-      setResult("No input detected", "This browser does not expose the Gamepad API, so polling rate testing cannot run here.");
+      setSessionState(tr("common.polling.unavailable", "Unavailable"));
+      setResult(
+        tr("common.polling.noInput", "No input detected"),
+        tr("polling.dynamic.unavailableMessage", "This browser does not expose the Gamepad API, so polling rate testing cannot run here.")
+      );
       return;
     }
 
@@ -496,6 +516,12 @@
       if (!choosePad(getGamepads()) && state.testRunning) {
         resetTestState();
       }
+    });
+
+    window.addEventListener("i18n:ready", function () {
+      resetMetrics();
+      resetTestState();
+      renderPad(choosePad(getGamepads()), getGamepads());
     });
 
     tick();

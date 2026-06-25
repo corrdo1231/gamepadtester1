@@ -22,6 +22,9 @@
   <title>Controller Polling Rate Test | GamepadTester.tools</title>
   <meta name="description" content="Measure browser-observed controller input update timing with a live Gamepad API polling rate test.">
   <link rel="canonical" href="https://gamepadtester.tools/polling-rate-test.html">
+  <link rel="alternate" hreflang="en" href="https://gamepadtester.tools/polling-rate-test.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://gamepadtester.tools/pt-br/polling-rate-test.html">
+  <link rel="alternate" hreflang="x-default" href="https://gamepadtester.tools/polling-rate-test.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Controller Polling Rate Test | GamepadTester.tools">
   <meta property="og:description" content="Run a browser-based polling rate check for controller input timing, update intervals, and stability.">
@@ -29,17 +32,18 @@
   <meta property="og:site_name" content="GamepadTester.tools">
   <meta property="og:image" content="https://gamepadtester.tools/assets/img/og-cover.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="assets/js/theme.js?v=theme-toggle-v2"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=polling-tool-v1">
+  <script src="/assets/js/i18n.js?v=ptbr-v1"></script>
+  <script src="/assets/js/theme.js?v=theme-toggle-v2"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=polling-tool-v1">
 </head>
 <body data-page="polling-rate">
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="/">
+      <a class="brand" href="/" data-localized-link="home">
         <span class="brand-mark" aria-hidden="true">G</span>
         <span class="brand-label">
           <strong>GamepadTester.tools</strong>
@@ -47,15 +51,19 @@
         </span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="/index.html">Home</a>
-        <a href="/controller-drift-test.html"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
-        <a href="/deadzone-test.html"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
-        <a class="active" href="/polling-rate-test.html"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
-        <a href="/vibration-test.html"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
-        <a href="/tools.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
-        <a href="/widgets.html"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
+        <a href="/index.html" data-nav="home" data-localized-link="home"><span>Home</span></a>
+        <a href="/controller-drift-test.html" data-nav="drift" data-localized-link="drift"><span class="nav-dot nav-dot-orange" aria-hidden="true"></span><span>Drift</span></a>
+        <a href="/deadzone-test.html" data-nav="calibration" data-localized-link="deadzone"><span class="nav-dot nav-dot-green" aria-hidden="true"></span><span>Calibration</span></a>
+        <a class="active" href="/polling-rate-test.html" data-nav="polling" data-localized-link="polling-rate"><span class="nav-dot nav-dot-blue" aria-hidden="true"></span><span>Polling Rate</span></a>
+        <a href="/vibration-test.html" data-nav="vibration" data-localized-link="vibration"><span class="nav-dot nav-dot-purple" aria-hidden="true"></span><span>Vibration</span></a>
+        <a href="/tools.html" data-nav="tools"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Tools</span></a>
+        <a href="/widgets.html" data-nav="widgets"><span class="nav-dot nav-dot-gray" aria-hidden="true"></span><span>Widgets</span></a>
       </nav>
       <div class="topbar-tools">
+        <div class="language-switcher">
+          <span class="language-switcher-label">Language</span>
+          <div data-language-switcher></div>
+        </div>
         <button class="theme-toggle" type="button" data-theme-toggle>
           <span class="theme-toggle-icon" data-theme-icon aria-hidden="true">&#9728;</span>
           <span class="theme-toggle-label" data-theme-label>Auto</span>
@@ -361,19 +369,19 @@
         <p class="muted">Browser-based controller testing for buttons, sticks, triggers, drift, deadzone, polling, and vibration checks.</p>
       </div>
       <div class="footer-links">
-        <a href="/">Gamepad Tester</a>
-        <a href="/controller-drift-test.html">Controller Drift Test</a>
-        <a href="/deadzone-test.html">Deadzone Test</a>
-        <a href="/xbox-controller-test.html">Xbox Controller Test</a>
-        <a href="/ps5-controller-test.html">PS5 Controller Test</a>
-        <a href="/about.html">About</a>
-        <a href="/privacy-policy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/" data-footer="home" data-localized-link="home">Gamepad Tester</a>
+        <a href="/controller-drift-test.html" data-footer="drift" data-localized-link="drift">Controller Drift Test</a>
+        <a href="/deadzone-test.html" data-footer="deadzone" data-localized-link="deadzone">Deadzone Test</a>
+        <a href="/xbox-controller-test.html" data-footer="xbox">Xbox Controller Test</a>
+        <a href="/ps5-controller-test.html" data-footer="ps5">PS5 Controller Test</a>
+        <a href="/about.html" data-footer="about">About</a>
+        <a href="/privacy-policy.html" data-footer="privacy">Privacy Policy</a>
+        <a href="/terms.html" data-footer="terms">Terms</a>
+        <a href="/contact.html" data-footer="contact">Contact</a>
       </div>
     </div>
   </footer>
 
-  <script src="assets/js/polling-page.js?v=build-v1"></script>
+  <script src="/assets/js/polling-page.js?v=build-v1"></script>
 </body>
 </html>

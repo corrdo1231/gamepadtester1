@@ -1,0 +1,527 @@
+{
+  "common": {
+    "brand": {
+      "tagline": "Controller diagnostics in your browser"
+    },
+    "nav": {
+      "home": "Home",
+      "drift": "Drift",
+      "calibration": "Calibration",
+      "pollingRate": "Polling Rate",
+      "vibration": "Vibration",
+      "tools": "Tools",
+      "widgets": "Widgets"
+    },
+    "language": {
+      "label": "Language",
+      "english": "English",
+      "portugueseBrazil": "Português (Brasil)"
+    },
+    "footer": {
+      "tagline": "Browser-based controller testing for buttons, sticks, triggers, drift, deadzone, polling, and vibration checks.",
+      "links": {
+        "home": "Gamepad Tester",
+        "drift": "Controller Drift Test",
+        "deadzone": "Deadzone Test",
+        "xbox": "Xbox Controller Test",
+        "ps5": "PS5 Controller Test",
+        "about": "About",
+        "privacy": "Privacy Policy",
+        "terms": "Terms",
+        "contact": "Contact"
+      }
+    },
+    "status": {
+      "unsupportedBrowser": "This browser does not expose the Gamepad API. Try a recent version of Chrome, Edge, or Firefox on a secure page.",
+      "pressAnyButton": "Press any button to connect",
+      "controllerConnected": "Controller connected",
+      "controllerConnectedTitle": "Controller Connected",
+      "noController": "No Controller",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "noControllerDetected": "No controller detected",
+      "waitingForBrowserAccess": "Waiting for browser access",
+      "liveBrowserValues": "Live browser values update instantly.",
+      "requiresRumble": "Requires a connected controller with rumble support.",
+      "noVibrationSupport": "This controller or browser does not expose vibration.",
+      "chooseRumble": "Choose a rumble test.",
+      "connectFirst": "Connect a controller first.",
+      "vibrationFailed": "Vibration could not be triggered in this browser."
+    },
+    "labels": {
+      "leftStick": "Left Stick",
+      "rightStick": "Right Stick",
+      "current": "Current",
+      "peak": "Peak",
+      "currentController": "Current controller",
+      "slot": "Slot",
+      "detected": "Detected",
+      "recommendedDeadzone": "Recommended deadzone",
+      "leftStatus": "Left status",
+      "rightStatus": "Right status",
+      "advancedDebug": "Advanced Debug",
+      "browserDeviceId": "Browser Device ID",
+      "mapping": "Mapping",
+      "connection": "Connection",
+      "buttonCount": "Button Count",
+      "axisCount": "Axis Count"
+    },
+    "buttons": {
+      "refreshControllers": "Refresh Controllers"
+    },
+    "vibrationPresets": {
+      "light": "Light",
+      "medium": "Medium",
+      "heavy": "Heavy",
+      "pulse": "Pulse",
+      "heartbeat": "Heartbeat",
+      "explosion": "Explosion",
+      "click": "Click"
+    },
+    "drift": {
+      "centered": "Centered",
+      "minor": "Minor Drift",
+      "detected": "Drift Detected",
+      "potential": "Potential drift",
+      "slightOffset": "Slight offset"
+    },
+    "deadzone": {
+      "balanced": "Balanced",
+      "tooSensitive": "Too sensitive",
+      "tooHigh": "Too high"
+    },
+    "polling": {
+      "idle": "Idle",
+      "testing": "Testing",
+      "complete": "Complete",
+      "unavailable": "Unavailable",
+      "noInput": "No input detected",
+      "excellent": "Excellent",
+      "stable": "Stable",
+      "inconsistent": "Inconsistent"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Browser Gamepad API - Static Front End",
+      "title": "Test buttons, sticks, triggers, and drift in real time.",
+      "description": "GamepadTester.tools turns your browser into a live controller lab. Plug in a gamepad, press any button, and watch the Gamepad API stream A/B/X/Y, bumpers, D-pad input, trigger pressure, and analog stick movement with no installs and no backend.",
+      "launch": "Launch tester",
+      "driftGuide": "Open drift guide"
+    },
+    "stats": {
+      "refreshLabel": "Input refresh",
+      "refreshValue": "rAF loop",
+      "connectionLabel": "Connection events",
+      "connectionValue": "Live detect",
+      "deploymentLabel": "Deployment",
+      "deploymentValue": "Cloudflare Pages",
+      "runtimeLabel": "Runtime",
+      "runtimeValue": "100% static"
+    },
+    "note": {
+      "tag": "Best results",
+      "description": "Modern Chromium, Firefox, and Edge builds usually expose the cleanest standard mapping. If nothing appears, reconnect the controller and press a face button once to wake it up."
+    },
+    "panel": {
+      "title": "Gamepad Tester",
+      "subtitle": "Press any button to connect and test instantly."
+    },
+    "visualizer": {
+      "title": "Controller Visualizer",
+      "note": "The main view reflects live stick, button, and trigger activity.",
+      "legendActive": "Active input",
+      "legendIdle": "Idle state"
+    },
+    "stick": {
+      "title": "Stick Test",
+      "note": "Left and right response",
+      "footnote": "Live X/Y values from -1.00 to 1.00."
+    },
+    "trigger": {
+      "title": "Trigger Test",
+      "note": "Quick analog pressure readout"
+    },
+    "vibration": {
+      "title": "Vibration Test",
+      "note": "Simple controller rumble test"
+    },
+    "dynamic": {
+      "vibration": {
+        "lightSent": "Light rumble sent.",
+        "mediumSent": "Medium rumble sent.",
+        "heavySent": "Heavy rumble sent.",
+        "pulseSent": "Pulse rumble sent."
+      }
+    },
+    "advanced": {
+      "title": "Advanced Debug",
+      "currentDevice": "Current Device",
+      "browserDeviceId": "Browser Device ID",
+      "controllerSlot": "Controller Slot",
+      "connection": "Connection",
+      "controllerCount": "Controller Count",
+      "buttonCount": "Button Count",
+      "axisCount": "Axis Count",
+      "mapping": "Mapping",
+      "suggestedDeadzone": "Suggested Deadzone"
+    },
+    "tools": {
+      "title": "Focused controller tools",
+      "subtitle": "Use the same live tester core with dedicated pages for drift troubleshooting, deadzone tuning, and controller-specific checks.",
+      "card1": {
+        "tag": "Controller Drift Test",
+        "title": "Spot idle movement before it affects your aim.",
+        "description": "Watch real-time stick magnitude, peak offset, and recommended deadzone values while the sticks are untouched."
+      },
+      "card2": {
+        "tag": "Deadzone Test",
+        "title": "Dial in a threshold that feels stable without hiding input.",
+        "description": "Compare live stick movement against a user-controlled deadzone ring and see how close you are to center."
+      },
+      "card3": {
+        "tag": "Xbox Controller Test",
+        "title": "Check standard mapping, triggers, bumpers, and stick travel.",
+        "description": "Ideal for wired or Bluetooth Xbox pads on desktop browsers that expose the standard Gamepad API layout."
+      },
+      "card4": {
+        "tag": "PS5 Controller Test",
+        "title": "Inspect DualSense buttons, adaptive trigger values, and stick response.",
+        "description": "Verify your browser sees the controller correctly and confirm analog input looks clean and centered."
+      },
+      "card5": {
+        "tag": "Gamepad API core",
+        "title": "Built on the browser primitives you asked for.",
+        "description": "The site is powered by <code>navigator.getGamepads()</code>, <code>gamepadconnected</code>, <code>gamepaddisconnected</code>, and a <code>requestAnimationFrame</code> refresh loop."
+      },
+      "card6": {
+        "tag": "Static deploy",
+        "title": "Fast to ship on GitHub + Cloudflare Pages.",
+        "description": "No backend, no database, and no build pipeline. The root directory can be deployed directly as a static site."
+      }
+    },
+    "guide": {
+      "title": "How to use the tester",
+      "subtitle": "The flow is simple, but these three steps give you the cleanest read on drift, deadzone, and button health.",
+      "step1": {
+        "title": "1. Connect and wake the controller",
+        "description": "Plug in with USB or pair with Bluetooth, then press any face button once. Some browsers only expose a pad after the first interaction."
+      },
+      "step2": {
+        "title": "2. Release both sticks",
+        "description": "For drift checks, keep your thumbs off the sticks and watch the live magnitude and peak idle offset numbers for a few seconds."
+      },
+      "step3": {
+        "title": "3. Sweep every input",
+        "description": "Press A/B/X/Y, LB/RB, Start, Select, D-pad directions, and then roll both sticks through full circles to confirm travel and trigger range."
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Short answers for the most common controller testing questions.",
+      "item1": {
+        "question": "Do I need to install anything?",
+        "answer": "No. GamepadTester.tools is a plain static website that reads controller input directly from the browser."
+      },
+      "item2": {
+        "question": "Why is my controller not showing up?",
+        "answer": "Browsers often require a button press after connection. If it still does not appear, reconnect it and try a current Chrome, Edge, or Firefox build."
+      },
+      "item3": {
+        "question": "What does the suggested deadzone mean?",
+        "answer": "It is a lightweight estimate based on the highest idle stick offset observed after your last reset, plus a small safety margin."
+      },
+      "item4": {
+        "question": "Can this test Xbox and PS5 controllers?",
+        "answer": "Yes. Standard-mapped Xbox pads and PS5 DualSense controllers usually work well when connected through a supported desktop browser."
+      }
+    }
+  },
+  "drift": {
+    "breadcrumb": "-> Back to Home",
+    "header": {
+      "eyebrow": "Instant Drift Monitor",
+      "title": "Controller Stick Drift Test",
+      "description": "Leave the controller untouched, reset the sample, and watch both sticks for idle movement in real time."
+    },
+    "monitor": {
+      "title": "Live Drift Monitor",
+      "note": "Press any button to connect, then let both sticks rest naturally.",
+      "legendCurrent": "Current stick position",
+      "legendDeadzone": "Deadzone boundary",
+      "footnote": "If the point stays outside the deadzone while untouched, that stick may be drifting."
+    },
+    "settings": {
+      "title": "Settings",
+      "note": "Adjust the threshold and reset the sample whenever you reposition the controller.",
+      "deadzone": "Deadzone threshold",
+      "helper": "Lower values catch subtle drift sooner. Higher values focus on bigger idle movement.",
+      "reset": "Reset Drift Sample"
+    },
+    "summary": {
+      "title": "Session Status",
+      "note": "Compact readout for the currently selected controller."
+    },
+    "guide": {
+      "title": "What is stick drift?",
+      "subtitle": "Stick drift happens when a controller reports movement even while the stick is resting near center.",
+      "step1": {
+        "title": "How to read the circles",
+        "description": "Each circle plots the live idle position for one stick. The closer the point stays to center, the cleaner the stick is at rest."
+      },
+      "step2": {
+        "title": "What current and peak mean",
+        "description": "Current shows the live magnitude right now. Peak stores the largest idle offset since the last reset so you can compare short spikes against steady drift."
+      },
+      "step3": {
+        "title": "How to use the threshold",
+        "description": "A slightly larger deadzone hides tiny idle jitter, while a smaller one helps reveal subtle drift before it shows up in games."
+      }
+    },
+    "faq": {
+      "title": "Drift test FAQ",
+      "subtitle": "Quick answers for interpreting idle stick movement in the browser.",
+      "item1": {
+        "question": "What counts as drift?",
+        "answer": "If the stick keeps reporting movement while untouched and that movement stays outside your practical deadzone, it is usually a sign of drift."
+      },
+      "item2": {
+        "question": "Why should I reset the sample?",
+        "answer": "Resetting clears the saved peak so you can take a fresh measurement after moving the controller, reseating the cable, or changing the deadzone."
+      },
+      "item3": {
+        "question": "Can browser drift values differ from games?",
+        "answer": "Yes. Games may add their own deadzone and filtering, so the browser view is a clean baseline rather than an exact in-game reading."
+      },
+      "item4": {
+        "question": "What deadzone should I start with?",
+        "answer": "Most controllers feel reasonable around 0.05 to 0.12. Use the live monitor to decide whether your pad needs the low end or the high end of that range."
+      }
+    }
+  },
+  "deadzone": {
+    "header": {
+      "eyebrow": "Deadzone Calibration",
+      "title": "Controller Deadzone Calibration",
+      "description": "Adjust the deadzone threshold and watch how stick input is filtered around center."
+    },
+    "monitor": {
+      "title": "Deadzone Lab",
+      "note": "Move each stick slowly away from center to see when your chosen threshold starts filtering idle movement.",
+      "legendLive": "Live stick position",
+      "legendRing": "Active deadzone ring",
+      "footnote": "The dashed ring is the current filtered center zone. Values inside it are what games typically ignore."
+    },
+    "settings": {
+      "title": "Calibration Settings",
+      "note": "Tune the center threshold, then reset the sample if you want a fresh reading.",
+      "activeDeadzone": "Active deadzone",
+      "suggestedRange": "Suggested range",
+      "rangeValue": "0.05-0.12",
+      "helper": "Low values preserve fine input but may still allow unwanted motion. High values hide noise but can make movement feel sluggish.",
+      "reset": "Reset Drift Sample"
+    },
+    "summary": {
+      "title": "Current Session",
+      "note": "Use the live values below to compare how your current threshold matches your controller's idle noise."
+    },
+    "guide": {
+      "title": "What is controller deadzone?",
+      "subtitle": "Deadzone is the small center area where games ignore tiny stick movement to prevent accidental input.",
+      "step1": {
+        "title": "Why calibration matters",
+        "description": "If the deadzone is too low, tiny idle movement can still feel noisy. If it is too high, early stick motion may feel muted or delayed."
+      },
+      "step2": {
+        "title": "How to choose a value",
+        "description": "Start near 0.05, move the stick gently, and raise the threshold only if the pad still drifts or jitters while untouched."
+      },
+      "step3": {
+        "title": "Deadzone vs drift",
+        "description": "A deadzone can hide small idle offset, but it does not repair hardware drift. Use it as a comfort setting, not a permanent hardware fix."
+      }
+    },
+    "faq": {
+      "title": "Deadzone calibration FAQ",
+      "subtitle": "Short answers for choosing a practical deadzone value.",
+      "item1": {
+        "question": "What value is usually safe?",
+        "answer": "Many controllers feel good between 0.05 and 0.12, but the best value depends on the pad, connection mode, and how sensitive you want the stick to feel."
+      },
+      "item2": {
+        "question": "What does Too sensitive mean?",
+        "answer": "It means your current threshold is low enough that tiny input or idle noise may still come through in games."
+      },
+      "item3": {
+        "question": "What does Too high mean?",
+        "answer": "It means the threshold may be large enough to hide early stick motion and make fine aiming or walking feel less responsive."
+      },
+      "item4": {
+        "question": "Should both sticks use the same deadzone?",
+        "answer": "Usually yes, but some players prefer a slightly different feel for movement and camera control depending on the game."
+      }
+    }
+  },
+  "vibration": {
+    "header": {
+      "eyebrow": "Browser Rumble Check",
+      "title": "Test controller vibration instantly.",
+      "description": "Press any button to connect, tune the two motors, then send a quick rumble pattern straight from the browser."
+    },
+    "visualizer": {
+      "title": "Controller Visualizer",
+      "note": "Live sticks, buttons, and trigger pressure update while you test rumble support.",
+      "legendActive": "Active input",
+      "legendIdle": "Idle state"
+    },
+    "controls": {
+      "title": "Rumble Controls",
+      "note": "Strong motor, weak motor, duration, and one-tap presets.",
+      "rumbleSupport": "Rumble support",
+      "leftMotor": "Left motor",
+      "rightMotor": "Right motor",
+      "duration": "Duration",
+      "inlineNote": "Left motor maps to the stronger low-frequency rumble when the browser exposes <code>dual-rumble</code>.",
+      "presetsTitle": "Quick presets",
+      "presetsNote": "Use these to compare common vibration styles without touching the sliders.",
+      "startButton": "Start Vibration"
+    },
+    "dynamic": {
+      "connectedController": "Connected controller",
+      "waitingForController": "Waiting for controller",
+      "connectToBegin": "Connect a controller with rumble support to begin testing.",
+      "standardController": "Standard controller",
+      "supported": "Supported",
+      "notExposed": "Not exposed",
+      "ready": "Ready. Use a preset or send a custom dual-rumble command.",
+      "unsupported": "Vibration is not supported by this browser or controller.",
+      "sending": "Sending vibration command...",
+      "rejected": "The browser rejected the vibration request.",
+      "customSent": "Custom vibration sent.",
+      "apiUnavailable": "Gamepad API unavailable",
+      "browserUnsupported": "Browser unsupported",
+      "unavailableMessage": "This browser does not expose the Gamepad API, so vibration testing cannot run here.",
+      "presets": {
+        "lightSent": "Light preset sent.",
+        "mediumSent": "Medium preset sent.",
+        "heavySent": "Heavy preset sent.",
+        "pulseSent": "Pulse preset sent.",
+        "heartbeatSent": "Heartbeat preset sent.",
+        "explosionSent": "Explosion preset sent.",
+        "clickSent": "Click preset sent."
+      }
+    },
+    "guide": {
+      "title": "What is controller vibration testing?",
+      "subtitle": "Vibration testing checks whether the browser can send rumble commands to your controller and whether both motors respond at the expected strength.",
+      "step1": {
+        "title": "Quick hardware check",
+        "description": "If a gamepad connects, the visualizer updates immediately. If rumble also works, you can confirm that the browser, operating system, cable, wireless mode, and controller firmware are all exposing haptics correctly."
+      },
+      "step2": {
+        "title": "Why support varies",
+        "description": "Some browsers only expose standard buttons and axes, while others also expose <code>vibrationActuator</code> or haptic fallback methods. Bluetooth mode, mobile browsers, and certain adapters may hide rumble entirely."
+      },
+      "step3": {
+        "title": "Left motor vs right motor",
+        "description": "On controllers that support dual rumble, the left motor usually feels heavier and lower frequency, while the right motor feels lighter and sharper. Testing them separately makes imbalance easier to spot."
+      }
+    },
+    "faq": {
+      "title": "Vibration test FAQ",
+      "subtitle": "Common questions when rumble works in games but does not work inside the browser.",
+      "item1": {
+        "question": "Why is Start Vibration disabled?",
+        "answer": "The button stays disabled until the page sees a connected controller and confirms that the browser exposes a usable vibration API for that controller."
+      },
+      "item2": {
+        "question": "Why do games vibrate but the browser does not?",
+        "answer": "Games can use platform-specific drivers or native APIs that the browser cannot access. Web pages depend on the browser's Gamepad implementation, which is more limited."
+      },
+      "item3": {
+        "question": "Does wireless mode change rumble support?",
+        "answer": "Yes. Some controllers expose richer haptics over USB than Bluetooth, and some adapters only pass through basic buttons and sticks with no rumble support."
+      },
+      "item4": {
+        "question": "What should I do if vibration fails here?",
+        "answer": "Reconnect the controller, wake it with a button press, try USB instead of Bluetooth, and test again in the latest Chrome or Edge. If the controller still does not report support, the browser likely does not expose rumble for that device."
+      }
+    }
+  },
+  "polling": {
+    "header": {
+      "eyebrow": "Browser Timing Check",
+      "title": "Controller Polling Rate Test",
+      "description": "Move a stick or press buttons to measure browser gamepad update timing."
+    },
+    "visualizer": {
+      "title": "Live Input Activity",
+      "note": "Browser-observed input update rate. Move either stick continuously or press buttons during the test."
+    },
+    "metrics": {
+      "browserObserved": "Browser-observed input update rate",
+      "averageInterval": "Average interval",
+      "minInterval": "Min interval",
+      "maxInterval": "Max interval",
+      "samplesCollected": "Samples collected"
+    },
+    "controls": {
+      "title": "Test Controls",
+      "note": "Start a timed session, keep input moving, and review the interval spread.",
+      "session": "Session",
+      "durationTitle": "Test duration",
+      "durationNote": "Select how long to collect input change samples.",
+      "startButton": "Start Test",
+      "resetButton": "Reset",
+      "resultSummary": "Result summary",
+      "timeLeft": "Time left"
+    },
+    "dynamic": {
+      "connectedController": "Connected controller",
+      "standardController": "Standard controller",
+      "connectThenMove": "Connect a controller, start the test, then move either stick continuously or press buttons during the session.",
+      "notEnoughInput": "The test finished without enough changing input. Start again and keep a stick moving or press buttons during the session.",
+      "excellentNote": "The browser-observed updates stayed frequent and tightly grouped during active input.",
+      "stableNote": "The observed update timing stayed reasonably consistent, with some normal browser-level variation.",
+      "inconsistentNote": "The interval spread varied noticeably. That can come from browser scheduling, Bluetooth transport, adapters, or uneven input movement.",
+      "moveDuringTest": "Move either stick continuously or press buttons during the test.",
+      "unavailableMessage": "This browser does not expose the Gamepad API, so polling rate testing cannot run here."
+    },
+    "guide": {
+      "title": "What is controller polling rate?",
+      "subtitle": "Polling rate describes how frequently new input states are observed over time. On this page, the result is based on browser-visible input updates, not a direct hardware bus reading.",
+      "step1": {
+        "title": "Why browser polling rate may differ",
+        "description": "Browsers sit above the operating system, driver, wireless stack, and controller firmware. That means the timing reported here is useful for comparison, but not a guaranteed hardware-level polling rate measurement."
+      },
+      "step2": {
+        "title": "How to interpret the result",
+        "description": "Smaller intervals and steadier spacing usually feel more consistent. A wide spread between minimum and maximum intervals can point to browser scheduling limits, Bluetooth variability, or inconsistent input movement during the test."
+      },
+      "step3": {
+        "title": "Best way to test",
+        "description": "Use a wired connection when possible, start the test, then move a stick in smooth circles or press buttons rhythmically until the timer ends."
+      }
+    },
+    "faq": {
+      "title": "Polling rate FAQ",
+      "subtitle": "Quick answers for understanding what this browser timing tool can and cannot tell you.",
+      "item1": {
+        "question": "Is this the true hardware polling rate?",
+        "answer": "No. This page reports a browser-observed input update rate, which is shaped by the browser event loop and Gamepad API visibility."
+      },
+      "item2": {
+        "question": "Why does the page say no input detected?",
+        "answer": "That usually means the controller connected but did not produce enough changing input during the test window. Start again and keep a stick moving or press buttons repeatedly."
+      },
+      "item3": {
+        "question": "Why do Bluetooth and USB look different?",
+        "answer": "Wireless transport, operating system buffering, and browser timing can all change how often new input states reach the page."
+      },
+      "item4": {
+        "question": "What counts as an excellent result?",
+        "answer": "In this tool, excellent means frequent and fairly even browser-observed updates during active input. It is a stability hint, not a certification of the controller itself."
+      }
+    }
+  }
+}
