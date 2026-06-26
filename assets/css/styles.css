@@ -357,6 +357,18 @@ input {
   position: relative;
 }
 
+.language-menu[open] {
+  z-index: 31;
+}
+
+.language-menu > summary {
+  list-style: none;
+}
+
+.language-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
 .language-menu-button {
   display: inline-flex;
   align-items: center;
@@ -407,7 +419,8 @@ input {
   display: block;
 }
 
-.language-menu.is-open .language-menu-caret {
+.language-menu.is-open .language-menu-caret,
+.language-menu[open] .language-menu-caret {
   transform: rotate(180deg);
 }
 
