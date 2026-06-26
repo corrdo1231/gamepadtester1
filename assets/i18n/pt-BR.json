@@ -142,6 +142,10 @@
       "title": "Teste de gatilhos",
       "note": "Leitura rápida da pressão analógica"
     },
+    "raw": {
+      "title": "Dados brutos",
+      "note": "Eixos e botões ao vivo em formato compacto"
+    },
     "vibration": {
       "title": "Teste de vibração",
       "note": "Teste simples de rumble do controle"

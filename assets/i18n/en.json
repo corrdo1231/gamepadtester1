@@ -142,6 +142,10 @@
       "title": "Trigger Test",
       "note": "Quick analog pressure readout"
     },
+    "raw": {
+      "title": "Raw Data",
+      "note": "Compact live axes and button output"
+    },
     "vibration": {
       "title": "Vibration Test",
       "note": "Simple controller rumble test"

@@ -266,13 +266,13 @@
   var commonBindings = [
     { selector: ".brand-label span", key: "common.brand.tagline" },
     { selector: ".language-switcher-label", key: "common.language.label" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='home'] span", key: "common.nav.home" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='drift'] span", key: "common.nav.drift" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='calibration'] span", key: "common.nav.calibration" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='polling'] span", key: "common.nav.pollingRate" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='vibration'] span", key: "common.nav.vibration" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='tools'] span", key: "common.nav.tools" },
-    { selector: "nav[aria-label='Primary'] a[data-nav='widgets'] span", key: "common.nav.widgets" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='home'] > span:last-child", key: "common.nav.home" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='drift'] > span:last-child", key: "common.nav.drift" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='calibration'] > span:last-child", key: "common.nav.calibration" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='polling'] > span:last-child", key: "common.nav.pollingRate" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='vibration'] > span:last-child", key: "common.nav.vibration" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='tools'] > span:last-child", key: "common.nav.tools" },
+    { selector: "nav[aria-label='Primary'] a[data-nav='widgets'] > span:last-child", key: "common.nav.widgets" },
     { selector: ".footer-box .muted", key: "common.footer.tagline" },
     { selector: ".footer-links a[data-footer='home']", key: "common.footer.links.home" },
     { selector: ".footer-links a[data-footer='drift']", key: "common.footer.links.drift" },
@@ -316,6 +316,8 @@
       { selector: ".dashboard-stick-card .card-footnote", key: "home.stick.footnote" },
       { selector: ".dashboard-trigger-card .dashboard-heading h3", key: "home.trigger.title" },
       { selector: ".dashboard-trigger-card .dashboard-heading .mini-note", key: "home.trigger.note" },
+      { selector: ".dashboard-raw-card .dashboard-heading h3", key: "home.raw.title" },
+      { selector: ".dashboard-raw-card .dashboard-heading .mini-note", key: "home.raw.note" },
       { selector: ".dashboard-vibration-card .dashboard-heading h3", key: "home.vibration.title" },
       { selector: ".dashboard-vibration-card .dashboard-heading .mini-note", key: "home.vibration.note" },
       { selector: ".dashboard-vibration-card [data-vibration='light']", key: "common.vibrationPresets.light" },
@@ -565,6 +567,12 @@
     ]
   };
 
+  function syncPageContext() {
+    body = doc.body;
+    page = body && body.dataset && body.dataset.page ? body.dataset.page : "home";
+    api.page = page;
+  }
+
   function applyAllTranslations() {
     syncPageContext();
     applyDataTranslations(doc);
@@ -606,8 +614,3 @@
 
   window.GamepadI18n = api;
 })();
-  function syncPageContext() {
-    body = doc.body;
-    page = body && body.dataset && body.dataset.page ? body.dataset.page : "home";
-    api.page = page;
-  }
